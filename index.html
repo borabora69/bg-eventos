@@ -161,20 +161,14 @@
   </div>
 
   <script>
-  /* ================= CONFIG =================
-     Substitua as URLs abaixo pelas URLs CSV públicas:
-     - CSV_EVENTS_URL: CSV da aba "EVENTOS" (pub?gid=...&output=csv)
-     - CSV_HOSP_URL: CSV da aba "HOSPEDAGEM"
-     Exemplo de URL: https://docs.google.com/spreadsheets/d/e/<ID>/pub?gid=<GID>&single=true&output=csv
-  ===========================================*/
-  const CSV_EVENTS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=0&single=true&output=csv';
-  const CSV_HOSP_URL   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=123456789&single=true&output=csv';
+  /* ---------- CONFIG ---------- */
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv';
   const IMAGE_PATH = 'img/eventos/';
   const DEFAULT_IMAGE = IMAGE_PATH + 'padrao-bg.png';
-  const CACHE_BUST = false; // true para debug (força ?t=timestamp)
+  const CACHE_BUST = false; // true para debug
   const AUTO_REFRESH_MIN = 15;
 
-  /* ================ I18N ================= */
+  /* ---------- I18N ---------- */
   const I18N = {
     pt: {
       events:'Eventos', stays:'Hospedagem', theme:'Tema', lang:'PT/EN',
@@ -220,14 +214,14 @@
     return (I18N[lang] && I18N[lang][key]) ? I18N[lang][key] : I18N['pt'][key] || '';
   }
 
-  /* ================ THEME ================= */
+  /* ---------- THEME ---------- */
   function setTheme(theme){
     theme = (theme === 'light') ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('bg_theme', theme);
   }
 
-  /* ================ UTIL ================= */
+  /* ---------- UTIL ---------- */
   function sanitizeSlug(id){
     if(!id) return '';
     return String(id).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\-]+/g,'-').replace(/^\-+|\-+$/g,'');
@@ -308,8 +302,8 @@
     }
   }
 
-  /* ================ STATE & UI REFS ================= */
-  let RAW_EVENTS = [], RAW_HOSP = [], EVENTS = [], HOSPEDAGENS = [];
+  /* ---------- STATE & UI ---------- */
+  let RAW = [], EVENTS = [], HOSPEDAGENS = [];
   const statusEl = document.getElementById('status');
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
@@ -318,7 +312,7 @@
   const hospGrid = document.getElementById('hospGrid');
   const emptyHosp = document.getElementById('emptyHosp');
 
-  /* ================ INIT THEME & LANG ================= */
+  /* ---------- INIT theme/lang ---------- */
   const savedTheme = localStorage.getItem('bg_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
   setTheme(savedTheme);
   const savedLang = localStorage.getItem('bg_lang') || 'pt';
@@ -333,7 +327,7 @@
     setLang(current === 'pt' ? 'en' : 'pt');
   });
 
-  /* ================ TABS / CTAs ================= */
+  /* ---------- TABS / CTAs ---------- */
   document.getElementById('ctaEvents').addEventListener('click', () => switchTab('eventos'));
   document.getElementById('ctaStays').addEventListener('click', () => switchTab('hospedagem'));
   document.getElementById('tabEventos').addEventListener('click', () => switchTab('eventos'));
@@ -345,9 +339,9 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* ================ SEARCH & FILTER ================= */
+  /* ---------- SEARCH ---------- */
   document.getElementById('searchBtn').addEventListener('click', applyFilters);
-  document.getElementById('refreshBtn').addEventListener('click', () => loadBothSheets(true));
+  document.getElementById('refreshBtn').addEventListener('click', () => loadData(true));
 
   function applyFilters(){
     const fromVal = document.getElementById('dateFrom').value;
@@ -367,7 +361,7 @@
     renderEvents(filtered);
   }
 
-  /* ================ RENDER EVENTS (imagem, nome, data, local) ================= */
+  /* ---------- RENDER events ---------- */
   function renderEvents(list){
     grid.innerHTML = '';
     if(!list || list.length === 0){
@@ -404,7 +398,7 @@
     });
   }
 
-  /* ================ RENDER HOSPEDAGENS (tudo junto) ================= */
+  /* ---------- RENDER hospedagem ---------- */
   function renderHospedagem(list){
     hospGrid.innerHTML = '';
     if(!list || list.length === 0){
@@ -445,7 +439,7 @@
     });
   }
 
-  /* ================ MODAL ================= */
+  /* ---------- MODAL ---------- */
   const modalBackdrop = document.getElementById('modalBackdrop');
   const modalTitle = document.getElementById('modalTitle');
   const modalDesc = document.getElementById('modalDesc');
@@ -471,67 +465,69 @@
   }
   function closeModal(){ modalBackdrop.style.display = 'none'; modalBackdrop.setAttribute('aria-hidden','true'); }
 
-  /* ================ FETCH TWO CSVs (EVENTS + HOSP) ================= */
-  async function fetchCsvText(url){
-    const full = url + (CACHE_BUST ? (url.includes('?') ? '&t=' : '?t=') + Date.now() : '');
-    const res = await fetch(full, { cache: 'no-cache' });
-    if(!res.ok) throw new Error('CSV fetch failed: ' + res.status);
-    return await res.text();
-  }
-
-  async function loadBothSheets(force=false){
+  /* ---------- LOAD single CSV and map rows ---------- */
+  async function loadData(force=false){
     try{
       statusEl.textContent = 'Carregando dados...';
-      const [eventsText, hospText] = await Promise.all([fetchCsvText(CSV_EVENTS_URL), fetchCsvText(CSV_HOSP_URL)]);
-      const eventsRows = parseCSV(eventsText);
-      const hospRows = parseCSV(hospText);
+      const url = CSV_URL + (CACHE_BUST ? (CSV_URL.includes('?') ? '&t=' : '?t=') + Date.now() : '');
+      const res = await fetch(url, { cache: 'no-cache' });
+      if(!res.ok) throw new Error('Falha ao buscar CSV: ' + res.status);
+      const text = await res.text();
+      if(!text || !text.trim()) throw new Error('CSV vazio');
 
-      if(eventsRows.length < 2 && hospRows.length < 2) throw new Error('Ambos CSVs sem dados');
+      const rows = parseCSV(text);
+      if(rows.length < 2) throw new Error('CSV sem dados');
 
-      function rowsToObjects(rows){
-        const headers = rows[0].map(h => h.trim());
-        return rows.slice(1).map(r => {
-          const obj = {};
-          for(let i=0;i<headers.length;i++) obj[headers[i]] = (r[i] || '').trim();
-          return obj;
-        });
-      }
+      const headers = rows[0].map(h => h.trim());
+      const data = rows.slice(1).map(r => {
+        const obj = {};
+        for(let i=0;i<headers.length;i++) obj[headers[i]] = (r[i] || '').trim();
+        return obj;
+      });
 
-      const eventsData = eventsRows.length >= 2 ? rowsToObjects(eventsRows) : [];
-      const hospData = hospRows.length >= 2 ? rowsToObjects(hospRows) : [];
+      // debug
+      console.log('CSV rows:', data.length);
+      if(data.length) console.log('CSV sample:', data[0]);
 
-      RAW_EVENTS = eventsData; RAW_HOSP = hospData;
+      RAW = data; EVENTS = []; HOSPEDAGENS = [];
 
-      // Map events
-      EVENTS = eventsData.map(row => ({
-        ID: row.ID || row.Slug || row.id || '',
-        Nome: row.Nome || row.Name || row.nome || '',
-        Inicio: parseDateFlexible(row.Inicio || row.start || ''),
-        Fim: parseDateFlexible(row.Fim || row.end || ''),
-        Descricao: row.Descricao || row.Description || row.descricao || '',
-        Local: row.Localizacao || row.Local || row.Praia || '',
-        Imagem: row.Imagem || row.Image || row.ID || ''
-      }));
+      // classification: if row has Inicio -> event; else if has Link_Hotel or Tipo=hospedagem -> hospedagem
+      data.forEach(row => {
+        const hasInicio = !!(row.Inicio || row.start || row.inicio);
+        const tipo = (row.Tipo || row.tipo || '').toString().trim().toLowerCase();
+        const hasLinkHotel = !!(row.Link_Hotel || row.LinkHotel || row.Link || row.Link_Afiliado);
 
-      // Map hospedagens
-      HOSPEDAGENS = hospData.map(row => ({
-        ID: row.ID || row.Slug || row.id || '',
-        Nome: row.Nome || row.Name || row.nome || '',
-        Preco_Medio: row.Preco_Medio || row.Preco_Hotel || row.Preco || '',
-        Link_Hotel: row.Link_Afiliado || row.Link_Hotel || row.Link || '',
-        Telefone: row.Telefone || row.telefone || '',
-        Local: row.Localizacao || row.Local || '',
-        Praia: row.Praia || '',
-        Descricao: row.Descricao || row.Description || row.descricao || '',
-        Imagem: row.Imagem || row.Image || row.ID || ''
-      }));
+        if(hasInicio || (row.Nome && !hasLinkHotel && !tipo)){
+          EVENTS.push({
+            ID: row.ID || row.Slug || row.id || '',
+            Nome: row.Nome || row.Name || row.nome || '',
+            Inicio: parseDateFlexible(row.Inicio || row.start || row.inicio || ''),
+            Fim: parseDateFlexible(row.Fim || row.end || row.fim || ''),
+            Descricao: row.Descricao || row.Description || row.descricao || '',
+            Local: row.Localizacao || row.Local || row.Praia || '',
+            Imagem: row.Imagem || row.Image || row.ID || ''
+          });
+        } else {
+          HOSPEDAGENS.push({
+            ID: row.ID || row.Slug || row.id || '',
+            Nome: row.Nome || row.Name || row.nome || '',
+            Preco_Medio: row.Preco_Medio || row.Preco_Hotel || row.Preco || '',
+            Link_Hotel: row.Link_Afiliado || row.Link_Hotel || row.Link || '',
+            Telefone: row.Telefone || row.telefone || '',
+            Local: row.Localizacao || row.Local || '',
+            Praia: row.Praia || '',
+            Descricao: row.Descricao || row.Description || row.descricao || '',
+            Imagem: row.Imagem || row.Image || row.ID || ''
+          });
+        }
+      });
 
-      // Filter out past events
+      // filter past events
       const today = new Date(); today.setHours(0,0,0,0);
       EVENTS = EVENTS.filter(ev => { if(!ev.Fim && !ev.Inicio) return true; if(ev.Fim && ev.Fim < today) return false; return true; });
       EVENTS.sort((a,b) => (a.Inicio ? a.Inicio.getTime() : 0) - (b.Inicio ? b.Inicio.getTime() : 0));
 
-      // Update UI
+      // update UI
       const now = new Date();
       lastUpdated.textContent = now.toLocaleString();
       statusEl.textContent = `${EVENTS.length} ${getI18n('events')}`;
@@ -541,16 +537,14 @@
       renderHospedagem(HOSPEDAGENS);
       updateStatusTexts();
 
-      // Debug logs
-      console.log('EVENTS parsed:', EVENTS.length, EVENTS.slice(0,2));
-      console.log('HOSPEDAGENS parsed:', HOSPEDAGENS.length, HOSPEDAGENS.slice(0,2));
+      console.log('Parsed EVENTS:', EVENTS.length, 'HOSPEDAGENS:', HOSPEDAGENS.length);
     }catch(err){
-      console.error('loadBothSheets error', err);
+      console.error('loadData error', err);
       statusEl.textContent = 'Erro ao carregar dados. Ver console.';
       grid.innerHTML = '';
       hospGrid.innerHTML = '';
       document.getElementById('empty').style.display = 'block';
-      document.getElementById('empty').textContent = 'Erro ao carregar CSV público. Verifique os links e o console.';
+      document.getElementById('empty').textContent = 'Erro ao carregar CSV público. Verifique o link e o console.';
       lastUpdated.textContent = new Date().toLocaleString();
     }
   }
@@ -559,9 +553,9 @@
     document.getElementById('status').textContent = `${EVENTS.length} ${getI18n('events')}`;
   }
 
-  /* ================ START ================= */
-  loadBothSheets();
-  setInterval(() => loadBothSheets(false), AUTO_REFRESH_MIN * 60 * 1000);
+  /* ---------- start ---------- */
+  loadData();
+  setInterval(() => loadData(false), AUTO_REFRESH_MIN * 60 * 1000);
   </script>
 </body>
 </html>
