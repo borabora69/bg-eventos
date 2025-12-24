@@ -6,7 +6,7 @@
   <title>BG Eventos & Hospedagem — Barra Grande PI</title>
   <meta name="description" content="Eventos e hospedagem em Barra Grande PI. Dados atualizados via Google Sheets (CSV público)." />
   <style>
-    /* ===== THEME VARIABLES ===== */
+    /* THEME VARIABLES */
     :root{
       --bg: #071025;
       --surface: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -19,7 +19,7 @@
       --glass: rgba(255,255,255,0.03);
       --radius: 12px;
       --gap: 1rem;
-      --max-width: 1100px;
+      --max-width: 1200px;
       --shadow: 0 10px 30px rgba(2,6,23,0.6);
       --ff: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
@@ -35,75 +35,42 @@
       --shadow: 0 8px 24px rgba(2,6,23,0.06);
     }
 
-    /* ===== BASE ===== */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family:var(--ff);
-      background:var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:24px;
-      display:flex;
-      justify-content:center;
+      margin:0;font-family:var(--ff);background:var(--bg);color:var(--text);
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:28px;
+      display:flex;justify-content:center;
     }
-    .wrap{
-      width:100%;
-      max-width:var(--max-width);
-      margin:0 auto;
-    }
+    .wrap{width:100%;max-width:var(--max-width);margin:0 auto}
 
-    /* ===== HEADER ===== */
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:18px;
-    }
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px}
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{
-      width:64px;height:64px;border-radius:12px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;font-weight:800;color:#021025;font-size:18px;
-      box-shadow:var(--shadow);
-    }
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021025;font-size:18px;box-shadow:var(--shadow)}
     h1{margin:0;font-size:1.05rem}
     .meta{color:var(--muted);font-size:.9rem}
 
-    /* ===== NAV / CONTROLS ===== */
     nav{display:flex;gap:8px;align-items:center}
-    .tab{
-      padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
-      background:transparent;color:var(--muted);cursor:pointer;font-weight:700;
-    }
+    .tab{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer;font-weight:700}
     .tab.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021025;border:none}
-    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
+    .hero{display:flex;gap:18px;align-items:center;padding:18px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);margin-bottom:16px}
+    .hero-left{flex:1}
+    .hero-title{margin:0;font-size:1.35rem}
+    .hero-sub{color:var(--muted);margin-top:6px}
+    .hero-ctas{display:flex;gap:12px;align-items:center}
+    .cta-large{padding:14px 22px;border-radius:12px;border:none;font-weight:800;cursor:pointer;font-size:1rem}
+    .cta-events{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021025}
+    .cta-stays{background:#fff0;border:2px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent}
+
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
     .input{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
     .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--card-bg);color:var(--muted);cursor:pointer;font-weight:700}
     .btn.primary{background:var(--accent);color:#021025;border:none}
 
-    /* ===== HERO ===== */
-    .hero{
-      display:flex;gap:16px;align-items:center;padding:18px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow);
-      margin-bottom:16px;
-    }
-    .hero-left{flex:1}
-    .hero-title{margin:0;font-size:1.25rem}
-    .hero-sub{color:var(--muted);margin-top:6px}
-
-    .hero-actions{display:flex;gap:8px;align-items:center}
-
-    /* ===== GRID / CARDS ===== */
     .status{color:var(--muted);margin-bottom:12px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap)}
-    .card{
-      background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:320px;border:1px solid rgba(255,255,255,0.03);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
+    .card{background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:320px;border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease}
     .card:hover{transform:translateY(-6px)}
     .media{height:160px;background:#021025;position:relative;overflow:hidden}
     .media img{width:100%;height:100%;object-fit:cover;display:block}
@@ -117,17 +84,26 @@
     .destaque{border:2px solid var(--gold);transform:scale(1.01)}
     .badge{position:absolute;right:10px;top:10px;background:var(--gold);color:#021025;padding:6px 8px;border-radius:999px;font-weight:800}
 
-    /* ===== SKELETON ===== */
-    .skeleton{animation: pulse 1.2s infinite; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04), rgba(255,255,255,0.02));}
-    @keyframes pulse{0%{opacity:1}50%{opacity:.6}100%{opacity:1}}
+    .section-title{margin:12px 0 6px 0;font-weight:800}
+    .h-scroll{display:flex;gap:12px;overflow:auto;padding-bottom:6px}
 
-    /* ===== EMPTY / FOOTER ===== */
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal{background:var(--card-bg);border-radius:12px;max-width:900px;width:100%;box-shadow:var(--shadow);overflow:hidden}
+    .modal-body{display:flex;gap:12px;padding:12px}
+    .modal-media{flex:1;min-height:220px;background:#021025}
+    .modal-content{flex:1;display:flex;flex-direction:column;gap:8px}
+    .close-btn{background:transparent;border:none;color:var(--muted);font-weight:800;cursor:pointer}
+
     .empty{padding:20px;border-radius:12px;background:rgba(255,255,255,0.02);color:var(--muted);text-align:center}
     footer{margin-top:18px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
     @media(max-width:720px){
       header{flex-direction:column;align-items:flex-start}
       .hero{flex-direction:column;align-items:flex-start}
+      .hero-ctas{flex-direction:column;width:100%}
+      .cta-large{width:100%}
+      .modal-body{flex-direction:column}
     }
   </style>
 </head>
@@ -153,9 +129,15 @@
         <h2 class="hero-title" id="heroTitle">Encontre eventos e hospedagem em Barra Grande</h2>
         <div class="hero-sub" id="heroSub">Atualizado automaticamente via planilha pública</div>
       </div>
-      <div class="hero-actions">
-        <button class="btn" id="themeToggle" aria-pressed="false" data-i18n="theme">Tema</button>
-        <button class="btn" id="langToggle" aria-pressed="false" data-i18n="lang">PT/EN</button>
+
+      <div class="hero-ctas">
+        <!-- Dois CTAs grandes conforme solicitado -->
+        <button class="cta-large cta-events" id="ctaEvents">Ver Eventos</button>
+        <button class="cta-large cta-stays" id="ctaStays">Ver Hospedagem</button>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-left:8px">
+          <button class="btn" id="themeToggle" data-i18n="theme">Tema</button>
+          <button class="btn" id="langToggle" data-i18n="lang">PT/EN</button>
+        </div>
       </div>
     </div>
 
@@ -177,16 +159,47 @@
       <section id="contentEventos">
         <div id="grid" class="grid" aria-live="polite">
           <!-- skeleton placeholders while loading -->
-          <div class="card skeleton" style="min-height:260px"></div>
-          <div class="card skeleton" style="min-height:260px"></div>
-          <div class="card skeleton" style="min-height:260px"></div>
+          <div class="card" style="min-height:260px"></div>
+          <div class="card" style="min-height:260px"></div>
+          <div class="card" style="min-height:260px"></div>
         </div>
         <div id="empty" class="empty" style="display:none" data-i18n="noEvents">Nenhum evento encontrado para os filtros selecionados.</div>
       </section>
 
       <!-- HOSPEDAGEM -->
       <section id="contentHospedagem" style="display:none">
-        <div id="hospedagemGrid" class="grid" aria-live="polite"></div>
+        <div class="status" id="hospStatus">Carregando hospedagem...</div>
+
+        <!-- Filtros específicos para hospedagem -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <label class="meta">Categoria:</label>
+          <select id="hospCategory" class="input">
+            <option value="all">Todas</option>
+            <option value="Econômica">Econômica</option>
+            <option value="Intermediária">Intermediária</option>
+            <option value="Luxo">Luxo</option>
+          </select>
+          <label style="display:flex;align-items:center;gap:6px;color:var(--muted)">
+            <input type="checkbox" id="hospPraiaOnly"> <span>Somente na praia</span>
+          </label>
+        </div>
+
+        <!-- Sections: Economica / Intermediaria / Luxo -->
+        <div>
+          <div class="section-title">Econômicas</div>
+          <div id="econSection" class="h-scroll"></div>
+        </div>
+
+        <div>
+          <div class="section-title">Intermediárias</div>
+          <div id="midSection" class="h-scroll"></div>
+        </div>
+
+        <div>
+          <div class="section-title">Luxo</div>
+          <div id="luxSection" class="h-scroll"></div>
+        </div>
+
         <div id="emptyHosp" class="empty" style="display:none" data-i18n="noStays">Nenhuma hospedagem encontrada.</div>
       </section>
     </main>
@@ -197,47 +210,53 @@
     </footer>
   </div>
 
+  <!-- Modal Quick View -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.03)">
+        <strong id="modalTitle">Detalhes</strong>
+        <button class="close-btn" id="modalClose">FECHAR</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media" id="modalMedia"></div>
+        <div class="modal-content">
+          <div id="modalDesc" style="color:var(--muted)"></div>
+          <div id="modalInfo" style="color:var(--muted);font-weight:700"></div>
+          <div style="margin-top:auto;display:flex;gap:8px">
+            <a id="modalReserve" class="link primary" target="_blank" rel="noopener noreferrer">Reservar</a>
+            <a id="modalMap" class="link" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-  /* ===== CONFIG ===== */
+  /* CONFIG */
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv';
   const IMAGE_PATH = 'img/eventos/';
   const DEFAULT_IMAGE = IMAGE_PATH + 'padrao-bg.png';
-  const CACHE_BUST = false; // true para debug
+  const CACHE_BUST = false;
   const AUTO_REFRESH_MIN = 15;
 
-  /* ===== I18N ===== */
+  /* I18N */
   const I18N = {
     pt: {
-      events: 'Eventos',
-      stays: 'Hospedagem',
-      theme: 'Tema',
-      lang: 'PT/EN',
-      dateRangeLabel: 'Buscar por datas:',
-      beachOnly: 'Somente eventos na praia',
-      search: 'Buscar',
-      refresh: 'Recarregar',
-      noEvents: 'Nenhum evento encontrado para os filtros selecionados.',
-      noStays: 'Nenhuma hospedagem encontrada.',
-      siteTitle: 'BG Eventos & Hospedagem',
+      events: 'Eventos', stays: 'Hospedagem', theme: 'Tema', lang: 'PT/EN',
+      dateRangeLabel: 'Buscar por datas:', beachOnly: 'Somente eventos na praia',
+      search: 'Buscar', refresh: 'Recarregar', noEvents: 'Nenhum evento encontrado para os filtros selecionados.',
+      noStays: 'Nenhuma hospedagem encontrada.', siteTitle: 'BG Eventos & Hospedagem',
       siteSubtitle: 'Barra Grande PI • Dados via Google Sheets (CSV)',
       heroTitle: 'Encontre eventos e hospedagem em Barra Grande',
       heroSub: 'Atualizado automaticamente via planilha pública'
     },
     en: {
-      events: 'Events',
-      stays: 'Stays',
-      theme: 'Theme',
-      lang: 'EN/PT',
-      dateRangeLabel: 'Search by dates:',
-      beachOnly: 'Only beach events',
-      search: 'Search',
-      refresh: 'Refresh',
-      noEvents: 'No events found for selected filters.',
-      noStays: 'No stays found.',
-      siteTitle: 'BG Events & Stays',
+      events: 'Events', stays: 'Stays', theme: 'Theme', lang: 'EN/PT',
+      dateRangeLabel: 'Search by dates:', beachOnly: 'Only beach events',
+      search: 'Search', refresh: 'Refresh', noEvents: 'No events found for selected filters.',
+      noStays: 'No stays found.', siteTitle: 'BG Events & Stays',
       siteSubtitle: 'Barra Grande PI • Data from Google Sheets (CSV)',
-      heroTitle: 'Find events and stays in Barra Grande',
-      heroSub: 'Automatically updated from public spreadsheet'
+      heroTitle: 'Find events and stays in Barra Grande', heroSub: 'Automatically updated from public spreadsheet'
     }
   };
 
@@ -249,22 +268,19 @@
       const key = el.dataset.i18n;
       if(I18N[lang] && I18N[lang][key]) el.textContent = I18N[lang][key];
     });
-    // update titles
     document.getElementById('siteTitle').textContent = I18N[lang].siteTitle;
     document.getElementById('siteSubtitle').textContent = I18N[lang].siteSubtitle;
     document.getElementById('heroTitle').textContent = I18N[lang].heroTitle;
     document.getElementById('heroSub').textContent = I18N[lang].heroSub;
   }
 
-  /* ===== THEME ===== */
   function setTheme(theme){
     theme = (theme === 'light') ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('bg_theme', theme);
-    document.getElementById('themeToggle').setAttribute('aria-pressed', theme === 'light');
   }
 
-  /* ===== UTIL ===== */
+  /* UTIL */
   function sanitizeSlug(id){
     if(!id) return '';
     return String(id).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\-]+/g,'-').replace(/^\-+|\-+$/g,'');
@@ -318,40 +334,76 @@
     return (aFrom <= bTo) && (bFrom <= aTo);
   }
 
-  /* ===== STATE & UI REFS ===== */
+  function buildAffiliateUrl(url, id){
+    if(!url) return '';
+    try{
+      const u = new URL(url);
+      u.searchParams.set('utm_source','bg-site');
+      u.searchParams.set('utm_medium','referral');
+      u.searchParams.set('utm_campaign', id || 'hospedagem');
+      return u.toString();
+    }catch(e){
+      return url;
+    }
+  }
+
+  /* STATE */
   let RAW = [], EVENTS = [], HOSPEDAGENS = [];
+
+  /* UI REFS */
   const statusEl = document.getElementById('status');
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
-  const hospedGrid = document.getElementById('hospedagemGrid');
-  const emptyHosp = document.getElementById('emptyHosp');
   const lastUpdated = document.getElementById('lastUpdated');
+  const hospStatus = document.getElementById('hospStatus');
+  const econSection = document.getElementById('econSection');
+  const midSection = document.getElementById('midSection');
+  const luxSection = document.getElementById('luxSection');
+  const emptyHosp = document.getElementById('emptyHosp');
 
-  /* ===== TABS ===== */
+  /* TABS & CTAs */
   document.getElementById('tabEventos').addEventListener('click', () => switchTab('eventos'));
   document.getElementById('tabHospedagem').addEventListener('click', () => switchTab('hospedagem'));
+  document.getElementById('ctaEvents').addEventListener('click', () => switchTab('eventos'));
+  document.getElementById('ctaStays').addEventListener('click', () => switchTab('hospedagem'));
   function switchTab(tab){
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
     document.getElementById('contentEventos').style.display = tab === 'eventos' ? '' : 'none';
     document.getElementById('contentHospedagem').style.display = tab === 'hospedagem' ? '' : 'none';
+    // scroll to top of section for better UX
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* ===== SEARCH & FILTER ===== */
+  /* THEME & LANG */
+  const savedTheme = localStorage.getItem('bg_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+  setTheme(savedTheme);
+  const savedLang = localStorage.getItem('bg_lang') || 'pt';
+  setLang(savedLang);
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    setTheme(next);
+  });
+  document.getElementById('langToggle').addEventListener('click', () => {
+    const current = localStorage.getItem('bg_lang') || 'pt';
+    setLang(current === 'pt' ? 'en' : 'pt');
+  });
+
+  /* SEARCH & FILTER */
   document.getElementById('searchBtn').addEventListener('click', applyFilters);
   document.getElementById('refreshBtn').addEventListener('click', () => loadData(true));
+  document.getElementById('hospCategory').addEventListener('change', renderHospSections);
+  document.getElementById('hospPraiaOnly').addEventListener('change', renderHospSections);
 
   function applyFilters(){
     const fromVal = document.getElementById('dateFrom').value;
     const toVal = document.getElementById('dateTo').value;
     const praiaOnly = document.getElementById('praiaOnly').checked;
-    const userRange = {
-      from: fromVal ? new Date(fromVal) : null,
-      to: toVal ? new Date(toVal) : null
-    };
+    const userRange = { from: fromVal ? new Date(fromVal) : null, to: toVal ? new Date(toVal) : null };
     const filtered = EVENTS.filter(ev => {
       if(praiaOnly){
         const desc = (ev.Descricao || '').toLowerCase();
-        const praiaFlag = (ev.Praia || '').toLowerCase();
+        const praiaFlag = (ev.Praia || '').toString().toLowerCase();
         if(!(desc.includes('praia') || praiaFlag === 'x' || praiaFlag === 'sim')) return false;
       }
       if(!userRange.from && !userRange.to) return true;
@@ -361,7 +413,7 @@
     renderEvents(filtered);
   }
 
-  /* ===== RENDER ===== */
+  /* RENDER EVENTS */
   function renderEvents(list){
     grid.innerHTML = '';
     if(!list || list.length === 0){
@@ -410,54 +462,105 @@
     });
   }
 
-  function renderHospedagem(list){
-    hospedGrid.innerHTML = '';
-    if(!list || list.length === 0){
-      emptyHosp.style.display = 'block';
-      return;
-    }
-    emptyHosp.style.display = 'none';
-    list.forEach(h => {
-      const card = document.createElement('article'); card.className = 'card';
-      const media = document.createElement('div'); media.className = 'media';
-      const img = document.createElement('img'); img.alt = h.Nome || 'Hospedagem'; img.loading = 'lazy';
-      setImageWithFallback(img, h.ID || h.Slug || h.Nome);
-      media.appendChild(img);
-      const body = document.createElement('div'); body.className = 'card-body';
-      const titleRow = document.createElement('div'); titleRow.className = 'title-row';
-      const h3 = document.createElement('h3'); h3.textContent = h.Nome || 'Hospedagem';
-      titleRow.appendChild(h3);
-      const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = h.Descricao || h.Observacoes || '';
-      const metaRow = document.createElement('div'); metaRow.className = 'meta-row';
-      const price = document.createElement('div'); price.textContent = h.Preco_Hotel ? `R$ ${h.Preco_Hotel}` : 'Preço sob consulta';
-      const link = document.createElement('a'); link.className = 'link primary'; link.textContent = 'Reservar';
-      link.href = h.Link_Hotel || '#'; link.target = '_blank'; link.rel = 'noopener noreferrer';
-      metaRow.appendChild(price); metaRow.appendChild(link);
-      body.appendChild(titleRow); body.appendChild(desc); body.appendChild(metaRow);
-      card.appendChild(media); card.appendChild(body);
-      hospedGrid.appendChild(card);
+  /* HOSPEDAGEM: render sections */
+  function renderHospSections(){
+    econSection.innerHTML = ''; midSection.innerHTML = ''; luxSection.innerHTML = '';
+    const catFilter = document.getElementById('hospCategory').value;
+    const praiaOnly = document.getElementById('hospPraiaOnly').checked;
+
+    const filtered = HOSPEDAGENS.filter(h => {
+      if(catFilter !== 'all' && (h.Categoria || '').toString().toLowerCase() !== catFilter.toLowerCase()) return false;
+      if(praiaOnly){
+        const desc = (h.Descricao || '').toLowerCase();
+        const praiaFlag = (h.Praia || '').toString().toLowerCase();
+        if(!(desc.includes('praia') || praiaFlag === 'x' || praiaFlag === 'sim')) return false;
+      }
+      return true;
     });
-  }
 
-  function buildAffiliateUrl(url, id){
-    if(!url) return '';
-    try{
-      const u = new URL(url);
-      u.searchParams.set('utm_source','bg-site');
-      u.searchParams.set('utm_medium','referral');
-      u.searchParams.set('utm_campaign', id || 'evento');
-      return u.toString();
-    }catch(e){
-      return url;
+    if(filtered.length === 0){
+      emptyHosp.style.display = 'block';
+      hospStatus.textContent = getI18n('noStays');
+    } else {
+      emptyHosp.style.display = 'none';
+      hospStatus.textContent = `${filtered.length} hospedagem(ns)`;
     }
+
+    filtered.forEach(h => {
+      const card = createHospCard(h);
+      const cat = (h.Categoria || '').toString().toLowerCase();
+      if(cat.includes('lux') || cat.includes('boutique')) luxSection.appendChild(card);
+      else if(cat.includes('inter') || cat.includes('conforto') || cat.includes('médio') || cat.includes('media')) midSection.appendChild(card);
+      else econSection.appendChild(card);
+    });
+
+    // If a section is empty, show a small placeholder
+    if(!econSection.children.length) econSection.innerHTML = '<div class="empty" style="min-width:220px">Sem opções econômicas</div>';
+    if(!midSection.children.length) midSection.innerHTML = '<div class="empty" style="min-width:220px">Sem opções intermediárias</div>';
+    if(!luxSection.children.length) luxSection.innerHTML = '<div class="empty" style="min-width:220px">Sem opções de luxo</div>';
   }
 
-  function getI18n(key){
-    const lang = localStorage.getItem('bg_lang') || 'pt';
-    return (I18N[lang] && I18N[lang][key]) ? I18N[lang][key] : I18N['pt'][key] || '';
+  function createHospCard(h){
+    const card = document.createElement('article'); card.className = 'card'; card.style.minWidth = '220px'; card.style.maxWidth = '320px';
+    const media = document.createElement('div'); media.className = 'media';
+    const img = document.createElement('img'); img.alt = h.Nome || 'Hospedagem'; img.loading = 'lazy';
+    setImageWithFallback(img, h.Imagem || h.ID || h.Nome);
+    media.appendChild(img);
+    const body = document.createElement('div'); body.className = 'card-body';
+    const titleRow = document.createElement('div'); titleRow.className = 'title-row';
+    const h3 = document.createElement('h3'); h3.textContent = h.Nome || 'Hospedagem';
+    titleRow.appendChild(h3);
+    if((h.Praia || '').toString().toLowerCase() === 'x' || (h.Praia || '').toString().toLowerCase() === 'sim' || (h.Local || '').toString().toLowerCase().includes('praia')){
+      const badge = document.createElement('div'); badge.className = 'badge'; badge.textContent = 'PRAIA'; media.appendChild(badge);
+    }
+    const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = h.Descricao ? (h.Descricao.length > 120 ? h.Descricao.slice(0,120)+'…' : h.Descricao) : '';
+    const metaRow = document.createElement('div'); metaRow.className = 'meta-row';
+    const price = document.createElement('div'); price.textContent = h.Preco_Medio ? `R$ ${h.Preco_Medio}` : 'Preço médio';
+    const actions = document.createElement('div');
+    const reserve = document.createElement('a'); reserve.className = 'link primary'; reserve.textContent = 'Reservar';
+    reserve.href = h.Link_Hotel ? buildAffiliateUrl(h.Link_Hotel, h.ID) : '#';
+    reserve.target = '_blank'; reserve.rel = 'noopener noreferrer';
+    reserve.addEventListener('click', () => { /* tracking can be added here */ });
+    const details = document.createElement('button'); details.className = 'link'; details.textContent = 'Detalhes';
+    details.addEventListener('click', () => openModal(h));
+    actions.appendChild(reserve); actions.appendChild(details);
+    metaRow.appendChild(price); metaRow.appendChild(actions);
+
+    body.appendChild(titleRow); body.appendChild(desc); body.appendChild(metaRow);
+    card.appendChild(media); card.appendChild(body);
+    return card;
   }
 
-  /* ===== LOAD CSV ===== */
+  /* MODAL */
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalInfo = document.getElementById('modalInfo');
+  const modalMedia = document.getElementById('modalMedia');
+  const modalReserve = document.getElementById('modalReserve');
+  const modalMap = document.getElementById('modalMap');
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', (e) => { if(e.target === modalBackdrop) closeModal(); });
+
+  function openModal(h){
+    modalTitle.textContent = h.Nome || 'Detalhes';
+    modalDesc.textContent = h.Descricao || '';
+    modalInfo.textContent = `${h.Local || ''} • Tel: ${h.Telefone || '—'}`;
+    modalMedia.innerHTML = '';
+    const img = document.createElement('img'); img.loading = 'lazy'; img.alt = h.Nome || 'Imagem'; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover';
+    setImageWithFallback(img, h.Imagem || h.ID || h.Nome);
+    modalMedia.appendChild(img);
+    modalReserve.href = h.Link_Hotel ? buildAffiliateUrl(h.Link_Hotel, h.ID) : '#';
+    modalMap.href = h.Local ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.Local)}` : '#';
+    modalBackdrop.style.display = 'flex';
+    modalBackdrop.setAttribute('aria-hidden','false');
+  }
+  function closeModal(){
+    modalBackdrop.style.display = 'none';
+    modalBackdrop.setAttribute('aria-hidden','true');
+  }
+
+  /* LOAD CSV */
   async function loadData(force=false){
     try{
       statusEl.textContent = 'Carregando dados...';
@@ -478,23 +581,43 @@
 
       RAW = data;
 
-      EVENTS = data.map(row => ({
-        ID: row.ID || row.Slug || row.id || '',
-        Nome: row.Nome || row.Name || '',
-        Inicio: parseDateFlexible(row.Inicio || row.start || ''),
-        Fim: parseDateFlexible(row.Fim || row.end || ''),
-        Descricao: row.Descricao || row.Description || '',
-        Preco_Hotel: row.Preco_Hotel || row.Preco || '',
-        Link_Hotel: row.Link_Hotel || row.LinkHotel || '',
-        Categoria: row.Categoria || row.Category || '',
-        Destaque: row.Destaque || '',
-        Praia: row.Praia || row.Local || ''
-      }));
+      // Map rows: detect Tipo column or infer by Link_Hotel
+      EVENTS = [];
+      HOSPEDAGENS = [];
+      data.forEach(row => {
+        const tipo = (row.Tipo || row.Tipo || '').toString().toLowerCase();
+        const isHosp = tipo === 'hospedagem' || (row.Link_Hotel && row.Link_Hotel.trim() !== '' && (tipo === '' || tipo === ''));
+        if(isHosp){
+          HOSPEDAGENS.push({
+            ID: row.ID || row.Slug || row.id || '',
+            Nome: row.Nome || row.Name || '',
+            Categoria: row.Categoria || row.Category || row.Nivel || '',
+            Preco_Medio: row.Preco_Medio || row.Preco_Hotel || row.Preco || '',
+            Link_Hotel: row.Link_Hotel || row.LinkHotel || row.Link || '',
+            Telefone: row.Telefone || '',
+            Local: row.Localizacao || row.Local || '',
+            Praia: row.Praia || '',
+            Descricao: row.Descricao || row.Description || '',
+            Imagem: row.Imagem || row.ID || ''
+          });
+        } else {
+          EVENTS.push({
+            ID: row.ID || row.Slug || row.id || '',
+            Nome: row.Nome || row.Name || '',
+            Inicio: parseDateFlexible(row.Inicio || row.start || ''),
+            Fim: parseDateFlexible(row.Fim || row.end || ''),
+            Descricao: row.Descricao || row.Description || '',
+            Preco_Hotel: row.Preco_Hotel || row.Preco || '',
+            Link_Hotel: row.Link_Hotel || row.LinkHotel || '',
+            Link_Ingresso: row.Link_Ingresso || row.LinkIngresso || row.Link || '',
+            Categoria: row.Categoria || row.Category || '',
+            Destaque: row.Destaque || '',
+            Praia: row.Praia || row.Local || ''
+          });
+        }
+      });
 
-      // Hospedagem heurística: linhas com Link_Hotel
-      HOSPEDAGENS = EVENTS.filter(e => e.Link_Hotel && e.Link_Hotel.trim() !== '');
-
-      // Remove eventos passados (hands-off)
+      // Remove eventos passados
       const today = new Date(); today.setHours(0,0,0,0);
       EVENTS = EVENTS.filter(ev => {
         if(!ev.Fim && !ev.Inicio) return true;
@@ -507,41 +630,29 @@
       const now = new Date();
       lastUpdated.textContent = now.toLocaleString();
       statusEl.textContent = `${EVENTS.length} evento(s) carregado(s)`;
+      hospStatus.textContent = `${HOSPEDAGENS.length} hospedagem(ns) carregada(s)`;
 
       renderEvents(EVENTS);
-      renderHospedagem(HOSPEDAGENS);
+      renderHospSections();
     }catch(err){
       console.error(err);
       statusEl.textContent = 'Erro ao carregar dados. Ver console.';
       grid.innerHTML = '';
-      hospedGrid.innerHTML = '';
+      econSection.innerHTML = ''; midSection.innerHTML = ''; luxSection.innerHTML = '';
       document.getElementById('empty').style.display = 'block';
       document.getElementById('empty').textContent = 'Erro ao carregar CSV público. Verifique o link e o console.';
     }
   }
 
-  /* ===== INIT ===== */
-  // restore theme & lang
-  const savedTheme = localStorage.getItem('bg_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
-  setTheme(savedTheme);
-  const savedLang = localStorage.getItem('bg_lang') || 'pt';
-  setLang(savedLang);
+  function getI18n(key){
+    const lang = localStorage.getItem('bg_lang') || 'pt';
+    return (I18N[lang] && I18N[lang][key]) ? I18N[lang][key] : I18N['pt'][key] || '';
+  }
 
-  // theme toggle
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    setTheme(next);
-  });
-
-  // lang toggle
-  document.getElementById('langToggle').addEventListener('click', () => {
-    const current = localStorage.getItem('bg_lang') || 'pt';
-    setLang(current === 'pt' ? 'en' : 'pt');
-  });
-
-  // initial load
+  /* INIT */
   loadData();
   setInterval(() => loadData(false), AUTO_REFRESH_MIN * 60 * 1000);
+
   </script>
 </body>
 </html>
