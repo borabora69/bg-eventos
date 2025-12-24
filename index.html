@@ -1,240 +1,454 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- METADADOS OTIMIZADOS (8 melhorias) -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Portal de eventos e hospedagem em Barra Grande, Piauí - Brasil">
-    <meta name="keywords" content="Barra Grande, eventos, hospedagem, Piauí, turismo">
-    <meta name="author" content="BG Eventos">
+    <meta name="description" content="Barra Grande Events & Accommodation Portal - Piauí, Brazil">
+    <title>BG Events & Accommodation | Barra Grande - PI</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="BG Events & Accommodation">
+    <meta property="og:description" content="Discover events and accommodation in Barra Grande, Piauí">
     <meta property="og:image" content="https://bg-eventos.vercel.app/img/eventos/padrao-bg.png">
-    <link rel="canonical" href="https://bg-eventos.vercel.app">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏝️</text></svg>">
-
-    <!-- TÍTULO DINÂMICO (3 melhorias) -->
-    <title>BG Eventos & Hospedagem | Barra Grande - PI</title>
-
-    <!-- CSS OTIMIZADO (42 melhorias) -->
+    <meta property="og:url" content="https://bg-eventos.vercel.app">
+    
+    <!-- Favicon dinâmico -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232A5C82%22>🏝️</text></svg>">
+    
+    <!-- CSS com todas as melhorias -->
     <style>
-        /* RESET AVANÇADO */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        
-        /* VARIÁVEIS CSS (Sistema de Design) */
+        /* ===== RESET E VARIÁVEIS ===== */
         :root {
-            /* Cores */
+            /* Sistema de cores */
             --primary: #2A5C82;
+            --primary-dark: #1E415C;
             --secondary: #F2A950;
+            --secondary-dark: #D98B2E;
             --accent: #38B6A1;
-            --dark: #1A2C3E;
-            --light: #F8F9FA;
             --danger: #E74C3C;
             --success: #27AE60;
+            --warning: #F39C12;
             
-            /* Tipografia */
-            --font-main: 'Segoe UI', system-ui, sans-serif;
-            --font-heading: 'Montserrat', 'Segoe UI', sans-serif;
+            /* Cores do tema claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
             
             /* Espaçamentos */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 2rem;
-            --space-xl: 4rem;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
             
             /* Bordas */
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
+            --radius-xl: 30px;
             
             /* Sombras */
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+            --shadow-sm: 0 2px 8px var(--shadow-color);
+            --shadow-md: 0 4px 16px var(--shadow-color);
+            --shadow-lg: 0 8px 32px var(--shadow-color);
+            --shadow-xl: 0 12px 48px var(--shadow-color);
             
             /* Transições */
-            --transition-fast: 150ms ease;
-            --transition-normal: 300ms ease;
-            --transition-slow: 500ms ease;
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Tipografia */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-heading: 'Montserrat', var(--font-primary);
+            
+            /* Layout */
+            --header-height: 80px;
+            --filters-height: 60px;
         }
         
-        /* TEMA ESCURO (Detecção automática) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #3A8CC8;
-                --dark: #F8F9FA;
-                --light: #1A2C3E;
-            }
+        /* ===== TEMA ESCURO ===== */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
         
-        /* ESTILOS BASE */
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes ripple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+        
+        /* ===== ESTILOS BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
         body {
-            font-family: var(--font-main);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            font-family: var(--font-primary);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 4rem;
         }
         
-        .dark-mode body {
-            background: linear-gradient(135deg, #1a2c3e 0%, #0d1724 100%);
-            color: #f0f0f0;
-        }
-        
-        /* HEADER MODERNIZADO */
-        .header {
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            padding: var(--space-lg) var(--space-md);
-            text-align: center;
-            position: sticky;
+        /* ===== HEADER PRINCIPAL ===== */
+        .main-header {
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: var(--shadow-md);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+        }
+        
+        .main-header.scrolled {
+            height: 60px;
+            background: rgba(42, 92, 130, 0.95);
         }
         
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 var(--space-md);
+            height: 100%;
             display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
             align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
         }
         
-        .logo {
+        /* Logo */
+        .logo-wrapper {
             display: flex;
             align-items: center;
             gap: var(--space-sm);
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            color: white;
             text-decoration: none;
         }
         
         .logo-icon {
-            font-size: 2.2rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            font-size: 2.5rem;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
         
-        /* BARRA DE CONTROLES */
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-            justify-content: center;
-            width: 100%;
-            max-width: 800px;
-        }
-        
-        .filter-btn {
-            padding: 0.6rem 1.2rem;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
             color: white;
-            border-radius: 50px;
+            line-height: 1.2;
+        }
+        
+        .logo-subtitle {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        /* Controles do Header */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
             cursor: pointer;
             transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
             font-weight: 600;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
         
-        .filter-btn:hover {
-            background: rgba(255,255,255,0.25);
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            border-color: white;
+            box-shadow: var(--shadow-md);
         }
         
-        .filter-btn.active {
+        .control-btn.active {
             background: var(--secondary);
-            color: var(--dark);
+            color: var(--primary-dark);
             border-color: var(--secondary);
         }
         
-        /* CONTADOR DE EVENTOS */
-        .event-counter {
-            background: rgba(255,255,255,0.1);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: white;
-            margin-left: auto;
+        /* ===== BARRA DE FILTROS STICKY ===== */
+        .filters-container {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            padding: var(--space-sm) var(--space-md);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            transform: translateY(0);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filters-container.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        
+        .filters-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            padding-bottom: var(--space-xs);
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
         }
         
-        /* CONTAINER PRINCIPAL */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 var(--space-md);
+        .filters-wrapper::-webkit-scrollbar {
+            height: 4px;
         }
         
-        /* GRID DE EVENTOS */
+        .filters-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .filters-wrapper::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+        }
+        
+        .filter-chip {
+            padding: var(--space-xs) var(--space-md);
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            user-select: none;
+        }
+        
+        .filter-chip:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .filter-count {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            margin-top: calc(var(--header-height) + var(--filters-height));
+            padding: var(--space-xl) var(--space-md);
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ===== ESTATÍSTICAS ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all var(--transition-normal);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== GRID DE EVENTOS ===== */
         .events-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: var(--space-lg);
-            padding: var(--space-md);
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            padding: var(--space-md) 0;
         }
         
-        /* CARD DE EVENTO (Design Moderno) */
+        /* ===== CARD DE EVENTO AVANÇADO ===== */
         .event-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow-md);
             transition: all var(--transition-normal);
             position: relative;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.6s ease-out;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            height: 100%;
-        }
-        
-        .dark-mode .event-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
         }
         
         .event-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
         }
         
-        /* DESTAQUE ESPECIAL */
-        .event-card.featured {
-            border: 3px solid var(--secondary);
-            box-shadow: 0 0 20px rgba(242, 169, 80, 0.3);
+        /* Efeito de brilho no hover */
+        .event-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-normal);
         }
         
+        .event-card:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* Badge de destaque */
         .featured-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(45deg, var(--secondary), #FFD166);
-            color: var(--dark);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: linear-gradient(45deg, var(--secondary), var(--warning));
+            color: var(--primary-dark);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-xl);
+            font-weight: 700;
             font-size: 0.8rem;
-            font-weight: bold;
             z-index: 2;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* CONTAINER DA IMAGEM */
+        /* Container da imagem */
         .image-container {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 250px;
             overflow: hidden;
         }
         
@@ -246,17 +460,18 @@
         }
         
         .event-card:hover .event-image {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(2deg);
         }
         
+        /* Overlay de imagem */
         .image-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            padding: var(--space-lg);
             color: white;
-            padding: var(--space-md);
             transform: translateY(100%);
             transition: transform var(--transition-normal);
         }
@@ -265,7 +480,7 @@
             transform: translateY(0);
         }
         
-        /* CONTEÚDO DO CARD */
+        /* Conteúdo do card */
         .card-content {
             padding: var(--space-lg);
             flex-grow: 1;
@@ -274,643 +489,1271 @@
             gap: var(--space-sm);
         }
         
-        .event-title {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            color: var(--dark);
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: var(--space-sm);
         }
         
-        .dark-mode .event-title {
-            color: white;
+        .event-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            flex-grow: 1;
         }
         
-        .event-date {
+        .event-category {
+            background: var(--accent);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* Data do evento */
+        .event-dates {
             display: flex;
             align-items: center;
             gap: var(--space-sm);
             color: var(--primary);
             font-weight: 600;
+            margin: var(--space-sm) 0;
         }
         
         .date-icon {
             font-size: 1.2rem;
         }
         
+        /* Descrição com gradiente */
         .event-description {
-            color: #666;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            line-height: 1.6;
             margin: var(--space-sm) 0;
             flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
-        .dark-mode .event-description {
-            color: #ccc;
-        }
-        
-        /* BADGES */
-        .badges {
+        /* Tags */
+        .event-tags {
             display: flex;
             flex-wrap: wrap;
             gap: var(--space-xs);
             margin: var(--space-sm) 0;
         }
         
-        .badge {
-            background: var(--accent);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
+        .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
             font-size: 0.8rem;
             font-weight: 500;
         }
         
-        /* PREÇO */
-        .price-tag {
-            background: linear-gradient(90deg, var(--success), #2ECC71);
+        /* Preço */
+        .price-container {
+            background: linear-gradient(135deg, var(--success) 0%, #2ECC71 100%);
             color: white;
-            padding: 0.6rem var(--space-md);
+            padding: var(--space-md);
             border-radius: var(--radius-md);
-            font-weight: bold;
-            font-size: 1.2rem;
             text-align: center;
             margin: var(--space-sm) 0;
+            position: relative;
+            overflow: hidden;
         }
         
-        /* BOTÕES DE AÇÃO */
+        .price-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .price-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        /* Botões de ação */
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--space-sm);
-            margin-top: auto;
+            margin-top: var(--space-md);
         }
         
-        .btn {
-            padding: 0.75rem;
+        .action-btn {
+            padding: var(--space-md);
             border: none;
             border-radius: var(--radius-md);
             font-weight: 600;
             cursor: pointer;
             transition: all var(--transition-fast);
-            text-align: center;
-            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: var(--space-sm);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform 0.5s, opacity 1s;
+        }
+        
+        .action-btn:active::after {
+            transform: scale(0, 0);
+            opacity: 0.3;
+            transition: 0s;
         }
         
         .btn-primary {
-            background: linear-gradient(90deg, var(--primary), #3A8CC8);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
         }
         
         .btn-secondary {
-            background: linear-gradient(90deg, var(--accent), #45D4B5);
+            background: linear-gradient(135deg, var(--accent) 0%, #2DCCB9 100%);
             color: white;
         }
         
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(42, 92, 130, 0.3);
         }
         
-        /* LOADER */
-        .loader {
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(56, 182, 161, 0.3);
+        }
+        
+        /* ===== BOTÃO VER DETALHES ===== */
+        .details-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            width: 100%;
+            margin-top: var(--space-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+        
+        .details-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* ===== MODAL DE DETALHES ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+            animation: fadeIn var(--transition-normal);
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn var(--transition-normal);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: var(--danger);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 3;
+            transition: all var(--transition-fast);
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        /* ===== LOADER ===== */
+        .loader-container {
+            grid-column: 1 / -1;
             text-align: center;
-            padding: var(--space-xl);
+            padding: var(--space-xxl);
         }
         
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary);
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--border-color);
+            border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto var(--space-md);
+            margin: 0 auto var(--space-lg);
+            position: relative;
+        }
+        
+        .spinner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 5px solid transparent;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite reverse;
         }
         
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
         
-        /* MENSAGEM DE ERRO */
-        .error-message {
-            background: linear-gradient(90deg, var(--danger), #E74C3C);
-            color: white;
-            padding: var(--space-lg);
-            border-radius: var(--radius-md);
+        /* ===== MENSAGEM VAZIA ===== */
+        .empty-state {
+            grid-column: 1 / -1;
             text-align: center;
-            margin: var(--space-lg);
-            box-shadow: var(--shadow-md);
+            padding: var(--space-xxl);
+            color: var(--text-secondary);
         }
         
-        /* FOOTER */
-        .footer {
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+            opacity: 0.5;
+        }
+        
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--bg-secondary);
+            padding: var(--space-xl) var(--space-md);
+            margin-top: var(--space-xxl);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .footer-section h3 {
+            font-family: var(--font-heading);
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
             text-align: center;
-            padding: var(--space-lg);
             margin-top: var(--space-xl);
-            color: #666;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
-        .dark-mode .footer {
-            color: #aaa;
-            border-top-color: rgba(255,255,255,0.1);
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .events-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: var(--space-lg);
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
         }
         
-        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
+            .main-header {
+                height: 70px;
+            }
+            
+            .main-header.scrolled {
+                height: 50px;
+            }
+            
+            .filters-container {
+                top: 70px;
+            }
+            
+            .main-content {
+                margin-top: calc(70px + var(--filters-height));
+            }
+            
             .events-grid {
                 grid-template-columns: 1fr;
-                gap: var(--space-md);
             }
             
             .action-buttons {
                 grid-template-columns: 1fr;
             }
             
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
+            .stats-bar {
+                grid-template-columns: 1fr;
             }
             
-            .event-counter {
-                margin: 0;
-                justify-content: center;
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .control-btn span:not(.icon) {
+                display: none;
+            }
+            
+            .control-btn {
+                padding: var(--space-sm);
             }
         }
         
         @media (max-width: 480px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
+            :root {
+                --header-height: 60px;
+                --filters-height: 50px;
             }
             
-            .logo {
+            .event-title {
+                font-size: 1.3rem;
+            }
+            
+            .price-value {
                 font-size: 1.5rem;
             }
+            
+            .main-content {
+                padding: var(--space-lg) var(--space-sm);
+            }
+        }
+        
+        /* ===== UTILITÁRIOS ===== */
+        .hidden {
+            display: none !important;
+        }
+        
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
+    <!-- Header Principal -->
+    <header class="main-header">
         <div class="header-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo-wrapper">
                 <span class="logo-icon">🏝️</span>
-                <span>BG Eventos & Hospedagem</span>
+                <div class="logo-text">
+                    BG Events & Accommodation
+                    <span class="logo-subtitle" data-i18n="subtitle">Barra Grande - PI</span>
+                </div>
             </a>
             
-            <div class="controls">
-                <button class="filter-btn active" data-filter="all">Todos os Eventos</button>
-                <button class="filter-btn" data-filter="show">Shows</button>
-                <button class="filter-btn" data-filter="esporte">Esportes</button>
-                <button class="filter-btn" data-filter="gastronomia">Gastronomia</button>
-                <button class="filter-btn" data-filter="cultura">Cultura</button>
-                <button class="filter-btn" data-filter="hospedagem">Hospedagem</button>
+            <div class="header-controls">
+                <button class="control-btn" id="theme-toggle" aria-label="Alternar tema">
+                    <span class="icon">🌙</span>
+                    <span data-i18n="theme">Tema</span>
+                </button>
                 
-                <div class="event-counter">
-                    <span>📅</span>
-                    <span id="event-count">0 eventos</span>
-                </div>
+                <button class="control-btn" id="language-toggle" aria-label="Alternar idioma">
+                    <span class="icon">🌐</span>
+                    <span>PT/EN</span>
+                </button>
+                
+                <button class="control-btn" id="scroll-top" aria-label="Voltar ao topo">
+                    <span class="icon">⬆️</span>
+                </button>
             </div>
         </div>
     </header>
-
-    <!-- CONTAINER PRINCIPAL -->
-    <main class="container">
-        <div id="events-container" class="events-grid">
-            <!-- LOADER INICIAL -->
-            <div class="loader">
+    
+    <!-- Barra de Filtros Sticky -->
+    <div class="filters-container" id="filters-bar">
+        <div class="filters-wrapper">
+            <div class="filter-chip active" data-filter="all">
+                <span class="icon">🎯</span>
+                <span data-i18n="all_events">Todos os Eventos</span>
+                <span class="filter-count" id="count-all">0</span>
+            </div>
+            <div class="filter-chip" data-filter="show">
+                <span class="icon">🎵</span>
+                <span data-i18n="shows">Shows</span>
+                <span class="filter-count" id="count-show">0</span>
+            </div>
+            <div class="filter-chip" data-filter="esporte">
+                <span class="icon">⚽</span>
+                <span data-i18n="sports">Esportes</span>
+                <span class="filter-count" id="count-esporte">0</span>
+            </div>
+            <div class="filter-chip" data-filter="gastronomia">
+                <span class="icon">🍽️</span>
+                <span data-i18n="gastronomy">Gastronomia</span>
+                <span class="filter-count" id="count-gastronomia">0</span>
+            </div>
+            <div class="filter-chip" data-filter="cultura">
+                <span class="icon">🎭</span>
+                <span data-i18n="culture">Cultura</span>
+                <span class="filter-count" id="count-cultura">0</span>
+            </div>
+            <div class="filter-chip" data-filter="hospedagem">
+                <span class="icon">🏨</span>
+                <span data-i18n="accommodation">Hospedagem</span>
+                <span class="filter-count" id="count-hospedagem">0</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Estatísticas -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-icon">📅</span>
+                <div class="stat-number" id="total-events">0</div>
+                <div class="stat-label" data-i18n="total_events">Eventos totais</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⭐</span>
+                <div class="stat-number" id="featured-events">0</div>
+                <div class="stat-label" data-i18n="featured">Em destaque</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🏨</span>
+                <div class="stat-number" id="hotels-count">0</div>
+                <div class="stat-label" data-i18n="accommodations">Hospedagens</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🎟️</span>
+                <div class="stat-number" id="tickets-available">0</div>
+                <div class="stat-label" data-i18n="tickets_available">Ingressos disponíveis</div>
+            </div>
+        </div>
+        
+        <!-- Grid de Eventos -->
+        <div class="events-grid" id="events-container">
+            <div class="loader-container">
                 <div class="spinner"></div>
-                <p>Carregando eventos de Barra Grande...</p>
+                <p data-i18n="loading">Carregando eventos...</p>
             </div>
         </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>© 2024 BG Eventos & Hospedagem | Barra Grande - Piauí</p>
-        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Atualizado automaticamente • Suporte: contato@bgeventos.com</p>
+    
+    <!-- Modal de Detalhes -->
+    <div class="modal-overlay" id="event-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <div id="modal-body">
+                <!-- Conteúdo carregado dinamicamente -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="about">Sobre</h3>
+                <p data-i18n="about_text">Portal oficial de eventos e hospedagem de Barra Grande, Piauí. Atualizado automaticamente com os melhores eventos da região.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-i18n="quick_links">Links Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#" data-i18n="home">🏠 Início</a></li>
+                    <li><a href="#events" data-i18n="events">🎭 Eventos</a></li>
+                    <li><a href="#accommodation" data-i18n="accommodation">🏨 Hospedagem</a></li>
+                    <li><a href="#contact" data-i18n="contact">📞 Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-i18n="connect">Conecte-se</h3>
+                <ul class="footer-links">
+                    <li><a href="#" data-i18n="instagram">📸 Instagram</a></li>
+                    <li><a href="#" data-i18n="facebook">📘 Facebook</a></li>
+                    <li><a href="#" data-i18n="whatsapp">💬 WhatsApp</a></li>
+                    <li><a href="mailto:contato@bgeventos.com" data-i18n="email">📧 Email</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2024 BG Events & Accommodation | Barra Grande - Piauí</p>
+            <p data-i18n="auto_update">Atualizado automaticamente • Última atualização: <span id="last-update">--/--/----</span></p>
+        </div>
     </footer>
 
-    <!-- JAVASCRIPT OTIMIZADO (74 melhorias) -->
+    <!-- JavaScript Avançado -->
     <script>
-        // CONFIGURAÇÕES (Cache e Performance)
+        // ===== CONFIGURAÇÕES =====
         const CONFIG = {
-            CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv',
-            CACHE_KEY: 'bg_events_cache_v3',
-            CACHE_TTL: 5 * 60 * 1000, // 5 minutos
-            FALLBACK_IMAGE: 'img/eventos/padrao-bg.png'
+            CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv&v=' + Date.now(),
+            CACHE_KEY: 'bg_events_v4',
+            CACHE_TTL: 10 * 60 * 1000, // 10 minutos
+            DEFAULT_IMAGE: 'img/eventos/padrao-bg.png',
+            API_TIMEOUT: 15000
         };
 
-        // ESTADO GLOBAL
+        // ===== SISTEMA DE TRADUÇÃO =====
+        const translations = {
+            pt: {
+                // Interface
+                "subtitle": "Barra Grande - PI",
+                "theme": "Tema",
+                "all_events": "Todos os Eventos",
+                "shows": "Shows",
+                "sports": "Esportes",
+                "gastronomy": "Gastronomia",
+                "culture": "Cultura",
+                "accommodation": "Hospedagem",
+                "total_events": "Eventos totais",
+                "featured": "Em destaque",
+                "accommodations": "Hospedagens",
+                "tickets_available": "Ingressos disponíveis",
+                "loading": "Carregando eventos...",
+                "about": "Sobre",
+                "about_text": "Portal oficial de eventos e hospedagem de Barra Grande, Piauí. Atualizado automaticamente com os melhores eventos da região.",
+                "quick_links": "Links Rápidos",
+                "home": "🏠 Início",
+                "events": "🎭 Eventos",
+                "contact": "📞 Contato",
+                "connect": "Conecte-se",
+                "instagram": "📸 Instagram",
+                "facebook": "📘 Facebook",
+                "whatsapp": "💬 WhatsApp",
+                "email": "📧 Email",
+                "auto_update": "Atualizado automaticamente • Última atualização:",
+                "no_events": "Nenhum evento encontrado",
+                "view_details": "🔍 Ver detalhes",
+                "book_accommodation": "🏨 Reservar hospedagem",
+                "buy_ticket": "🎫 Comprar ingresso",
+                "from": "A partir de",
+                "details": "Detalhes",
+                "dates": "Datas",
+                "description": "Descrição",
+                "category": "Categoria",
+                "price": "Preço",
+                "close": "Fechar"
+            },
+            en: {
+                "subtitle": "Barra Grande - PI",
+                "theme": "Theme",
+                "all_events": "All Events",
+                "shows": "Shows",
+                "sports": "Sports",
+                "gastronomy": "Gastronomy",
+                "culture": "Culture",
+                "accommodation": "Accommodation",
+                "total_events": "Total events",
+                "featured": "Featured",
+                "accommodations": "Accommodations",
+                "tickets_available": "Tickets available",
+                "loading": "Loading events...",
+                "about": "About",
+                "about_text": "Official events and accommodation portal of Barra Grande, Piauí. Automatically updated with the best events in the region.",
+                "quick_links": "Quick Links",
+                "home": "🏠 Home",
+                "events": "🎭 Events",
+                "contact": "📞 Contact",
+                "connect": "Connect",
+                "instagram": "📸 Instagram",
+                "facebook": "📘 Facebook",
+                "whatsapp": "💬 WhatsApp",
+                "email": "📧 Email",
+                "auto_update": "Automatically updated • Last update:",
+                "no_events": "No events found",
+                "view_details": "🔍 View details",
+                "book_accommodation": "🏨 Book accommodation",
+                "buy_ticket": "🎫 Buy ticket",
+                "from": "From",
+                "details": "Details",
+                "dates": "Dates",
+                "description": "Description",
+                "category": "Category",
+                "price": "Price",
+                "close": "Close"
+            }
+        };
+
+        // ===== ESTADO GLOBAL =====
         const State = {
             events: [],
             filteredEvents: [],
+            categories: {},
             currentFilter: 'all',
-            isLoading: false,
-            lastUpdate: null
+            language: 'pt',
+            theme: localStorage.getItem('theme') || 'auto',
+            lastScroll: 0,
+            filtersVisible: true
         };
 
-        // UTILITÁRIOS
-        const Utils = {
-            // Formatação de data
-            formatDate(dateStr) {
-                if (!dateStr) return 'Data não informada';
-                const date = new Date(dateStr);
-                return date.toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric'
-                });
-            },
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+        });
 
-            // Slug para categoria
-            getCategorySlug(category) {
-                const map = {
-                    'show': 'show',
-                    'esporte': 'esporte',
-                    'gastronomia': 'gastronomia',
-                    'cultura': 'cultura',
-                    'hospedagem': 'hospedagem'
-                };
-                return map[category?.toLowerCase()] || 'outros';
-            },
+        async function initApp() {
+            // Inicializar tema
+            initTheme();
+            
+            // Inicializar tradução
+            initLanguage();
+            
+            // Inicializar eventos
+            await loadEvents();
+            
+            // Inicializar listeners
+            initEventListeners();
+            
+            // Inicializar scroll behavior
+            initScrollBehavior();
+            
+            // Atualizar estatísticas
+            updateStats();
+        }
 
-            // Detectar se evento está em destaque
-            isFeatured(event) {
-                return event.Destaque?.toLowerCase() === 'sim' || 
-                       event.destaque?.toLowerCase() === 'sim';
-            },
+        // ===== SISTEMA DE TEMA =====
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                State.theme = savedTheme;
+            }
+            
+            applyTheme();
+            
+            // Botão de toggle de tema
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                const themes = ['auto', 'light', 'dark'];
+                const currentIndex = themes.indexOf(State.theme);
+                State.theme = themes[(currentIndex + 1) % themes.length];
+                localStorage.setItem('theme', State.theme);
+                applyTheme();
+                updateThemeButton();
+            });
+            
+            updateThemeButton();
+        }
 
-            // Sistema de fallback de imagens
-            async loadImageWithFallback(id) {
-                const formats = ['png', 'jpg', 'webp'];
-                const basePath = 'img/eventos';
+        function applyTheme() {
+            if (State.theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.body.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                document.body.setAttribute('data-theme', State.theme);
+            }
+        }
+
+        function updateThemeButton() {
+            const btn = document.getElementById('theme-toggle');
+            const icons = {
+                auto: '🔄',
+                light: '☀️',
+                dark: '🌙'
+            };
+            btn.querySelector('.icon').textContent = icons[State.theme];
+            btn.querySelector('span:not(.icon)').textContent = i18n('theme');
+        }
+
+        // ===== SISTEMA DE IDIOMA =====
+        function initLanguage() {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang) {
+                State.language = savedLang;
+            }
+            
+            applyLanguage();
+            
+            document.getElementById('language-toggle').addEventListener('click', () => {
+                State.language = State.language === 'pt' ? 'en' : 'pt';
+                localStorage.setItem('language', State.language);
+                applyLanguage();
+            });
+        }
+
+        function applyLanguage() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[State.language][key]) {
+                    element.textContent = translations[State.language][key];
+                }
+            });
+            
+            // Atualizar botão de idioma
+            const btn = document.getElementById('language-toggle');
+            btn.querySelector('span:not(.icon)').textContent = State.language === 'pt' ? 'PT/EN' : 'EN/PT';
+        }
+
+        function i18n(key) {
+            return translations[State.language][key] || key;
+        }
+
+        // ===== CARREGAMENTO DE EVENTOS =====
+        async function loadEvents() {
+            try {
+                showLoader();
                 
-                for (const format of formats) {
-                    const url = `${basePath}/${id}.${format}`;
-                    if (await this.checkImageExists(url)) {
-                        return url;
-                    }
-                }
-                return CONFIG.FALLBACK_IMAGE;
-            },
-
-            // Verificar se imagem existe
-            async checkImageExists(url) {
-                try {
-                    const response = await fetch(url, { method: 'HEAD' });
-                    return response.ok;
-                } catch {
-                    return false;
-                }
-            },
-
-            // Debounce para performance
-            debounce(func, wait) {
-                let timeout;
-                return function executedFunction(...args) {
-                    const later = () => {
-                        clearTimeout(timeout);
-                        func(...args);
-                    };
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                };
-            }
-        };
-
-        // GERENCIAMENTO DE CACHE
-        const CacheManager = {
-            get() {
-                try {
-                    const cached = localStorage.getItem(CONFIG.CACHE_KEY);
-                    if (!cached) return null;
-                    
-                    const { data, timestamp } = JSON.parse(cached);
-                    const isExpired = Date.now() - timestamp > CONFIG.CACHE_TTL;
-                    
-                    return isExpired ? null : data;
-                } catch {
-                    return null;
-                }
-            },
-
-            set(data) {
-                try {
-                    const cacheData = {
-                        data,
-                        timestamp: Date.now()
-                    };
-                    localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(cacheData));
-                } catch (error) {
-                    console.warn('Falha ao salvar cache:', error);
-                }
-            },
-
-            clear() {
-                localStorage.removeItem(CONFIG.CACHE_KEY);
-            }
-        };
-
-        // MANIPULAÇÃO DO DOM
-        const DOM = {
-            // Elementos
-            elements: {
-                container: null,
-                count: null,
-                filterButtons: null
-            },
-
-            // Inicializar referências
-            init() {
-                this.elements.container = document.getElementById('events-container');
-                this.elements.count = document.getElementById('event-count');
-                this.elements.filterButtons = document.querySelectorAll('.filter-btn');
-            },
-
-            // Atualizar contador
-            updateCounter(count) {
-                if (this.elements.count) {
-                    this.elements.count.textContent = `${count} ${count === 1 ? 'evento' : 'eventos'}`;
-                }
-            },
-
-            // Renderizar eventos
-            renderEvents(events) {
-                if (!events || events.length === 0) {
-                    this.elements.container.innerHTML = `
-                        <div class="error-message">
-                            <h3>🎭 Nenhum evento encontrado</h3>
-                            <p>Não há eventos programados para este filtro no momento.</p>
-                        </div>
-                    `;
-                    this.updateCounter(0);
+                // Tentar cache primeiro
+                const cached = getCachedEvents();
+                if (cached) {
+                    State.events = cached;
+                    processEvents();
                     return;
                 }
-
-                // Filtrar eventos passados
-                const today = new Date().toISOString().split('T')[0];
-                const activeEvents = events.filter(event => event.Fim >= today);
-
-                this.updateCounter(activeEvents.length);
-
-                const eventsHTML = activeEvents.map(event => this.createEventCard(event)).join('');
-                this.elements.container.innerHTML = eventsHTML;
-            },
-
-            // Criar card de evento
-            createEventCard(event) {
-                const category = event.Categoria?.toLowerCase() || 'outros';
-                const isFeatured = Utils.isFeatured(event);
-                const dateRange = `${Utils.formatDate(event.Inicio)} - ${Utils.formatDate(event.Fim)}`;
                 
-                return `
-                    <div class="event-card ${isFeatured ? 'featured' : ''}" 
-                         data-category="${category}"
-                         data-id="${event.ID}">
-                        ${isFeatured ? '<div class="featured-badge">⭐ Destaque</div>' : ''}
-                        
-                        <div class="image-container">
-                            <img class="event-image" 
-                                 src="img/eventos/${event.ID}.png" 
-                                 alt="${event.Nome}"
-                                 loading="lazy"
-                                 onerror="this.onerror=null; this.src='img/eventos/${event.ID}.jpg'; this.onerror=function(){this.src='${CONFIG.FALLBACK_IMAGE}'}">
-                            <div class="image-overlay">
-                                <small>${category.toUpperCase()}</small>
-                            </div>
+                // Buscar do CSV
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), CONFIG.API_TIMEOUT);
+                
+                const response = await fetch(CONFIG.CSV_URL, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const csvText = await response.text();
+                const events = parseCSV(csvText);
+                
+                // Processar e validar eventos
+                State.events = events
+                    .filter(event => event.ID && event.Nome && event.Fim)
+                    .map(event => ({
+                        ...event,
+                        id: event.ID.trim().toLowerCase(),
+                        nome: event.Nome.trim(),
+                        inicio: formatDate(event.Inicio),
+                        fim: formatDate(event.Fim),
+                        descricao: event.Descricao || '',
+                        preco: event.Preco_Hotel ? parseFloat(event.Preco_Hotel) : null,
+                        linkHotel: event.Link_Hotel || '',
+                        linkIngresso: event.Link_Ingresso || '',
+                        categoria: event.Categoria?.toLowerCase() || 'outros',
+                        destaque: event.Destaque?.toLowerCase() === 'sim',
+                        timestamp: new Date(event.Inicio).getTime()
+                    }))
+                    .filter(event => event.fim >= new Date().toISOString().split('T')[0])
+                    .sort((a, b) => a.timestamp - b.timestamp);
+                
+                // Salvar cache
+                cacheEvents(State.events);
+                document.getElementById('last-update').textContent = new Date().toLocaleString();
+                
+                processEvents();
+                
+            } catch (error) {
+                console.error('Erro ao carregar eventos:', error);
+                showError('Erro ao carregar eventos. Tentando novamente...');
+                setTimeout(loadEvents, 5000);
+            }
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            
+            return lines.slice(1)
+                .filter(line => line.trim())
+                .map(line => {
+                    const values = line.split(',').map(v => v.trim());
+                    const obj = {};
+                    headers.forEach((header, index) => {
+                        obj[header] = values[index] || '';
+                    });
+                    return obj;
+                });
+        }
+
+        function processEvents() {
+            // Contar categorias
+            State.categories = {
+                all: State.events.length,
+                show: State.events.filter(e => e.categoria.includes('show')).length,
+                esporte: State.events.filter(e => e.categoria.includes('esporte')).length,
+                gastronomia: State.events.filter(e => e.categoria.includes('gastronomia')).length,
+                cultura: State.events.filter(e => e.categoria.includes('cultura')).length,
+                hospedagem: State.events.filter(e => e.preco).length
+            };
+            
+            // Atualizar contadores
+            updateCategoryCounts();
+            
+            // Aplicar filtro atual
+            applyFilter(State.currentFilter);
+            
+            // Atualizar estatísticas
+            updateStats();
+        }
+
+        // ===== RENDERIZAÇÃO =====
+        function renderEvents(events) {
+            const container = document.getElementById('events-container');
+            
+            if (!events || events.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🎭</div>
+                        <h3>${i18n('no_events')}</h3>
+                        <p>Tente outro filtro ou volte mais tarde.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = events.map(event => `
+                <div class="event-card" data-category="${event.categoria}" data-id="${event.id}">
+                    ${event.destaque ? `
+                        <div class="featured-badge">
+                            <span class="icon">⭐</span>
+                            <span>Destaque</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="image-container">
+                        <img class="event-image" 
+                             src="img/eventos/${event.id}.png" 
+                             alt="${event.nome}"
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='img/eventos/${event.id}.jpg'; this.onerror=function(){this.src='${CONFIG.DEFAULT_IMAGE}'}">
+                        <div class="image-overlay">
+                            <div class="event-category">${event.categoria.toUpperCase()}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="event-header">
+                            <h3 class="event-title">${event.nome}</h3>
                         </div>
                         
-                        <div class="card-content">
-                            <h3 class="event-title">${event.Nome}</h3>
-                            
-                            <div class="event-date">
-                                <span class="date-icon">📅</span>
-                                <span>${dateRange}</span>
+                        <div class="event-dates">
+                            <span class="date-icon">📅</span>
+                            <span>${event.inicio} - ${event.fim}</span>
+                        </div>
+                        
+                        <p class="event-description">${event.descricao || 'Descrição em breve...'}</p>
+                        
+                        <div class="event-tags">
+                            <span class="tag">${event.categoria}</span>
+                            ${event.preco ? '<span class="tag">💰 Com preço</span>' : ''}
+                            ${event.linkIngresso ? '<span class="tag">🎟️ Ingressos</span>' : ''}
+                        </div>
+                        
+                        ${event.preco ? `
+                            <div class="price-container">
+                                <div class="price-label">${i18n('from')}</div>
+                                <div class="price-value">R$ ${event.preco.toFixed(2)}</div>
                             </div>
-                            
-                            <p class="event-description">${event.Descricao || 'Descrição em breve...'}</p>
-                            
-                            <div class="badges">
-                                <span class="badge">${category}</span>
-                                ${event.Preco_Hotel ? '<span class="badge">💰 Hospedagem</span>' : ''}
-                            </div>
-                            
-                            ${event.Preco_Hotel ? `
-                                <div class="price-tag">
-                                    💰 Diárias a partir de R$ ${parseFloat(event.Preco_Hotel).toFixed(2)}
-                                </div>
+                        ` : ''}
+                        
+                        <div class="action-buttons">
+                            ${event.linkHotel ? `
+                                <a href="${addTracking(event.linkHotel, 'hotel', event.id)}" 
+                                   target="_blank" 
+                                   class="action-btn btn-primary"
+                                   onclick="trackClick('hotel', '${event.id}')">
+                                    <span class="icon">🏨</span>
+                                    <span>${i18n('book_accommodation')}</span>
+                                </a>
                             ` : ''}
                             
-                            <div class="action-buttons">
-                                ${event.Link_Hotel ? `
-                                    <a href="${this.addTracking(event.Link_Hotel, 'hotel')}" 
+                            ${event.linkIngresso ? `
+                                <a href="${addTracking(event.linkIngresso, 'ticket', event.id)}" 
+                                   target="_blank" 
+                                   class="action-btn btn-secondary"
+                                   onclick="trackClick('ticket', '${event.id}')">
+                                    <span class="icon">🎫</span>
+                                    <span>${i18n('buy_ticket')}</span>
+                                </a>
+                            ` : ''}
+                        </div>
+                        
+                        <button class="details-btn" onclick="showEventDetails('${event.id}')">
+                            <span class="icon">🔍</span>
+                            <span>${i18n('view_details')}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== FILTROS =====
+        function applyFilter(filter) {
+            State.currentFilter = filter;
+            State.filteredEvents = State.events.filter(event => {
+                if (filter === 'all') return true;
+                if (filter === 'hospedagem') return event.preco;
+                return event.categoria.includes(filter);
+            });
+            
+            // Atualizar UI do filtro
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.filter === filter);
+            });
+            
+            renderEvents(State.filteredEvents);
+        }
+
+        function updateCategoryCounts() {
+            Object.keys(State.categories).forEach(category => {
+                const element = document.getElementById(`count-${category}`);
+                if (element) {
+                    element.textContent = State.categories[category];
+                }
+            });
+        }
+
+        // ===== MODAL DE DETALHES =====
+        function showEventDetails(eventId) {
+            const event = State.events.find(e => e.id === eventId);
+            if (!event) return;
+            
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="image-container" style="height: 300px;">
+                    <img class="event-image" 
+                         src="img/eventos/${event.id}.png" 
+                         alt="${event.nome}"
+                         onerror="this.onerror=null; this.src='img/eventos/${event.id}.jpg'; this.onerror=function(){this.src='${CONFIG.DEFAULT_IMAGE}'}">
+                </div>
+                
+                <div class="card-content">
+                    <h2 class="event-title" style="font-size: 2rem;">${event.nome}</h2>
+                    
+                    <div class="event-dates" style="font-size: 1.2rem;">
+                        <span class="date-icon">📅</span>
+                        <span><strong>${i18n('dates')}:</strong> ${event.inicio} - ${event.fim}</span>
+                    </div>
+                    
+                    <div style="margin: var(--space-lg) 0;">
+                        <h3>${i18n('description')}</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8;">${event.descricao || 'Sem descrição disponível.'}</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0;">
+                        <div class="stat-card">
+                            <span class="stat-icon">🏷️</span>
+                            <div class="stat-label">${i18n('category')}</div>
+                            <div class="stat-number">${event.categoria.toUpperCase()}</div>
+                        </div>
+                        
+                        ${event.preco ? `
+                            <div class="stat-card">
+                                <span class="stat-icon">💰</span>
+                                <div class="stat-label">${i18n('price')}</div>
+                                <div class="stat-number">R$ ${event.preco.toFixed(2)}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    ${event.linkHotel || event.linkIngresso ? `
+                        <div style="margin-top: var(--space-xl);">
+                            <h3>${i18n('details')}</h3>
+                            <div class="action-buttons" style="grid-template-columns: 1fr 1fr;">
+                                ${event.linkHotel ? `
+                                    <a href="${addTracking(event.linkHotel, 'hotel_detail', event.id)}" 
                                        target="_blank" 
-                                       class="btn btn-primary"
-                                       onclick="trackClick('hotel', '${event.ID}')">
-                                        🏨 Ver Hospedagem
+                                       class="action-btn btn-primary"
+                                       style="padding: var(--space-lg); font-size: 1.1rem;">
+                                        <span class="icon">🏨</span>
+                                        <span>${i18n('book_accommodation')}</span>
                                     </a>
                                 ` : ''}
                                 
-                                ${event.Link_Ingresso ? `
-                                    <a href="${this.addTracking(event.Link_Ingresso, 'ingresso')}" 
+                                ${event.linkIngresso ? `
+                                    <a href="${addTracking(event.linkIngresso, 'ticket_detail', event.id)}" 
                                        target="_blank" 
-                                       class="btn btn-secondary"
-                                       onclick="trackClick('ingresso', '${event.ID}')">
-                                        🎫 Comprar Ingresso
+                                       class="action-btn btn-secondary"
+                                       style="padding: var(--space-lg); font-size: 1.1rem;">
+                                        <span class="icon">🎫</span>
+                                        <span>${i18n('buy_ticket')}</span>
                                     </a>
                                 ` : ''}
                             </div>
                         </div>
-                    </div>
-                `;
-            },
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('event-modal').classList.add('active');
+        }
 
-            // Adicionar tracking UTM
-            addTracking(url, source) {
-                if (!url) return '#';
-                const separator = url.includes('?') ? '&' : '?';
-                return `${url}${separator}utm_source=bg-eventos&utm_medium=${source}&utm_campaign=portal`;
-            },
-
-            // Ativar/desativar filtros
-            updateFilterButtons(activeFilter) {
-                this.elements.filterButtons.forEach(btn => {
-                    if (btn.dataset.filter === activeFilter) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            }
-        };
-
-        // GERENCIAMENTO DE EVENTOS
-        const EventManager = {
-            // Carregar dados do CSV
-            async loadEvents() {
-                State.isLoading = true;
-                
-                try {
-                    // Tentar cache primeiro
-                    const cached = CacheManager.get();
-                    if (cached) {
-                        State.events = cached;
-                        this.applyFilter(State.currentFilter);
-                        return;
-                    }
-
-                    // Buscar do CSV
-                    const response = await fetch(CONFIG.CSV_URL);
-                    if (!response.ok) throw new Error('Falha ao carregar CSV');
-                    
-                    const csvText = await response.text();
-                    const events = this.parseCSV(csvText);
-                    
-                    // Validar e processar eventos
-                    State.events = events.filter(event => {
-                        return event.ID && event.Nome && event.Fim;
-                    }).map(event => ({
-                        ...event,
-                        categoria_slug: Utils.getCategorySlug(event.Categoria)
-                    }));
-
-                    // Salvar cache
-                    CacheManager.set(State.events);
-                    State.lastUpdate = new Date();
-
-                    // Aplicar filtro atual
-                    this.applyFilter(State.currentFilter);
-
-                } catch (error) {
-                    console.error('Erro ao carregar eventos:', error);
-                    this.showError('Erro ao carregar eventos. Tentando novamente em 10 segundos...');
-                    setTimeout(() => this.loadEvents(), 10000);
-                } finally {
-                    State.isLoading = false;
-                }
-            },
-
-            // Parse CSV
-            parseCSV(csvText) {
-                const lines = csvText.split('\n');
-                const headers = lines[0].split(',').map(h => h.trim());
-                
-                return lines.slice(1).map(line => {
-                    const values = line.split(',').map(v => v.trim());
-                    const event = {};
-                    headers.forEach((header, index) => {
-                        event[header] = values[index] || '';
+        // ===== SCROLL BEHAVIOR =====
+        function initScrollBehavior() {
+            let ticking = false;
+            
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        handleScroll();
+                        ticking = false;
                     });
-                    return event;
-                });
-            },
-
-            // Aplicar filtro
-            applyFilter(filterType) {
-                State.currentFilter = filterType;
-                
-                if (filterType === 'all') {
-                    State.filteredEvents = [...State.events];
-                } else {
-                    State.filteredEvents = State.events.filter(event => {
-                        const category = event.Categoria?.toLowerCase() || '';
-                        const id = event.ID?.toLowerCase() || '';
-                        
-                        return category.includes(filterType) || 
-                               id.includes(filterType) ||
-                               event.Nome?.toLowerCase().includes(filterType);
-                    });
+                    ticking = true;
                 }
-                
-                DOM.updateFilterButtons(filterType);
-                DOM.renderEvents(State.filteredEvents);
-            },
+            });
+            
+            // Botão voltar ao topo
+            document.getElementById('scroll-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
 
-            // Mostrar erro
-            showError(message) {
-                DOM.elements.container.innerHTML = `
-                    <div class="error-message">
-                        <h3>⚠️ Erro de Conexão</h3>
-                        <p>${message}</p>
-                        <button onclick="EventManager.loadEvents()" style="margin-top:1rem;padding:0.5rem 1.5rem;background:white;color:#E74C3C;border:none;border-radius:20px;font-weight:bold;cursor:pointer">
-                            Tentar Novamente
-                        </button>
-                    </div>
-                `;
+        function handleScroll() {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('.main-header');
+            const filtersBar = document.getElementById('filters-bar');
+            
+            // Header shrink
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-        };
+            
+            // Hide/show filters
+            if (currentScroll > State.lastScroll && currentScroll > 200) {
+                filtersBar.classList.add('hidden');
+                State.filtersVisible = false;
+            } else if (currentScroll < State.lastScroll) {
+                filtersBar.classList.remove('hidden');
+                State.filtersVisible = true;
+            }
+            
+            State.lastScroll = currentScroll;
+            
+            // Show/hide scroll top button
+            const scrollBtn = document.getElementById('scroll-top');
+            if (currentScroll > 500) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        }
 
-        // TRACKING DE CLICKS
+        // ===== ESTATÍSTICAS =====
+        function updateStats() {
+            document.getElementById('total-events').textContent = State.events.length;
+            document.getElementById('featured-events').textContent = State.events.filter(e => e.destaque).length;
+            document.getElementById('hotels-count').textContent = State.events.filter(e => e.preco).length;
+            document.getElementById('tickets-available').textContent = State.events.filter(e => e.linkIngresso).length;
+        }
+
+        // ===== UTILITÁRIOS =====
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        function addTracking(url, source, eventId) {
+            if (!url) return '#';
+            const separator = url.includes('?') ? '&' : '?';
+            return `${url}${separator}utm_source=bg-events&utm_medium=${source}&utm_campaign=${eventId}&utm_content=${State.language}`;
+        }
+
         function trackClick(type, eventId) {
             const data = {
                 type,
                 eventId,
                 timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent
+                language: State.language,
+                theme: State.theme
             };
             
-            // Simples logging (em produção, enviar para analytics)
+            // Em produção, enviar para Google Analytics
             console.log('Click tracked:', data);
             
-            // Salvar no localStorage para analytics posterior
+            // Salvar no localStorage
             const clicks = JSON.parse(localStorage.getItem('bg_clicks') || '[]');
             clicks.push(data);
-            localStorage.setItem('bg_clicks', JSON.stringify(clicks.slice(-100))); // Manter últimos 100
+            localStorage.setItem('bg_clicks', JSON.stringify(clicks.slice(-100)));
         }
 
-        // INICIALIZAÇÃO
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Inicializar DOM
-            DOM.init();
-            
-            // Configurar listeners de filtro
-            DOM.elements.filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    EventManager.applyFilter(btn.dataset.filter);
+        function showLoader() {
+            const container = document.getElementById('events-container');
+            container.innerHTML = `
+                <div class="loader-container">
+                    <div class="spinner"></div>
+                    <p>${i18n('loading')}</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const container = document.getElementById('events-container');
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">⚠️</div>
+                    <h3>Erro</h3>
+                    <p>${message}</p>
+                    <button onclick="loadEvents()" style="margin-top: var(--space-md); padding: var(--space-sm) var(--space-lg); background: var(--primary); color: white; border: none; border-radius: var(--radius-md); cursor: pointer;">
+                        Tentar novamente
+                    </button>
+                </div>
+            `;
+        }
+
+        // ===== CACHE =====
+        function getCachedEvents() {
+            try {
+                const cached = localStorage.getItem(CONFIG.CACHE_KEY);
+                if (!cached) return null;
+                
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp > CONFIG.CACHE_TTL) {
+                    localStorage.removeItem(CONFIG.CACHE_KEY);
+                    return null;
+                }
+                
+                return data;
+            } catch {
+                return null;
+            }
+        }
+
+        function cacheEvents(events) {
+            try {
+                const cacheData = {
+                    data: events,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(cacheData));
+            } catch (error) {
+                console.warn('Failed to cache:', error);
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
+        function initEventListeners() {
+            // Filtros
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    applyFilter(chip.dataset.filter);
                 });
             });
             
-            // Carregar eventos
-            await EventManager.loadEvents();
+            // Modal
+            document.getElementById('modal-close').addEventListener('click', () => {
+                document.getElementById('event-modal').classList.remove('active');
+            });
             
-            // Atualizar a cada 5 minutos
-            setInterval(() => EventManager.loadEvents(), 5 * 60 * 1000);
-            
-            // Verificar online/offline
-            window.addEventListener('online', () => EventManager.loadEvents());
-            
-            // Adicionar shortcut keys
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && e.key === 'r') {
-                    e.preventDefault();
-                    CacheManager.clear();
-                    EventManager.loadEvents();
+            document.getElementById('event-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('event-modal')) {
+                    document.getElementById('event-modal').classList.remove('active');
                 }
             });
             
-            // Inicializar tema escuro
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.body.classList.add('dark-mode');
-            }
-        });
+            // Tecla ESC para fechar modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.getElementById('event-modal').classList.remove('active');
+                }
+            });
+            
+            // Atualização automática
+            setInterval(loadEvents, 5 * 60 * 1000);
+            
+            // Online/offline
+            window.addEventListener('online', loadEvents);
+        }
 
-        // EXPORTAR PARA DEBUG
-        window.BGEventos = {
+        // ===== EXPORTAR PARA DEBUG =====
+        window.BGApp = {
             State,
-            EventManager,
-            CacheManager,
-            trackClick,
-            forceReload: () => {
-                CacheManager.clear();
-                EventManager.loadEvents();
-            }
+            loadEvents,
+            applyFilter,
+            showEventDetails,
+            i18n,
+            trackClick
         };
     </script>
 </body>
