@@ -4,175 +4,172 @@
 <meta charset="UTF-8">
 <title>BG Eventos & Hospedagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 :root {
-  --bg: #0f172a;
-  --card: #020617;
-  --text: #e5e7eb;
-  --accent: #38bdf8;
-  --gold: #facc15;
+  --bg:#0f172a; --card:#020617; --text:#e5e7eb;
+  --accent:#38bdf8; --gold:#facc15;
 }
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  margin:0; font-family:Arial,sans-serif;
+  background:var(--bg); color:var(--text);
 }
-header {
-  padding: 20px;
-  text-align: center;
+header { padding:20px; text-align:center; }
+form {
+  display:grid; gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  max-width:900px; margin:20px auto;
+}
+input,select,button {
+  padding:10px; border-radius:6px; border:none;
+}
+button {
+  background:var(--accent); cursor:pointer;
 }
 .filters {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+  display:flex; gap:10px; justify-content:center;
+  flex-wrap:wrap; margin:20px;
 }
 .filters button {
-  padding: 8px 14px;
-  border: none;
-  background: #1e293b;
-  color: white;
-  cursor: pointer;
+  background:#1e293b; color:white;
 }
 .filters button.active {
-  background: var(--accent);
-  color: black;
+  background:var(--accent); color:black;
 }
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
-  gap: 20px;
-  padding: 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:20px; padding:20px;
 }
 .card {
-  background: var(--card);
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  background:var(--card); border-radius:12px;
+  overflow:hidden; display:flex; flex-direction:column;
 }
 .card.destaque {
-  border: 2px solid var(--gold);
-  transform: scale(1.03);
+  border:2px solid var(--gold);
+  transform:scale(1.02);
 }
 .card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
+  width:100%; height:180px; object-fit:cover;
 }
-.card .content {
-  padding: 15px;
-  flex: 1;
-}
-.card h3 {
-  margin: 0 0 8px;
-}
-.card small {
-  opacity: 0.7;
-}
-.card a {
-  margin-top: 10px;
-  display: inline-block;
-  color: var(--accent);
-  text-decoration: none;
-}
-.empty {
-  text-align: center;
-  opacity: 0.6;
-  padding: 40px;
-}
+.content { padding:15px; }
+a { color:var(--accent); text-decoration:none; }
+.empty { text-align:center; opacity:.6; padding:40px; }
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>Eventos em Barra Grande – PI</h1>
-  <p>Agenda confirmada + onde se hospedar</p>
+<h1>Eventos e Hospedagem em Barra Grande – PI</h1>
+<p>Veja o que acontece no período da sua viagem</p>
 
-  <div class="filters">
-    <button class="active" data-cat="Todos">Todos</button>
-    <button data-cat="Show">Show</button>
-    <button data-cat="Festa">Festa</button>
-    <button data-cat="Esporte">Esporte</button>
-    <button data-cat="Gastronomia">Gastronomia</button>
-  </div>
+<form id="busca">
+  <input type="date" id="entrada" required>
+  <input type="date" id="saida" required>
+  <select id="adultos">
+    <option value="1">1 Adulto</option>
+    <option value="2" selected>2 Adultos</option>
+    <option value="3">3 Adultos</option>
+    <option value="4">4 Adultos</option>
+  </select>
+  <select id="criancas">
+    <option value="0" selected>0 Crianças</option>
+    <option value="1">1 Criança</option>
+    <option value="2">2 Crianças</option>
+  </select>
+  <button type="submit">Buscar</button>
+</form>
+
+<div class="filters">
+  <button class="active" data-cat="Todos">Todos</button>
+  <button data-cat="Show">Show</button>
+  <button data-cat="Festa">Festa</button>
+  <button data-cat="Esporte">Esporte</button>
+  <button data-cat="Gastronomia">Gastronomia</button>
+</div>
 </header>
 
-<div id="eventos" class="grid"></div>
+<div id="resultados" class="grid"></div>
 <div id="empty" class="empty" style="display:none;">
-  Nenhum evento encontrado para este filtro.
+Nenhum evento encontrado nesse período.
 </div>
 
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv";
-let eventosGlobais = [];
-let categoriaAtual = "Todos";
+const CSV =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv";
 
-fetch(CSV_URL)
-  .then(r => r.text())
-  .then(text => {
-    const linhas = text.split("\n").slice(1);
-    const hoje = new Date();
+let eventos=[], categoria="Todos";
 
-    eventosGlobais = linhas.map(l => {
-      const [id, nome, inicio, fim, desc, preco, hotel, ingresso, categoria, destaque] = l.split(",");
-      return {
-        id, nome, inicio, fim, desc,
-        hotel, ingresso,
-        categoria: categoria || "Outros",
-        destaque: destaque === "Sim",
-        dataFim: new Date(fim)
-      };
-    })
-    .filter(e => e.dataFim >= hoje)
-    .sort((a,b) => new Date(a.inicio) - new Date(b.inicio));
+fetch(CSV).then(r=>r.text()).then(text=>{
+  const linhas=text.split("\n").slice(1);
+  eventos=linhas.map(l=>{
+    const [id,nome,inicio,fim,desc,preco,hotel,ingresso,cat,dest] = l.split(",");
+    return {
+      id,nome,desc,hotel,ingresso,
+      inicio:new Date(inicio),
+      fim:new Date(fim),
+      categoria:cat||"Outros",
+      destaque:dest==="Sim"
+    };
+  });
+});
 
-    render();
+document.getElementById("busca").onsubmit=e=>{
+  e.preventDefault();
+  render();
+};
+
+function render(){
+  const ent=new Date(entrada.value);
+  const sai=new Date(saida.value);
+  const adultos=document.getElementById("adultos").value;
+  const criancas=document.getElementById("criancas").value;
+  const box=document.getElementById("resultados");
+  box.innerHTML="";
+
+  const filtrados=eventos.filter(e=>{
+    const dentro = e.inicio <= sai && e.fim >= ent;
+    const catOk = categoria==="Todos" || e.categoria===categoria;
+    return dentro && catOk;
   });
 
-function render() {
-  const container = document.getElementById("eventos");
-  const empty = document.getElementById("empty");
-  container.innerHTML = "";
+  document.getElementById("empty").style.display =
+    filtrados.length ? "none":"block";
 
-  const filtrados = eventosGlobais.filter(e =>
-    categoriaAtual === "Todos" || e.categoria === categoriaAtual
-  );
+  filtrados.forEach(e=>{
+    const c=document.createElement("div");
+    c.className="card"+(e.destaque?" destaque":"");
 
-  empty.style.display = filtrados.length ? "none" : "block";
+    const img=document.createElement("img");
+    img.loading="lazy";
+    img.src=`img/eventos/${e.id}.png`;
+    img.onerror=()=>{img.src=`img/eventos/${e.id}.jpg`;
+      img.onerror=()=>img.src="img/eventos/padrao-bg.png";};
 
-  filtrados.forEach(e => {
-    const card = document.createElement("div");
-    card.className = "card" + (e.destaque ? " destaque" : "");
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.src = `img/eventos/${e.id}.png`;
-    img.onerror = () => {
-      img.src = `img/eventos/${e.id}.jpg`;
-      img.onerror = () => img.src = "img/eventos/padrao-bg.png";
-    };
-
-    card.innerHTML = `
+    c.appendChild(img);
+    c.innerHTML+=`
       <div class="content">
         <h3>${e.nome}</h3>
-        <small>${e.inicio} → ${e.fim}</small>
+        <small>${e.inicio.toLocaleDateString()} → ${e.fim.toLocaleDateString()}</small>
         <p>${e.desc}</p>
-        ${e.ingresso ? `<a href="${e.ingresso}?utm_source=bg-eventos" target="_blank">🎟 Comprar ingresso</a>` : ""}
-        ${e.hotel ? `<a href="${e.hotel}?utm_source=bg-eventos" target="_blank">🏨 Ver hospedagem</a>` : ""}
-      </div>
-    `;
-    card.prepend(img);
-    container.appendChild(card);
+        ${e.ingresso?`<a target="_blank"
+          href="${e.ingresso}?utm_source=bg-eventos&utm_adultos=${adultos}&utm_criancas=${criancas}">
+          🎟 Ingresso</a><br>`:""}
+        ${e.hotel?`<a target="_blank"
+          href="${e.hotel}?utm_source=bg-eventos&utm_adultos=${adultos}&utm_criancas=${criancas}">
+          🏨 Onde ficar</a>`:""}
+      </div>`;
+    box.appendChild(c);
   });
 }
 
-document.querySelectorAll(".filters button").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    categoriaAtual = btn.dataset.cat;
+document.querySelectorAll(".filters button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".filters button")
+      .forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    categoria=b.dataset.cat;
     render();
   };
 });
