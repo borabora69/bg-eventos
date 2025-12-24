@@ -4,215 +4,45 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BG Eventos & Hospedagem — Barra Grande PI</title>
-  <meta name="description" content="Portal de eventos e hospedagem de Barra Grande PI. Eventos atualizados automaticamente via Google Sheets CSV." />
-
+  <meta name="description" content="Eventos e hospedagem em Barra Grande PI. Dados atualizados via Google Sheets (CSV público)." />
   <style>
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa4b2;
-      --accent:#06b6d4;
-      --gold:#e6b95a;
-      --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-      --gap:1rem;
-      --max-width:1100px;
-      --shadow: 0 6px 18px rgba(2,6,23,0.6);
-      --ff: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --bg:#071025; --card:#071827; --muted:#9aa4b2; --accent:#06b6d4; --gold:#e6b95a;
+      --radius:12px; --gap:1rem; --max-width:1100px; --ff:Inter,system-ui,Arial;
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--ff);
-      background:linear-gradient(180deg,#071025 0%,var(--bg) 100%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:2rem;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-    }
-
-    .wrap{
-      width:100%;
-      max-width:var(--max-width);
-      margin:0 auto;
-    }
-
-    header{
-      display:flex;
-      gap:1rem;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:1rem;
-    }
-
-    .brand{
-      display:flex;
-      gap:.75rem;
-      align-items:center;
-    }
-    .logo{
-      width:56px;
-      height:56px;
-      border-radius:10px;
-      background:linear-gradient(135deg,var(--accent),#7c3aed);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:#021025;
-      box-shadow:var(--shadow);
-    }
-    h1{font-size:1.1rem;margin:0}
+    body{margin:0;font-family:var(--ff);background:linear-gradient(180deg,#021025,var(--bg));color:#eaf6fb;padding:24px;display:flex;justify-content:center}
+    .wrap{width:100%;max-width:var(--max-width)}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021025}
+    h1{margin:0;font-size:1.05rem}
     .meta{color:var(--muted);font-size:.9rem}
-
-    .controls{
-      display:flex;
-      gap:.5rem;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,0.04);
-      color:var(--muted);
-      padding:.5rem .75rem;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-      transition:all .18s ease;
-    }
-    .btn:hover{transform:translateY(-2px); color:var(--accent)}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),#7c3aed); color:#021025; border:none}
-
-    .filters{
-      display:flex;
-      gap:.5rem;
-      align-items:center;
-    }
-
-    main{
-      margin-top:1rem;
-    }
-
-    .stats{
-      display:flex;
-      gap:1rem;
-      margin-bottom:1rem;
-      color:var(--muted);
-      font-size:.95rem;
-      align-items:center;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-      gap:var(--gap);
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,0.03);
-      display:flex;
-      flex-direction:column;
-      min-height:320px;
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.7)}
-
-    .media{
-      position:relative;
-      height:160px;
-      background:#021025;
-      display:block;
-      overflow:hidden;
-    }
+    nav{display:flex;gap:8px}
+    .tab{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;cursor:pointer;color:var(--muted);font-weight:700}
+    .tab.active{background:linear-gradient(90deg,var(--accent),#7c3aed);color:#021025;border:none}
+    main{margin-top:12px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+    .input{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer}
+    .btn.primary{background:var(--accent);color:#021025;border:none}
+    .status{color:var(--muted);font-size:.95rem;margin-bottom:8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap)}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(2,6,23,0.6);display:flex;flex-direction:column}
+    .media{height:160px;background:#021025;position:relative}
     .media img{width:100%;height:100%;object-fit:cover;display:block}
-
-    .card-body{
-      padding:1rem;
-      display:flex;
-      flex-direction:column;
-      gap:.5rem;
-      flex:1;
-    }
-
-    .title{
-      display:flex;
-      justify-content:space-between;
-      gap:.5rem;
-      align-items:flex-start;
-    }
-    .title h3{margin:0;font-size:1rem}
-    .title .tag{font-size:.8rem;color:var(--muted)}
-
-    .desc{color:var(--muted);font-size:.95rem;line-height:1.3;flex:1;overflow:hidden}
-    .meta-row{display:flex;justify-content:space-between;gap:.5rem;align-items:center;margin-top:.5rem}
-    .price{font-weight:700;color:var(--accent)}
-    .actions{display:flex;gap:.5rem}
-
-    .link{
-      text-decoration:none;
-      padding:.45rem .6rem;
-      border-radius:8px;
-      background:rgba(255,255,255,0.03);
-      color:var(--muted);
-      font-weight:700;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .link.primary{background:var(--accent); color:#021025; border:none}
-
-    /* Destaque */
-    .destaque{
-      border:2px solid var(--gold);
-      transform:scale(1.02);
-    }
-    .badge-destaque{
-      position:absolute;
-      right:10px;
-      top:10px;
-      background:linear-gradient(90deg,var(--gold),#ffd88a);
-      color:#021025;
-      padding:.35rem .6rem;
-      border-radius:999px;
-      font-weight:800;
-      font-size:.8rem;
-      box-shadow:0 6px 18px rgba(230,185,90,0.12);
-    }
-
-    /* Empty / error */
-    .empty{
-      padding:2rem;
-      text-align:center;
-      color:var(--muted);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,0.02);
-      border:1px dashed rgba(255,255,255,0.03);
-    }
-
-    footer{
-      margin-top:1.25rem;
-      color:var(--muted);
-      font-size:.9rem;
-      display:flex;
-      justify-content:space-between;
-      gap:1rem;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    @media (max-width:640px){
-      header{flex-direction:column;align-items:flex-start;gap:.75rem}
-      .controls{width:100%;justify-content:space-between}
-    }
+    .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+    .title-row h3{margin:0;font-size:1rem}
+    .desc{color:var(--muted);font-size:.95rem;line-height:1.3;min-height:48px}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.95rem;color:var(--muted)}
+    .link{display:inline-block;padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .link.primary{background:var(--accent);color:#021025;border:none}
+    .destaque{border:2px solid var(--gold);transform:scale(1.01)}
+    .badge{position:absolute;right:10px;top:10px;background:var(--gold);color:#021025;padding:6px 8px;border-radius:999px;font-weight:800}
+    .empty{padding:20px;border-radius:12px;background:rgba(255,255,255,0.02);color:var(--muted);text-align:center}
+    footer{margin-top:16px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    @media(max-width:640px){header{flex-direction:column;align-items:flex-start} .controls{width:100%;justify-content:space-between}}
   </style>
 </head>
 <body>
@@ -222,75 +52,74 @@
         <div class="logo" aria-hidden="true">BG</div>
         <div>
           <h1>BG Eventos & Hospedagem</h1>
-          <div class="meta">Barra Grande PI • Eventos atualizados automaticamente</div>
+          <div class="meta">Barra Grande PI • Dados via Google Sheets (CSV)</div>
         </div>
       </div>
 
-      <div class="controls" role="region" aria-label="Controles do site">
-        <div class="filters" id="categoryFilters" aria-hidden="false">
-          <button class="btn" data-cat="all">Todos</button>
-          <button class="btn" data-cat="Show">Show</button>
-          <button class="btn" data-cat="Esporte">Esporte</button>
-          <button class="btn" data-cat="Gastronomia">Gastronomia</button>
-        </div>
-        <button class="btn" id="refreshBtn" title="Recarregar eventos">Recarregar</button>
-      </div>
+      <nav role="tablist" aria-label="Navegação principal">
+        <button class="tab active" data-tab="eventos" id="tabEventos">Eventos</button>
+        <button class="tab" data-tab="hospedagem" id="tabHospedagem">Hospedagem</button>
+      </nav>
     </header>
 
     <main>
-      <div class="stats" aria-live="polite">
-        <div id="status">Carregando eventos...</div>
-        <div style="margin-left:auto" id="lastUpdated"></div>
+      <div class="controls" role="region" aria-label="Controles">
+        <label class="meta" style="margin-right:8px">Buscar por datas:</label>
+        <input class="input" type="date" id="dateFrom" aria-label="Data de ida">
+        <input class="input" type="date" id="dateTo" aria-label="Data de volta">
+        <label style="display:flex;align-items:center;gap:6px;color:var(--muted)">
+          <input type="checkbox" id="praiaOnly"> <span>Somente eventos na praia</span>
+        </label>
+        <button class="btn primary" id="searchBtn">Buscar</button>
+        <button class="btn" id="refreshBtn" title="Recarregar dados">Recarregar</button>
       </div>
 
-      <section id="eventsSection">
+      <div class="status" id="status">Carregando eventos...</div>
+
+      <section id="contentEventos">
         <div id="grid" class="grid" aria-live="polite"></div>
-        <div id="empty" class="empty" style="display:none">Nenhum evento ativo encontrado.</div>
+        <div id="empty" class="empty" style="display:none">Nenhum evento encontrado para os filtros selecionados.</div>
+      </section>
+
+      <section id="contentHospedagem" style="display:none">
+        <div id="hospedagemGrid" class="grid" aria-live="polite"></div>
+        <div id="emptyHosp" class="empty" style="display:none">Nenhuma hospedagem encontrada.</div>
       </section>
     </main>
 
     <footer>
-      <div>Atualizado automaticamente • Última atualização: <span id="footerUpdated">—</span></div>
-      <div class="meta">Hospedagem estática • Repositório: borabora69/bg-eventos</div>
+      <div>Última leitura: <span id="lastUpdated">—</span></div>
+      <div class="meta">Repositório: borabora69/bg-eventos • Deploy: main</div>
     </footer>
   </div>
 
   <script>
-  /* CONFIGURAÇÃO */
+  /* CONFIG */
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv';
   const IMAGE_PATH = 'img/eventos/';
   const DEFAULT_IMAGE = IMAGE_PATH + 'padrao-bg.png';
-  const CACHE_BUST = false; // true para forçar ?t= timestamp (usar só em debug)
-  const TRACKING_BEACON = ''; // opcional: URL de coleta de cliques se houver
+  const CACHE_BUST = false; // true para debug
+  const AUTO_REFRESH_MIN = 15; // minutos
 
-  /* UTILITÁRIOS */
+  /* UTIL */
   function sanitizeSlug(id){
     if(!id) return '';
-    return String(id)
-      .trim()
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g,'')
-      .replace(/[^a-z0-9\-]+/g,'-')
-      .replace(/^\-+|\-+$/g,'');
+    return String(id).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\-]+/g,'-').replace(/^\-+|\-+$/g,'');
   }
 
   function parseCSV(text){
-    // Parser simples que respeita aspas e vírgulas internas
+    // parser tolerante a aspas e vírgulas internas
     const rows = [];
     let cur = '', inQuotes = false, row = [];
     for(let i=0;i<text.length;i++){
-      const ch = text[i];
-      const nxt = text[i+1];
-      if(ch === '"' ){
+      const ch = text[i], nxt = text[i+1];
+      if(ch === '"'){
         if(inQuotes && nxt === '"'){ cur += '"'; i++; continue; }
-        inQuotes = !inQuotes;
-        continue;
+        inQuotes = !inQuotes; continue;
       }
       if(ch === ',' && !inQuotes){ row.push(cur); cur=''; continue; }
       if((ch === '\n' || ch === '\r') && !inQuotes){
         if(cur !== '' || row.length>0){ row.push(cur); rows.push(row); row=[]; cur=''; }
-        // handle \r\n
         if(ch === '\r' && nxt === '\n'){ i++; }
         continue;
       }
@@ -300,232 +129,191 @@
     return rows;
   }
 
-  function parseDateFlexible(value){
-    if(!value) return null;
-    value = value.trim();
-    // ISO first
-    const iso = new Date(value);
+  function parseDateFlexible(v){
+    if(!v) return null;
+    v = String(v).trim();
+    // ISO
+    const iso = new Date(v);
     if(!isNaN(iso)) return iso;
-    // Try DD/MM/YYYY or D/M/YYYY
-    const dmy = value.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
-    if(dmy){
-      const [_, dd, mm, yyyy] = dmy;
-      return new Date(Number(yyyy), Number(mm)-1, Number(dd));
-    }
-    // Try MM/DD/YYYY fallback
-    const mdy = value.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
-    if(mdy){
-      const [_, mm, dd, yyyy] = mdy;
-      return new Date(Number(yyyy), Number(mm)-1, Number(dd));
-    }
+    // DD/MM/YYYY
+    const dmy = v.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    if(dmy){ return new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1])); }
     return null;
   }
 
   function setImageWithFallback(imgEl, id){
     const slug = sanitizeSlug(id);
-    const tryList = [
-      IMAGE_PATH + slug + '.png',
-      IMAGE_PATH + slug + '.jpg',
-      DEFAULT_IMAGE
-    ];
-    let idx = 0;
-    imgEl.src = tryList[idx];
-    imgEl.onerror = () => {
-      idx++;
-      if(idx < tryList.length){
-        imgEl.src = tryList[idx];
-      } else {
-        imgEl.onerror = null;
-      }
-    };
+    const tries = [IMAGE_PATH + slug + '.png', IMAGE_PATH + slug + '.jpg', DEFAULT_IMAGE];
+    let i = 0;
+    imgEl.src = tries[i];
+    imgEl.onerror = () => { i++; if(i < tries.length) imgEl.src = tries[i]; else imgEl.onerror = null; };
   }
 
-  function buildAffiliateUrl(url, id){
-    if(!url) return '';
-    try{
-      const u = new URL(url);
-      u.searchParams.set('utm_source','bg-site');
-      u.searchParams.set('utm_medium','affiliate');
-      u.searchParams.set('utm_campaign', id || 'evento');
-      return u.toString();
-    }catch(e){
-      // se não for URL válida, retorne original
-      return url;
-    }
+  function overlaps(rangeA, rangeB){
+    // range: {from:Date, to:Date}
+    if(!rangeA || !rangeB) return false;
+    const aFrom = rangeA.from ? rangeA.from.getTime() : -Infinity;
+    const aTo = rangeA.to ? rangeA.to.getTime() : Infinity;
+    const bFrom = rangeB.from ? rangeB.from.getTime() : -Infinity;
+    const bTo = rangeB.to ? rangeB.to.getTime() : Infinity;
+    return (aFrom <= bTo) && (bFrom <= aTo);
+  }
+
+  /* STATE */
+  let RAW = [];
+  let EVENTS = [];
+  let HOSPEDAGENS = [];
+
+  /* UI refs */
+  const statusEl = document.getElementById('status');
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const hospedGrid = document.getElementById('hospedagemGrid');
+  const emptyHosp = document.getElementById('emptyHosp');
+  const lastUpdated = document.getElementById('lastUpdated');
+
+  /* TABS */
+  document.getElementById('tabEventos').addEventListener('click', () => switchTab('eventos'));
+  document.getElementById('tabHospedagem').addEventListener('click', () => switchTab('hospedagem'));
+  function switchTab(tab){
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    document.getElementById('contentEventos').style.display = tab === 'eventos' ? '' : 'none';
+    document.getElementById('contentHospedagem').style.display = tab === 'hospedagem' ? '' : 'none';
+  }
+
+  /* SEARCH */
+  document.getElementById('searchBtn').addEventListener('click', applyFilters);
+  document.getElementById('refreshBtn').addEventListener('click', () => loadData(true));
+
+  function applyFilters(){
+    const fromVal = document.getElementById('dateFrom').value;
+    const toVal = document.getElementById('dateTo').value;
+    const praiaOnly = document.getElementById('praiaOnly').checked;
+
+    const userRange = {
+      from: fromVal ? new Date(fromVal) : null,
+      to: toVal ? new Date(toVal) : null
+    };
+
+    // Eventos: must overlap with userRange (if provided). If no dates provided, show all active events.
+    const filtered = EVENTS.filter(ev => {
+      // if praiaOnly, require 'praia' in description or Praia column
+      if(praiaOnly){
+        const desc = (ev.Descricao || '').toLowerCase();
+        const praiaFlag = (ev.Praia || '').toLowerCase();
+        if(!(desc.includes('praia') || praiaFlag === 'x' || praiaFlag === 'sim')) return false;
+      }
+      if(!userRange.from && !userRange.to) return true;
+      const evRange = { from: ev.Inicio || null, to: ev.Fim || null };
+      return overlaps(evRange, userRange);
+    });
+
+    renderEvents(filtered);
   }
 
   /* RENDER */
-  const grid = document.getElementById('grid');
-  const status = document.getElementById('status');
-  const lastUpdated = document.getElementById('lastUpdated');
-  const footerUpdated = document.getElementById('footerUpdated');
-  const empty = document.getElementById('empty');
-
-  let EVENTS = [];
-  let CATEGORIES = new Set();
-  let ACTIVE_CATEGORY = 'all';
-
   function renderEvents(list){
     grid.innerHTML = '';
     if(!list || list.length === 0){
       empty.style.display = 'block';
-      status.textContent = 'Nenhum evento ativo encontrado.';
+      statusEl.textContent = 'Nenhum evento encontrado';
       return;
     }
     empty.style.display = 'none';
-    status.textContent = `${list.length} evento(s) ativo(s)`;
+    statusEl.textContent = `${list.length} evento(s)`;
+
     list.forEach(ev => {
       const card = document.createElement('article');
       card.className = 'card';
-      if(ev.Destaque && String(ev.Destaque).toLowerCase() === 'x'){
-        card.classList.add('destaque');
-      }
+      if((ev.Destaque || '').toString().toLowerCase() === 'x') card.classList.add('destaque');
 
-      const media = document.createElement('div');
-      media.className = 'media';
-      const img = document.createElement('img');
-      img.alt = ev.Nome || 'Imagem do evento';
-      img.loading = 'lazy';
+      const media = document.createElement('div'); media.className = 'media';
+      const img = document.createElement('img'); img.alt = ev.Nome || 'Evento'; img.loading = 'lazy';
       setImageWithFallback(img, ev.ID);
       media.appendChild(img);
-
-      if(ev.Destaque && String(ev.Destaque).toLowerCase() === 'x'){
-        const badge = document.createElement('div');
-        badge.className = 'badge-destaque';
-        badge.textContent = 'DESTAQUE';
-        media.appendChild(badge);
+      if((ev.Destaque || '').toString().toLowerCase() === 'x'){
+        const b = document.createElement('div'); b.className = 'badge'; b.textContent = 'DESTAQUE'; media.appendChild(b);
       }
 
-      const body = document.createElement('div');
-      body.className = 'card-body';
-
-      const titleRow = document.createElement('div');
-      titleRow.className = 'title';
-      const h3 = document.createElement('h3');
-      h3.textContent = ev.Nome || 'Evento sem nome';
-      const tag = document.createElement('div');
-      tag.className = 'tag';
-      tag.textContent = ev.Categoria || '';
+      const body = document.createElement('div'); body.className = 'card-body';
+      const titleRow = document.createElement('div'); titleRow.className = 'title-row';
+      const h3 = document.createElement('h3'); h3.textContent = ev.Nome || 'Evento';
       titleRow.appendChild(h3);
-      titleRow.appendChild(tag);
 
-      const desc = document.createElement('div');
-      desc.className = 'desc';
-      desc.textContent = ev.Descricao || '';
-
-      const metaRow = document.createElement('div');
-      metaRow.className = 'meta-row';
+      const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = ev.Descricao || '';
+      const metaRow = document.createElement('div'); metaRow.className = 'meta-row';
       const dates = document.createElement('div');
-      const inicio = ev.Inicio ? new Date(ev.Inicio).toLocaleDateString() : '—';
-      const fim = ev.Fim ? new Date(ev.Fim).toLocaleDateString() : '—';
+      const inicio = ev.Inicio ? ev.Inicio.toLocaleDateString() : '—';
+      const fim = ev.Fim ? ev.Fim.toLocaleDateString() : '—';
       dates.textContent = `${inicio} → ${fim}`;
-
-      const price = document.createElement('div');
-      price.className = 'price';
-      price.textContent = ev.Preco_Hotel ? `R$ ${ev.Preco_Hotel}` : 'Preço sob consulta';
-
-      metaRow.appendChild(dates);
-      metaRow.appendChild(price);
+      const price = document.createElement('div'); price.textContent = ev.Preco_Hotel ? `R$ ${ev.Preco_Hotel}` : 'Preço sob consulta';
+      metaRow.appendChild(dates); metaRow.appendChild(price);
 
       const actions = document.createElement('div');
-      actions.className = 'actions';
-      const hotelLink = document.createElement('a');
-      hotelLink.className = 'link';
-      hotelLink.href = buildAffiliateUrl(ev.Link_Hotel, ev.ID);
-      hotelLink.target = '_blank';
-      hotelLink.rel = 'noopener noreferrer';
-      hotelLink.textContent = 'Reservar Hotel';
-      hotelLink.addEventListener('click', affiliateClickHandler(ev.ID, hotelLink.href));
+      const hotel = document.createElement('a'); hotel.className = 'link primary'; hotel.textContent = 'Ver hospedagem';
+      hotel.href = ev.Link_Hotel ? ev.Link_Hotel : '#'; hotel.target = '_blank'; hotel.rel = 'noopener noreferrer';
+      actions.appendChild(hotel);
 
-      const ingressoLink = document.createElement('a');
-      ingressoLink.className = 'link primary';
-      ingressoLink.href = buildAffiliateUrl(ev.Link_Ingresso, ev.ID);
-      ingressoLink.target = '_blank';
-      ingressoLink.rel = 'noopener noreferrer';
-      ingressoLink.textContent = 'Comprar Ingresso';
-      ingressoLink.addEventListener('click', affiliateClickHandler(ev.ID, ingressoLink.href));
-
-      actions.appendChild(hotelLink);
-      actions.appendChild(ingressoLink);
-
-      body.appendChild(titleRow);
-      body.appendChild(desc);
-      body.appendChild(metaRow);
-      body.appendChild(actions);
-
-      card.appendChild(media);
-      card.appendChild(body);
+      body.appendChild(titleRow); body.appendChild(desc); body.appendChild(metaRow); body.appendChild(actions);
+      card.appendChild(media); card.appendChild(body);
       grid.appendChild(card);
     });
   }
 
-  function affiliateClickHandler(id, url){
-    return function(e){
-      // envia beacon se configurado
-      try{
-        const payload = JSON.stringify({event:'affiliate_click', id, url, ts: Date.now()});
-        if(TRACKING_BEACON){
-          navigator.sendBeacon(TRACKING_BEACON, payload);
-        } else {
-          // fallback local: increment counter in localStorage
-          const key = 'bg_clicks_' + (id || 'unknown');
-          const prev = Number(localStorage.getItem(key) || 0);
-          localStorage.setItem(key, prev + 1);
-        }
-      }catch(err){
-        console.error('tracking error', err);
-      }
-      // allow navigation to proceed
-    };
+  function renderHospedagem(list){
+    hospedGrid.innerHTML = '';
+    if(!list || list.length === 0){
+      emptyHosp.style.display = 'block';
+      return;
+    }
+    emptyHosp.style.display = 'none';
+    list.forEach(h => {
+      const card = document.createElement('article'); card.className = 'card';
+      const media = document.createElement('div'); media.className = 'media';
+      const img = document.createElement('img'); img.alt = h.Nome || 'Hospedagem'; img.loading = 'lazy';
+      setImageWithFallback(img, h.ID || h.Slug || h.Nome);
+      media.appendChild(img);
+      const body = document.createElement('div'); body.className = 'card-body';
+      const titleRow = document.createElement('div'); titleRow.className = 'title-row';
+      const h3 = document.createElement('h3'); h3.textContent = h.Nome || 'Hospedagem';
+      titleRow.appendChild(h3);
+      const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = h.Descricao || h.Observacoes || '';
+      const metaRow = document.createElement('div'); metaRow.className = 'meta-row';
+      const price = document.createElement('div'); price.textContent = h.Preco_Hotel ? `R$ ${h.Preco_Hotel}` : 'Preço sob consulta';
+      const link = document.createElement('a'); link.className = 'link primary'; link.textContent = 'Reservar';
+      link.href = h.Link_Hotel || '#'; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      metaRow.appendChild(price); metaRow.appendChild(link);
+      body.appendChild(titleRow); body.appendChild(desc); body.appendChild(metaRow);
+      card.appendChild(media); card.appendChild(body);
+      hospedGrid.appendChild(card);
+    });
   }
 
-  /* FILTROS */
-  function applyCategoryFilter(cat){
-    ACTIVE_CATEGORY = cat || 'all';
-    document.querySelectorAll('#categoryFilters .btn').forEach(b => {
-      b.classList.toggle('primary', b.dataset.cat === ACTIVE_CATEGORY);
-    });
-    const filtered = EVENTS.filter(ev => {
-      if(ACTIVE_CATEGORY === 'all') return true;
-      return (ev.Categoria || '').toLowerCase() === ACTIVE_CATEGORY.toLowerCase();
-    });
-    renderEvents(filtered);
-  }
-
-  document.getElementById('categoryFilters').addEventListener('click', (ev) => {
-    const btn = ev.target.closest('button[data-cat]');
-    if(!btn) return;
-    applyCategoryFilter(btn.dataset.cat);
-  });
-
-  document.getElementById('refreshBtn').addEventListener('click', () => {
-    loadEvents(true);
-  });
-
-  /* FETCH E PROCESSAMENTO */
-  async function loadEvents(force=false){
+  /* LOAD CSV */
+  async function loadData(force=false){
     try{
-      status.textContent = 'Carregando eventos...';
+      statusEl.textContent = 'Carregando dados...';
       const url = CSV_URL + (CACHE_BUST || force ? `?t=${Date.now()}` : '');
       const res = await fetch(url, {cache: 'no-cache'});
       if(!res.ok) throw new Error('Falha ao buscar CSV: ' + res.status);
       const text = await res.text();
-      if(!text || text.trim().length === 0) throw new Error('CSV vazio');
+      if(!text || !text.trim()) throw new Error('CSV vazio');
       const rows = parseCSV(text);
       if(rows.length < 2) throw new Error('CSV sem dados');
+
       const headers = rows[0].map(h => h.trim());
       const data = rows.slice(1).map(r => {
         const obj = {};
-        for(let i=0;i<headers.length;i++){
-          obj[headers[i]] = (r[i] || '').trim();
-        }
+        for(let i=0;i<headers.length;i++) obj[headers[i]] = (r[i] || '').trim();
         return obj;
       });
 
-      // Normalize fields and detect optional columns
+      RAW = data;
+
+      // Map to EVENTS and HOSPEDAGENS
       EVENTS = data.map(row => {
-        const ev = {
-          ID: row.ID || row.id || row.Slug || '',
+        return {
+          ID: row.ID || row.Slug || row.id || '',
           Nome: row.Nome || row.Name || '',
           Inicio: parseDateFlexible(row.Inicio || row.start || ''),
           Fim: parseDateFlexible(row.Fim || row.end || ''),
@@ -534,73 +322,46 @@
           Link_Hotel: row.Link_Hotel || row.LinkHotel || '',
           Link_Ingresso: row.Link_Ingresso || row.LinkIngresso || row.Link || '',
           Categoria: row.Categoria || row.Category || '',
-          Destaque: row.Destaque || row.Destaque || ''
+          Destaque: row.Destaque || row.Destaque || '',
+          Praia: row.Praia || row.Local || ''
         };
-        // fallback: infer category from description if missing
-        if(!ev.Categoria){
-          const d = (ev.Descricao || '').toLowerCase();
-          if(d.includes('show') || d.includes('música') || d.includes('banda')) ev.Categoria = 'Show';
-          else if(d.includes('futebol') || d.includes('corrida') || d.includes('esporte')) ev.Categoria = 'Esporte';
-          else if(d.includes('gastronomia') || d.includes('degustação') || d.includes('chef')) ev.Categoria = 'Gastronomia';
-          else ev.Categoria = 'Outros';
-        }
-        // collect categories
-        CATEGORIES.add(ev.Categoria);
-        return ev;
       });
 
-      // Filter out past events by Fim date
-      const today = new Date();
-      const active = EVENTS.filter(ev => {
-        if(!ev.Fim) return true; // keep if no end date
-        return ev.Fim >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      // Hospedagem: derive from same sheet or separate rows flagged (heuristic: Link_Hotel present)
+      HOSPEDAGENS = EVENTS.filter(e => e.Link_Hotel && e.Link_Hotel.trim() !== '');
+
+      // Keep only future/ongoing events (hands-off)
+      const today = new Date(); today.setHours(0,0,0,0);
+      EVENTS = EVENTS.filter(ev => {
+        if(!ev.Fim && !ev.Inicio) return true;
+        if(ev.Fim && ev.Fim < today) return false;
+        return true;
       });
 
-      // Sort by Inicio asc
-      active.sort((a,b) => {
-        const A = a.Inicio ? a.Inicio.getTime() : 0;
-        const B = b.Inicio ? b.Inicio.getTime() : 0;
-        return A - B;
-      });
+      // Sort by Inicio
+      EVENTS.sort((a,b) => (a.Inicio ? a.Inicio.getTime() : 0) - (b.Inicio ? b.Inicio.getTime() : 0));
 
       // Update UI
       const now = new Date();
-      lastUpdated.textContent = `Última verificação: ${now.toLocaleString()}`;
-      footerUpdated.textContent = now.toLocaleString();
+      lastUpdated.textContent = now.toLocaleString();
+      statusEl.textContent = `${EVENTS.length} evento(s) carregado(s)`;
 
-      EVENTS = active;
-      // update category buttons dynamically if new categories found
-      updateCategoryButtons();
-      applyCategoryFilter(ACTIVE_CATEGORY);
+      // initial render
+      renderEvents(EVENTS);
+      renderHospedagem(HOSPEDAGENS);
     }catch(err){
       console.error(err);
-      status.textContent = 'Erro ao carregar eventos';
+      statusEl.textContent = 'Erro ao carregar dados. Ver console.';
       grid.innerHTML = '';
-      empty.style.display = 'block';
-      empty.textContent = 'Erro ao carregar eventos. Verifique o CSV público e o console para detalhes.';
+      hospedGrid.innerHTML = '';
+      document.getElementById('empty').style.display = 'block';
+      document.getElementById('empty').textContent = 'Erro ao carregar CSV público. Verifique o link e o console.';
     }
   }
 
-  function updateCategoryButtons(){
-    const container = document.getElementById('categoryFilters');
-    // keep default buttons, add any missing categories
-    const existing = Array.from(container.querySelectorAll('button[data-cat]')).map(b => b.dataset.cat);
-    CATEGORIES.forEach(cat => {
-      if(!existing.includes(cat)){
-        const btn = document.createElement('button');
-        btn.className = 'btn';
-        btn.dataset.cat = cat;
-        btn.textContent = cat;
-        container.appendChild(btn);
-      }
-    });
-  }
-
-  // Inicialização
-  loadEvents();
-
-  // Auto refresh a cada 15 minutos para hands-off operation
-  setInterval(() => loadEvents(false), 15 * 60 * 1000);
+  // init
+  loadData();
+  setInterval(() => loadData(false), AUTO_REFRESH_MIN * 60 * 1000);
   </script>
 </body>
 </html>
