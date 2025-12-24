@@ -1,235 +1,182 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BG Eventos & Hospedagem | Barra Grande - PI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            /* Paleta de Cores Renovada */
-            --primary: #0ea5e9; /* Azul mais vibrante */
-            --secondary: #0284c7;
-            --accent: #f59e0b; /* Laranja/Dourado para destaque */
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        /* Header Hero Section */
-        header {
-            /* Imagem de fundo para dar clima de praia */
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('img/eventos/padrao-bg.png');
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            padding: 80px 20px;
-            border-bottom: 3px solid var(--accent);
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin: 0;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        header h1 span { color: var(--primary); }
-        header p { font-size: 1.2rem; color: var(--text-gray); margin-top: 10px; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-
-        /* Grid de Eventos */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        /* Design do Card */
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-
-        .img-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* Proporção 16:9 para ficar retangular bonito */
-            background: #000;
-        }
-
-        .card img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
-
-        /* Badges e Datas */
-        .top-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .badge {
-            background: var(--accent);
-            color: var(--dark-bg);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .date { color: var(--primary); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-
-        .card h3 { margin: 0 0 10px 0; font-size: 1.5rem; line-height: 1.3; }
-        .card p.desc { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1; }
-
-        /* Botões */
-        .btn-group { display: flex; gap: 12px; }
-        .btn {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-ticket { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; }
-        .btn-ticket:hover { opacity: 0.9; transform: scale(1.02); }
-        .btn-hotel { background: transparent; border: 2px solid var(--card-bg); color: var(--text-light); background: rgba(255,255,255,0.05); }
-        .btn-hotel:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
-
-        /* Loader */
-        #loader { grid-column: 1 / -1; text-align: center; padding: 60px; font-size: 1.5rem; color: var(--primary); }
-    </style>
+<meta charset="UTF-8">
+<title>BG Eventos & Hospedagem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #020617;
+  --text: #e5e7eb;
+  --accent: #38bdf8;
+  --gold: #facc15;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  padding: 20px;
+  text-align: center;
+}
+.filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.filters button {
+  padding: 8px 14px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+}
+.filters button.active {
+  background: var(--accent);
+  color: black;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card.destaque {
+  border: 2px solid var(--gold);
+  transform: scale(1.03);
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.card .content {
+  padding: 15px;
+  flex: 1;
+}
+.card h3 {
+  margin: 0 0 8px;
+}
+.card small {
+  opacity: 0.7;
+}
+.card a {
+  margin-top: 10px;
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+}
+.empty {
+  text-align: center;
+  opacity: 0.6;
+  padding: 40px;
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>BG <span>Eventos</span></h1>
-            <p>Sua agenda definitiva de Barra Grande e região</p>
-        </div>
-    </header>
+<header>
+  <h1>Eventos em Barra Grande – PI</h1>
+  <p>Agenda confirmada + onde se hospedar</p>
 
-    <main class="container">
-        <div id="events-grid" class="events-grid">
-            <div id="loader"><i class="fas fa-circle-notch fa-spin"></i> Carregando experiências...</div>
-        </div>
-    </main>
+  <div class="filters">
+    <button class="active" data-cat="Todos">Todos</button>
+    <button data-cat="Show">Show</button>
+    <button data-cat="Festa">Festa</button>
+    <button data-cat="Esporte">Esporte</button>
+    <button data-cat="Gastronomia">Gastronomia</button>
+  </div>
+</header>
 
-    <script>
-        // --- CONFIGURAÇÕES ---
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv';
-        const IMG_PATH = 'img/eventos/';
-        // AQUI ESTÁ A CORREÇÃO PARA O SEU PNG:
-        const DEFAULT_IMG = 'img/eventos/padrao-bg.png'; 
+<div id="eventos" class="grid"></div>
+<div id="empty" class="empty" style="display:none;">
+  Nenhum evento encontrado para este filtro.
+</div>
 
-        async function init() {
-            try {
-                const response = await fetch(CSV_URL);
-                const data = await response.text();
-                
-                // Parse do CSV (lógica simples)
-                const rows = data.split('\n').slice(1); 
-                const events = rows.map(row => {
-                    // Usa regex para tentar lidar melhor com vírgulas dentro de aspas, se houver
-                    const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-                    return {
-                        id: cols[0]?.replace(/"/g, '').trim(),
-                        nome: cols[1]?.replace(/"/g, '').trim(),
-                        inicio: cols[2]?.trim(),
-                        fim: cols[3]?.trim(),
-                        desc: cols[4]?.replace(/"/g, '').trim(),
-                        hotel_link: cols[6]?.replace(/"/g, '').trim(),
-                        ticket_link: cols[7]?.replace(/"/g, '').trim()
-                    };
-                }).filter(ev => ev.id && ev.nome); // Filtra linhas vazias ou inválidas
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv";
+let eventosGlobais = [];
+let categoriaAtual = "Todos";
 
-                render(events);
-            } catch (err) {
-                document.getElementById('events-grid').innerHTML = 
-                    "<p style='text-align:center; grid-column: 1/-1; padding: 40px;'>Erro ao conectar com a agenda. Tente recarregar.</p>";
-                console.error(err);
-            }
-        }
+fetch(CSV_URL)
+  .then(r => r.text())
+  .then(text => {
+    const linhas = text.split("\n").slice(1);
+    const hoje = new Date();
 
-        function render(events) {
-            const grid = document.getElementById('events-grid');
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+    eventosGlobais = linhas.map(l => {
+      const [id, nome, inicio, fim, desc, preco, hotel, ingresso, categoria, destaque] = l.split(",");
+      return {
+        id, nome, inicio, fim, desc,
+        hotel, ingresso,
+        categoria: categoria || "Outros",
+        destaque: destaque === "Sim",
+        dataFim: new Date(fim)
+      };
+    })
+    .filter(e => e.dataFim >= hoje)
+    .sort((a,b) => new Date(a.inicio) - new Date(b.inicio));
 
-            // Filtro Automático: Remove eventos passados
-            const activeEvents = events.filter(ev => {
-                if (!ev.fim) return false;
-                const endDate = new Date(ev.fim); 
-                return endDate >= today;
-            });
+    render();
+  });
 
-            if (activeEvents.length === 0) {
-                grid.innerHTML = "<p style='text-align:center; grid-column: 1/-1; font-size: 1.2rem; padding: 40px;'>Nenhum evento programado para os próximos dias.</p>";
-                return;
-            }
+function render() {
+  const container = document.getElementById("eventos");
+  const empty = document.getElementById("empty");
+  container.innerHTML = "";
 
-            grid.innerHTML = activeEvents.map(ev => `
-                <div class="card">
-                    <div class="img-container">
-                        <img src="${IMG_PATH}${ev.id}.png" 
-                             loading="lazy"
-                             alt="Foto do evento ${ev.nome}"
-                             onerror="this.onerror=null; this.src='${IMG_PATH}${ev.id}.jpg'; this.setAttribute('onerror', 'this.src=\'${DEFAULT_IMG}\'')">
-                    </div>
-                    <div class="content">
-                        <div class="top-info">
-                            <span class="date"><i class="far fa-calendar-alt"></i> ${ev.inicio}</span>
-                            <div class="badge">Confirmado</div>
-                        </div>
-                        <h3>${ev.nome}</h3>
-                        <p class="desc">${ev.desc || 'Confira os detalhes e garanta sua presença neste evento incrível em Barra Grande.'}</p>
-                        <div class="btn-group">
-                            <a href="${ev.ticket_link}" class="btn btn-ticket" target="_blank">
-                                <i class="fas fa-ticket-alt"></i> Ingressos
-                            </a>
-                            <a href="${ev.hotel_link || '#'}" class="btn btn-hotel" target="_blank">
-                                <i class="fas fa-bed"></i> Hospedagem
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
+  const filtrados = eventosGlobais.filter(e =>
+    categoriaAtual === "Todos" || e.categoria === categoriaAtual
+  );
 
-        // Inicia o site
-        init();
-    </script>
+  empty.style.display = filtrados.length ? "none" : "block";
+
+  filtrados.forEach(e => {
+    const card = document.createElement("div");
+    card.className = "card" + (e.destaque ? " destaque" : "");
+
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.src = `img/eventos/${e.id}.png`;
+    img.onerror = () => {
+      img.src = `img/eventos/${e.id}.jpg`;
+      img.onerror = () => img.src = "img/eventos/padrao-bg.png";
+    };
+
+    card.innerHTML = `
+      <div class="content">
+        <h3>${e.nome}</h3>
+        <small>${e.inicio} → ${e.fim}</small>
+        <p>${e.desc}</p>
+        ${e.ingresso ? `<a href="${e.ingresso}?utm_source=bg-eventos" target="_blank">🎟 Comprar ingresso</a>` : ""}
+        ${e.hotel ? `<a href="${e.hotel}?utm_source=bg-eventos" target="_blank">🏨 Ver hospedagem</a>` : ""}
+      </div>
+    `;
+    card.prepend(img);
+    container.appendChild(card);
+  });
+}
+
+document.querySelectorAll(".filters button").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    categoriaAtual = btn.dataset.cat;
+    render();
+  };
+});
+</script>
+
 </body>
 </html>
