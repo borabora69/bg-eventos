@@ -3,177 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra Grande - Eventos & Pousadas</title>
+    <title>Barra Grande - Guia Oficial</title>
     <style>
-        /* ESTILO VISUAL LIMPO E RESPONSIVO */
         :root {
-            --primary: #0F172A; --secondary: #14B8A6; --accent: #F97316;
-            --bg: #F1F5F9; --card-bg: #FFFFFF; --text: #334155;
+            --primary: #0f172a;
+            --secondary: #0ea5e9;
+            --accent: #22c55e; /* Verde para botão de consulta */
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 40px; }
         
-        /* Header */
-        header { background: var(--primary); color: white; padding: 2rem 1rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h1 { margin: 0; font-size: 1.8rem; }
-        p.subtitle { opacity: 0.8; margin-top: 5px; font-size: 0.9rem; }
+        * { box-sizing: border-box; outline: none; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 60px; }
+        
+        /* HEADER */
+        header { background: var(--primary); color: white; padding: 2.5rem 1rem; text-align: center; }
+        h1 { margin: 0; font-size: 2rem; }
+        p.subtitle { margin-top: 5px; opacity: 0.8; }
 
-        /* Navegação (Abas) */
-        .nav-container { display: flex; justify-content: center; gap: 10px; margin: -20px auto 30px; padding: 0 1rem; }
+        /* NAVEGAÇÃO */
+        .nav-container { display: flex; justify-content: center; gap: 15px; margin: -25px auto 40px; padding: 0 1rem; position: relative; z-index: 10; }
         .tab-btn {
-            background: white; border: none; padding: 12px 24px; border-radius: 30px;
-            font-weight: bold; color: var(--text); cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s;
+            padding: 12px 30px; border: none; border-radius: 50px; cursor: pointer;
+            font-weight: 700; background: white; color: var(--text);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s;
         }
-        .tab-btn.active { background: var(--secondary); color: white; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(20, 184, 166, 0.3); }
+        .tab-btn.active { background: var(--secondary); color: white; transform: scale(1.05); }
 
-        /* Grid de Cards */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; display: none; }
-        .grid.active { display: grid; }
+        /* GRID */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .grid { display: none; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .grid.active { display: grid; animation: fadeIn 0.5s; }
 
-        /* Card Design */
-        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-3px); }
-        
-        .card-img-area { height: 200px; background: #e2e8f0; position: relative; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .card-img { width: 100%; height: 200px; object-fit: cover; background: #cbd5e1; }
         
         .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .badge { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        
-        .card-title { margin: 0 0 10px; font-size: 1.2rem; color: var(--primary); }
-        .card-desc { font-size: 0.9rem; line-height: 1.5; color: #64748b; margin-bottom: 20px; flex-grow: 1; }
-        
-        .btn-action { display: block; text-align: center; background: var(--accent); color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; transition: 0.2s; }
-        .btn-action:hover { background: #ea580c; }
+        .tag { display: inline-block; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+        .tag-event { background: #e0f2fe; color: #0284c7; }
+        .tag-hotel { background: #dcfce7; color: #166534; }
 
-        /* Mensagens de Erro/Carregamento */
-        .status-msg { text-align: center; padding: 40px; font-size: 1.1rem; color: #64748b; grid-column: 1/-1; }
-        .error { color: #ef4444; background: #fee2e2; padding: 15px; border-radius: 8px; display: inline-block; margin-top: 20px; }
+        .card-title { margin: 0 0 10px; font-size: 1.25rem; color: var(--primary); }
+        .card-desc { font-size: 0.95rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+
+        /* BOTÕES */
+        .btn-link {
+            display: block; width: 100%; padding: 12px; text-align: center; text-decoration: none;
+            border-radius: 8px; font-weight: bold; transition: 0.2s; margin-top: auto;
+        }
+        .btn-consult { background: var(--accent); color: white; }
+        .btn-consult:hover { background: #15803d; }
+        
+        .btn-ticket { background: var(--primary); color: white; }
+        .btn-ticket:hover { opacity: 0.9; }
+
+        /* STATUS */
+        #status { text-align: center; padding: 2rem; color: #64748b; font-weight: 500; }
+        .error-box { background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; display: inline-block; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Barra Grande Oficial</h1>
-    <p class="subtitle">Guia de Eventos e Hospedagem</p>
+    <p class="subtitle">O melhor do litoral piauiense</p>
 </header>
 
 <div class="nav-container">
-    <button class="tab-btn active" onclick="showTab('eventos')">🎉 Eventos</button>
-    <button class="tab-btn" onclick="showTab('hospedagem')">🏨 Hospedagem</button>
+    <button class="tab-btn active" onclick="switchTab('eventos')">🎉 Eventos</button>
+    <button class="tab-btn" onclick="switchTab('hospedagem')">🏨 Hospedagem</button>
 </div>
 
-<main class="container">
-    <div id="status" class="status-msg">Carregando dados...</div>
+<div class="container">
+    <div id="status">Carregando informações...</div>
 
     <div id="grid-eventos" class="grid active"></div>
 
     <div id="grid-hospedagem" class="grid"></div>
-</main>
+</div>
 
 <script>
-    // CONFIGURAÇÃO - Seus IDs da Planilha
+    // SEUS DADOS DA PLANILHA
     const SHEET_ID = '1o_d3QeEJ-J2AosAtTT5YwlmBArCg7fbvGKXcsfWORgk';
-    const GID_EVENTOS = '0';           // Aba 1
-    const GID_HOSPEDAGEM = '1482987288'; // Aba 2 (Verificado nos seus prints)
+    const GID_EVENTOS = '0';
+    const GID_HOSPEDAGEM = '1482987288';
 
-    async function init() {
+    async function loadData() {
         try {
-            const [eventosData, hospedagemData] = await Promise.all([
-                fetchData(GID_EVENTOS),
-                fetchData(GID_HOSPEDAGEM)
+            // Adicionei um parâmetro de tempo (&t=...) para evitar cache antigo
+            const timestamp = new Date().getTime();
+            
+            const [events, stays] = await Promise.all([
+                fetchSheet(GID_EVENTOS, timestamp),
+                fetchSheet(GID_HOSPEDAGEM, timestamp)
             ]);
 
-            renderEventos(eventosData);
-            renderHospedagem(hospedagemData);
-            
+            renderEvents(events);
+            renderStays(stays);
             document.getElementById('status').style.display = 'none';
-        } catch (error) {
-            console.error(error);
+
+        } catch (err) {
+            console.error(err);
             document.getElementById('status').innerHTML = `
-                <div class="error">
-                    <strong>Erro ao carregar:</strong><br>${error.message}<br><br>
-                    <em>Verifique se a planilha está publicada em: Arquivo > Compartilhar > Publicar na Web</em>
+                <div class="error-box">
+                    ⚠️ Erro ao carregar dados.<br>
+                    Verifique se os links das imagens estão corretos na planilha.
                 </div>`;
         }
     }
 
-    async function fetchData(gid) {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}`;
+    async function fetchSheet(gid, time) {
+        // Usa a API de Visualização para garantir separação das abas
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}&t=${time}`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`Falha HTTP: ${res.status}`);
-        const text = await res.text();
-        return parseCSV(text);
+        if (!res.ok) throw new Error('Falha na conexão com a planilha');
+        const txt = await res.text();
+        return parseCSV(txt);
     }
 
-    // Parser Robusto (Aceita vírgulas dentro das descrições)
-    function parseCSV(text) {
-        const rows = text.split('\n');
+    function parseCSV(csvText) {
+        const rows = csvText.split('\n').filter(r => r.trim() !== '');
+        // Regex complexo para lidar com vírgulas dentro de textos entre aspas
         const headers = rows[0].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(h => h.replace(/"/g, '').trim());
         
         return rows.slice(1).map(row => {
             const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
             if (!values) return null;
-            
             let obj = {};
-            headers.forEach((header, index) => {
-                let val = values[index] ? values[index].replace(/^"|"$/g, '').replace(/""/g, '"') : '';
-                obj[header] = val;
+            headers.forEach((h, i) => {
+                obj[h] = values[i] ? values[i].replace(/^"|"$/g, '').replace(/""/g, '"').trim() : '';
             });
             return obj;
-        }).filter(item => item && item.Nome); // Remove linhas vazias
+        }).filter(item => item);
     }
 
-    function renderEventos(lista) {
-        const div = document.getElementById('grid-eventos');
-        if(lista.length === 0) { div.innerHTML = '<p class="status-msg">Nenhum evento encontrado.</p>'; return; }
+    function renderEvents(data) {
+        const container = document.getElementById('grid-eventos');
+        if(!data.length) { container.innerHTML = '<p>Nenhum evento encontrado.</p>'; return; }
 
-        div.innerHTML = lista.map(ev => `
+        container.innerHTML = data.map(item => `
             <div class="card">
-                <div class="card-img-area">
-                    <img src="${ev.imagem || ''}" class="card-img" 
-                         onerror="this.src='https://via.placeholder.com/400x200?text=Barra+Grande'">
-                </div>
+                <img src="${item.imagem}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200?text=Barra+Grande'">
                 <div class="card-body">
-                    <span class="badge">📅 ${ev.Inicio}</span>
-                    <h3 class="card-title">${ev.Nome}</h3>
-                    <p class="card-desc">${ev.Descricao || ''}</p>
-                    ${ev.Link_Ingresso ? `<a href="${ev.Link_Ingresso}" target="_blank" class="btn-action">🎟️ Ingressos</a>` : ''}
+                    <span class="tag tag-event">📅 ${item.Inicio}</span>
+                    <h3 class="card-title">${item.Nome}</h3>
+                    <p class="card-desc">${item.Descricao}</p>
+                    ${item.Link_Ingresso ? `<a href="${item.Link_Ingresso}" target="_blank" class="btn-link btn-ticket">🎟️ Comprar Ingresso</a>` : ''}
                 </div>
             </div>
         `).join('');
     }
 
-    function renderHospedagem(lista) {
-        const div = document.getElementById('grid-hospedagem');
-        if(lista.length === 0) { div.innerHTML = '<p class="status-msg">Nenhuma hospedagem encontrada.</p>'; return; }
+    function renderStays(data) {
+        const container = document.getElementById('grid-hospedagem');
+        if(!data.length) { container.innerHTML = '<p>Nenhuma hospedagem encontrada.</p>'; return; }
 
-        div.innerHTML = lista.map(hotel => `
+        container.innerHTML = data.map(item => `
             <div class="card">
-                <div class="card-img-area">
-                    <img src="${hotel.imagem || ''}" class="card-img" 
-                         onerror="this.src='https://via.placeholder.com/400x200?text=Pousada'">
-                </div>
+                <img src="${item.imagem}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200?text=Pousada'">
                 <div class="card-body">
-                    <span class="badge">🏨 Pousada/Hotel</span>
-                    <h3 class="card-title">${hotel.Nome}</h3>
-                    <p class="card-desc">${hotel.Descricao || ''}</p>
-                    <a href="${hotel.Link_Hotel}" target="_blank" class="btn-action">Ver Reserva</a>
+                    <span class="tag tag-hotel">🏨 Hospedagem</span>
+                    <h3 class="card-title">${item.Nome}</h3>
+                    <p class="card-desc">${item.Descricao}</p>
+                    <a href="${item.Link_Hotel}" target="_blank" class="btn-link btn-consult">
+                        📲 Consultar / Reservar
+                    </a>
                 </div>
             </div>
         `).join('');
     }
 
-    window.showTab = function(tabId) {
-        document.querySelectorAll('.grid').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById('grid-' + tabId).classList.add('active');
+    window.switchTab = function(tab) {
+        document.querySelectorAll('.grid').forEach(g => g.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`grid-${tab}`).classList.add('active');
         event.currentTarget.classList.add('active');
     }
 
-    // Iniciar
-    init();
+    loadData();
 </script>
 
 </body>
