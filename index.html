@@ -3,243 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra Grande BG - Eventos & Hospedagem</title>
+    <title>Barra Grande - Eventos & Pousadas</title>
     <style>
+        /* ESTILO VISUAL LIMPO E RESPONSIVO */
         :root {
-            --primary: #0f172a;
-            --secondary: #0d9488;
-            --accent: #ea580c;
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --primary: #0F172A; --secondary: #14B8A6; --accent: #F97316;
+            --bg: #F1F5F9; --card-bg: #FFFFFF; --text: #334155;
         }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 40px; }
+        
+        /* Header */
+        header { background: var(--primary); color: white; padding: 2rem 1rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        h1 { margin: 0; font-size: 1.8rem; }
+        p.subtitle { opacity: 0.8; margin-top: 5px; font-size: 0.9rem; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
-
-        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
-
-        header { 
-            background: var(--primary); 
-            color: white; 
-            padding: 3rem 1rem; 
-            text-align: center;
-            border-bottom: 4px solid var(--secondary);
-        }
-
-        header h1 { font-size: 2rem; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
-        header p { opacity: 0.9; font-weight: 300; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
-
-        /* Navegação por Abas */
-        .tabs { 
-            display: flex; 
-            justify-content: center; 
-            gap: 1rem; 
-            margin-bottom: 2.5rem;
-            position: sticky;
-            top: 1rem;
-            z-index: 100;
-        }
-
+        /* Navegação (Abas) */
+        .nav-container { display: flex; justify-content: center; gap: 10px; margin: -20px auto 30px; padding: 0 1rem; }
         .tab-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            background: var(--bg-card);
-            color: var(--text-main);
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: all 0.2s ease;
-            border: 1px solid #e2e8f0;
+            background: white; border: none; padding: 12px 24px; border-radius: 30px;
+            font-weight: bold; color: var(--text); cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s;
         }
+        .tab-btn.active { background: var(--secondary); color: white; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(20, 184, 166, 0.3); }
 
-        .tab-btn.active {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
+        /* Grid de Cards */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; display: none; }
+        .grid.active { display: grid; }
 
-        /* Grid de Exibição */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            display: none; /* Escondido por padrão */
-        }
+        /* Card Design */
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        
+        .card-img-area { height: 200px; background: #e2e8f0; position: relative; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .badge { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+        
+        .card-title { margin: 0 0 10px; font-size: 1.2rem; color: var(--primary); }
+        .card-desc { font-size: 0.9rem; line-height: 1.5; color: #64748b; margin-bottom: 20px; flex-grow: 1; }
+        
+        .btn-action { display: block; text-align: center; background: var(--accent); color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; transition: 0.2s; }
+        .btn-action:hover { background: #ea580c; }
 
-        .content-grid.active { display: grid; animation: fadeIn 0.4s ease-out; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #e2e8f0;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: #cbd5e1;
-        }
-
-        .card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-
-        .event-date {
-            display: inline-block;
-            background: #f1f5f9;
-            color: var(--secondary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-title { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--primary); }
-        .card-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
-
-        .btn-affiliate {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            text-align: center;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            transition: background 0.2s;
-        }
-
-        .btn-affiliate:hover { background: #c2410c; }
-
-        /* Feedback de Carregamento */
-        #loader { text-align: center; padding: 3rem; font-weight: 600; color: var(--text-muted); }
-
-        @media (max-width: 640px) {
-            .content-grid { grid-template-columns: 1fr; }
-        }
+        /* Mensagens de Erro/Carregamento */
+        .status-msg { text-align: center; padding: 40px; font-size: 1.1rem; color: #64748b; grid-column: 1/-1; }
+        .error { color: #ef4444; background: #fee2e2; padding: 15px; border-radius: 8px; display: inline-block; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Barra Grande Piauí</h1>
-    <p>O seu guia especializado em eventos e estadias</p>
+    <h1>Barra Grande Oficial</h1>
+    <p class="subtitle">Guia de Eventos e Hospedagem</p>
 </header>
 
-<div class="container">
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('eventos')">📅 Próximos Eventos</button>
-        <button class="tab-btn" onclick="switchTab('hospedagem')">🏨 Onde Ficar</button>
-    </div>
-
-    <div id="loader">Carregando dados oficiais...</div>
-
-    <section id="grid-eventos" class="content-grid active"></section>
-    <section id="grid-hospedagem" class="content-grid"></section>
+<div class="nav-container">
+    <button class="tab-btn active" onclick="showTab('eventos')">🎉 Eventos</button>
+    <button class="tab-btn" onclick="showTab('hospedagem')">🏨 Hospedagem</button>
 </div>
 
-<script>
-    const SHEET_ID = '1o_d3QeEJ-J2AosAtTT5YwlmBArCg7fbvGKXcsfWORgk';
-    // GIDs específicos das abas do usuário
-    const GID_EVENTOS = '0';
-    const GID_HOSPEDAGEM = '1482987288'; 
+<main class="container">
+    <div id="status" class="status-msg">Carregando dados...</div>
 
-    async function loadAllData() {
+    <div id="grid-eventos" class="grid active"></div>
+
+    <div id="grid-hospedagem" class="grid"></div>
+</main>
+
+<script>
+    // CONFIGURAÇÃO - Seus IDs da Planilha
+    const SHEET_ID = '1o_d3QeEJ-J2AosAtTT5YwlmBArCg7fbvGKXcsfWORgk';
+    const GID_EVENTOS = '0';           // Aba 1
+    const GID_HOSPEDAGEM = '1482987288'; // Aba 2 (Verificado nos seus prints)
+
+    async function init() {
         try {
-            const [dataEv, dataSt] = await Promise.all([
-                fetchCSV(GID_EVENTOS),
-                fetchCSV(GID_HOSPEDAGEM)
+            const [eventosData, hospedagemData] = await Promise.all([
+                fetchData(GID_EVENTOS),
+                fetchData(GID_HOSPEDAGEM)
             ]);
 
-            renderEventos(dataEv);
-            renderHospedagem(dataSt);
-            document.getElementById('loader').style.display = 'none';
+            renderEventos(eventosData);
+            renderHospedagem(hospedagemData);
+            
+            document.getElementById('status').style.display = 'none';
         } catch (error) {
-            document.getElementById('loader').innerHTML = "Erro ao carregar dados. Verifique a conexão.";
             console.error(error);
+            document.getElementById('status').innerHTML = `
+                <div class="error">
+                    <strong>Erro ao carregar:</strong><br>${error.message}<br><br>
+                    <em>Verifique se a planilha está publicada em: Arquivo > Compartilhar > Publicar na Web</em>
+                </div>`;
         }
     }
 
-    async function fetchCSV(gid) {
+    async function fetchData(gid) {
         const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}`;
-        const response = await fetch(url);
-        const text = await response.text();
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Falha HTTP: ${res.status}`);
+        const text = await res.text();
         return parseCSV(text);
     }
 
-    function parseCSV(csvText) {
-        const rows = csvText.split('\n').filter(row => row.trim() !== '');
-        const headers = rows[0].replace(/"/g, '').split(',');
+    // Parser Robusto (Aceita vírgulas dentro das descrições)
+    function parseCSV(text) {
+        const rows = text.split('\n');
+        const headers = rows[0].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(h => h.replace(/"/g, '').trim());
         
         return rows.slice(1).map(row => {
-            // Regex para lidar com vírgulas dentro de aspas (comum em descrições)
-            const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-            let item = {};
-            headers.forEach((h, i) => {
-                let val = values[i] ? values[i].replace(/^"|"$/g, '').trim() : '';
-                item[h.trim()] = val;
+            const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+            if (!values) return null;
+            
+            let obj = {};
+            headers.forEach((header, index) => {
+                let val = values[index] ? values[index].replace(/^"|"$/g, '').replace(/""/g, '"') : '';
+                obj[header] = val;
             });
-            return item;
-        });
+            return obj;
+        }).filter(item => item && item.Nome); // Remove linhas vazias
     }
 
-    function renderEventos(items) {
-        const container = document.getElementById('grid-eventos');
-        container.innerHTML = items.map(item => `
+    function renderEventos(lista) {
+        const div = document.getElementById('grid-eventos');
+        if(lista.length === 0) { div.innerHTML = '<p class="status-msg">Nenhum evento encontrado.</p>'; return; }
+
+        div.innerHTML = lista.map(ev => `
             <div class="card">
-                <img src="${item.imagem || 'https://via.placeholder.com/400x220?text=Barra+Grande'}" 
-                     class="card-img" 
-                     onerror="this.src='https://via.placeholder.com/400x220?text=Imagem+Indisponivel'">
-                <div class="card-content">
-                    <span class="event-date">🗓️ ${item.Inicio} ${item.Fim ? 'até ' + item.Fim : ''}</span>
-                    <h3 class="card-title">${item.Nome}</h3>
-                    <p class="card-desc">${item.Descricao || 'Sem descrição disponível.'}</p>
+                <div class="card-img-area">
+                    <img src="${ev.imagem || ''}" class="card-img" 
+                         onerror="this.src='https://via.placeholder.com/400x200?text=Barra+Grande'">
+                </div>
+                <div class="card-body">
+                    <span class="badge">📅 ${ev.Inicio}</span>
+                    <h3 class="card-title">${ev.Nome}</h3>
+                    <p class="card-desc">${ev.Descricao || ''}</p>
+                    ${ev.Link_Ingresso ? `<a href="${ev.Link_Ingresso}" target="_blank" class="btn-action">🎟️ Ingressos</a>` : ''}
                 </div>
             </div>
         `).join('');
     }
 
-    function renderHospedagem(items) {
-        const container = document.getElementById('grid-hospedagem');
-        container.innerHTML = items.map(item => `
+    function renderHospedagem(lista) {
+        const div = document.getElementById('grid-hospedagem');
+        if(lista.length === 0) { div.innerHTML = '<p class="status-msg">Nenhuma hospedagem encontrada.</p>'; return; }
+
+        div.innerHTML = lista.map(hotel => `
             <div class="card">
-                <img src="${item.imagem || 'https://via.placeholder.com/400x220?text=Pousada'}" 
-                     class="card-img" 
-                     onerror="this.src='https://via.placeholder.com/400x220?text=Imagem+Indisponivel'">
-                <div class="card-content">
-                    <h3 class="card-title">${item.Nome}</h3>
-                    <p class="card-desc">${item.Descricao || 'Aproveite o melhor de Barra Grande nesta acomodação.'}</p>
-                    <a href="${item.Link_Hotel}" target="_blank" class="btn-affiliate">Ver Preços e Disponibilidade</a>
+                <div class="card-img-area">
+                    <img src="${hotel.imagem || ''}" class="card-img" 
+                         onerror="this.src='https://via.placeholder.com/400x200?text=Pousada'">
+                </div>
+                <div class="card-body">
+                    <span class="badge">🏨 Pousada/Hotel</span>
+                    <h3 class="card-title">${hotel.Nome}</h3>
+                    <p class="card-desc">${hotel.Descricao || ''}</p>
+                    <a href="${hotel.Link_Hotel}" target="_blank" class="btn-action">Ver Reserva</a>
                 </div>
             </div>
         `).join('');
     }
 
-    function switchTab(type) {
-        document.querySelectorAll('.content-grid').forEach(g => g.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        
-        document.getElementById(`grid-${type}`).classList.add('active');
+    window.showTab = function(tabId) {
+        document.querySelectorAll('.grid').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('grid-' + tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
 
-    loadAllData();
+    // Iniciar
+    init();
 </script>
 
 </body>
