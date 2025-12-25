@@ -3,359 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra Grande - Eventos & Hospedagem | Guia Oficial</title>
-    
-    <meta name="description" content="Guia completo de eventos, festas e hospedagem em Barra Grande, Piauí.">
-    <meta property="og:title" content="Barra Grande - Eventos & Hospedagem">
-    <meta property="og:description" content="Descubra onde ir e onde ficar no paraíso do Piauí.">
-    <meta property="og:type" content="website">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏝️</text></svg>">
-    
+    <title>Barra Grande BG - Eventos & Hospedagem</title>
     <style>
-        /* VARIÁVEIS & TEMAS */
         :root {
-            --primary: #2A5C82; --primary-dark: #1A3A57; --secondary: #38B6A1;
-            --light: #F8F9FA; --dark: #1E2A3A; --gray: #6C757D;
-            --border: #E0E0E0; --card-bg: #FFFFFF;
-            --shadow: 0 4px 12px rgba(0,0,0,0.08); --radius: 12px;
+            --primary: #0f172a;
+            --secondary: #0d9488;
+            --accent: #ea580c;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        [data-theme="dark"] {
-            --light: #121212; --dark: #F8F9FA; --card-bg: #1E2A3A;
-            --border: #2D3748; --gray: #A0AEC0;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
+
+        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+
+        header { 
+            background: var(--primary); 
+            color: white; 
+            padding: 3rem 1rem; 
+            text-align: center;
+            border-bottom: 4px solid var(--secondary);
         }
-        
-        /* RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; transition: 0.3s; min-height: 100vh; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
 
-        /* HEADER */
-        header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 1.5rem 0; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
-        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
-        
-        .btn-theme { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; transition: 0.2s; }
-        .btn-theme:hover { background: rgba(255,255,255,0.25); }
+        header h1 { font-size: 2rem; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
+        header p { opacity: 0.9; font-weight: 300; }
 
-        /* TABS */
-        .tabs { display: flex; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 0.25rem; margin-top: 1rem; backdrop-filter: blur(10px); }
-        .tab { flex: 1; padding: 0.75rem; border: none; background: transparent; color: rgba(255,255,255,0.8); cursor: pointer; font-weight: 600; border-radius: 6px; transition: 0.3s; text-align: center; }
-        .tab.active { background: white; color: var(--primary); box-shadow: var(--shadow); }
-        .tab-content { display: none; animation: fadeIn 0.4s ease; padding-top: 2rem; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
 
-        /* ÁREA DE FILTROS (Melhorada) */
-        .filter-area { background: var(--card-bg); padding: 1.5rem; border-radius: var(--radius); margin-bottom: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
-        .filter-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; align-items: end; }
-        
-        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
-        .input-group label { font-weight: 600; color: var(--primary); font-size: 0.9rem; }
-        .input-control { padding: 0.8rem; border: 2px solid var(--border); border-radius: 8px; background: var(--light); color: var(--dark); width: 100%; font-size: 1rem; }
-        
-        .btn-action { padding: 0.8rem; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 0.5rem; transition: 0.2s; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        
-        /* CARDS GRID */
-        .counter { background: var(--card-bg); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; margin-bottom: 1rem; display: inline-block; box-shadow: var(--shadow); border: 1px solid var(--border); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; padding-bottom: 3rem; }
-        
-        .card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); border-color: var(--secondary); }
-        
-        .card-image { width: 100%; height: 200px; object-fit: cover; background: #eee; }
+        /* Navegação por Abas */
+        .tabs { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1rem; 
+            margin-bottom: 2.5rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tab-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        /* Grid de Exibição */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            display: none; /* Escondido por padrão */
+        }
+
+        .content-grid.active { display: grid; animation: fadeIn 0.4s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #cbd5e1;
+        }
+
         .card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        
-        .card-title { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--primary); }
-        .card-date { color: var(--secondary); font-weight: bold; font-size: 0.9rem; margin-bottom: 0.5rem; display: block; text-transform: uppercase; }
-        .card-desc { font-size: 0.95rem; color: var(--gray); margin-bottom: 1.5rem; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        .card-price { background: #fef3c7; color: #92400e; padding: 0.5rem; border-radius: 6px; text-align: center; font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem; }
-        
-        .actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
-        .btn-secondary { background: var(--secondary); color: white; font-size: 0.9rem; }
-        .btn-whatsapp { background: #25D366; color: white; font-size: 0.9rem; }
-        .btn-whatsapp:hover { background: #1ebc57; }
 
-        /* LOADER */
-        .loader { grid-column: 1/-1; text-align: center; padding: 3rem; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .event-date {
+            display: inline-block;
+            background: #f1f5f9;
+            color: var(--secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
 
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .filter-grid { grid-template-columns: 1fr; }
-            .grid { grid-template-columns: 1fr; }
-            .header-content { flex-direction: column; text-align: center; }
+        .card-title { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--primary); }
+        .card-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+
+        .btn-affiliate {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+
+        .btn-affiliate:hover { background: #c2410c; }
+
+        /* Feedback de Carregamento */
+        #loader { text-align: center; padding: 3rem; font-weight: 600; color: var(--text-muted); }
+
+        @media (max-width: 640px) {
+            .content-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">🏝️ Barra Grande Oficial</div>
-                <button class="btn-theme" id="theme-toggle">🌙 Tema</button>
-            </div>
-            <div class="tabs">
-                <button class="tab active" data-tab="eventos">🎫 Eventos</button>
-                <button class="tab" data-tab="hospedagem">🏨 Hospedagem</button>
-            </div>
-        </div>
-    </header>
+<header>
+    <h1>Barra Grande Piauí</h1>
+    <p>O seu guia especializado em eventos e estadias</p>
+</header>
 
-    <main class="container">
-        <section id="tab-eventos" class="tab-content active">
-            <div class="filter-area">
-                <div class="filter-grid">
-                    <div class="input-group">
-                        <label>Buscar por nome</label>
-                        <input type="text" id="search-event-input" class="input-control" placeholder="Ex: Réveillon, Show..." onkeyup="applyEventFilters()">
-                    </div>
-                    <div class="input-group">
-                        <label>Data Chegada</label>
-                        <input type="date" id="date-start" class="input-control" onchange="applyEventFilters()">
-                    </div>
-                    <div class="input-group">
-                        <label>Data Saída</label>
-                        <input type="date" id="date-end" class="input-control" onchange="applyEventFilters()">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="counter" id="event-counter">Carregando...</div>
-            <div class="grid" id="events-grid">
-                <div class="loader"><div class="spinner"></div><p>Buscando agenda atualizada...</p></div>
-            </div>
-        </section>
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('eventos')">📅 Próximos Eventos</button>
+        <button class="tab-btn" onclick="switchTab('hospedagem')">🏨 Onde Ficar</button>
+    </div>
 
-        <section id="tab-hospedagem" class="tab-content">
-            <div class="filter-area">
-                <div class="input-group">
-                    <label>Buscar Pousada ou Hotel</label>
-                    <input type="text" id="search-stay-input" class="input-control" placeholder="Digite o nome da pousada..." onkeyup="filterStays()">
-                </div>
-            </div>
+    <div id="loader">Carregando dados oficiais...</div>
 
-            <div class="counter" id="stay-counter">Carregando...</div>
-            <div class="grid" id="stays-grid">
-                <div class="loader"><div class="spinner"></div><p>Buscando melhores opções...</p></div>
-            </div>
-        </section>
-    </main>
+    <section id="grid-eventos" class="content-grid active"></section>
+    <section id="grid-hospedagem" class="content-grid"></section>
+</div>
 
-    <footer style="text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 3rem;">
-        <p>© 2025 Barra Grande - Guia Oficial</p>
-    </footer>
+<script>
+    const SHEET_ID = '1o_d3QeEJ-J2AosAtTT5YwlmBArCg7fbvGKXcsfWORgk';
+    // GIDs específicos das abas do usuário
+    const GID_EVENTOS = '0';
+    const GID_HOSPEDAGEM = '1482987288'; 
 
-    <script>
-        // CONFIGURAÇÃO
-        const APIS = {
-            eventos: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=0&single=true&output=csv',
-            hospedagem: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=1&single=true&output=csv'
-        };
-        const IMG_DEFAULT = 'img/eventos/padrao-bg.png';
+    async function loadAllData() {
+        try {
+            const [dataEv, dataSt] = await Promise.all([
+                fetchCSV(GID_EVENTOS),
+                fetchCSV(GID_HOSPEDAGEM)
+            ]);
 
-        // ESTADO GLOBAL
-        let db = { events: [], stays: [] };
+            renderEventos(dataEv);
+            renderHospedagem(dataSt);
+            document.getElementById('loader').style.display = 'none';
+        } catch (error) {
+            document.getElementById('loader').innerHTML = "Erro ao carregar dados. Verifique a conexão.";
+            console.error(error);
+        }
+    }
 
-        // INICIALIZAÇÃO
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            initTabs();
-            setupDates();
-            loadData();
+    async function fetchCSV(gid) {
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}`;
+        const response = await fetch(url);
+        const text = await response.text();
+        return parseCSV(text);
+    }
+
+    function parseCSV(csvText) {
+        const rows = csvText.split('\n').filter(row => row.trim() !== '');
+        const headers = rows[0].replace(/"/g, '').split(',');
+        
+        return rows.slice(1).map(row => {
+            // Regex para lidar com vírgulas dentro de aspas (comum em descrições)
+            const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+            let item = {};
+            headers.forEach((h, i) => {
+                let val = values[i] ? values[i].replace(/^"|"$/g, '').trim() : '';
+                item[h.trim()] = val;
+            });
+            return item;
         });
+    }
 
-        // --- LÓGICA DE DADOS ---
-        async function loadData() {
-            try {
-                const [evRes, stRes] = await Promise.all([
-                    fetch(APIS.eventos + '&cache=' + Date.now()),
-                    fetch(APIS.hospedagem + '&cache=' + Date.now())
-                ]);
-
-                db.events = parseCSV(await evRes.text(), 'event');
-                db.stays = parseCSV(await stRes.text(), 'stay');
-
-                applyEventFilters(); // Renderiza eventos
-                filterStays();       // Renderiza hotéis
-            } catch (err) {
-                console.error(err);
-                document.getElementById('events-grid').innerHTML = '<p style="color:red">Erro ao carregar dados. Atualize a página.</p>';
-            }
-        }
-
-        function parseCSV(csv, type) {
-            const lines = csv.split('\n').filter(l => l.trim().length > 0);
-            const headers = lines[0].split(',').map(h => h.trim());
-            
-            return lines.slice(1).map(line => {
-                const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-                const row = {};
-                headers.forEach((h, i) => {
-                    row[h] = values[i] ? values[i].replace(/"/g, '').trim() : '';
-                });
-                
-                // Processamento específico
-                if (type === 'event') {
-                    row.dtInicio = parseDate(row.Inicio);
-                    row.dtFim = parseDate(row.Fim);
-                }
-                if (type === 'stay') {
-                    row.priceVal = parseFloat(row.Preco_Hotel) || 0;
-                }
-                return row;
-            }).filter(item => item.Nome); // Remove linhas vazias
-        }
-
-        // --- RENDERIZAÇÃO ---
-        function applyEventFilters() {
-            const term = document.getElementById('search-event-input').value.toLowerCase();
-            const startStr = document.getElementById('date-start').value;
-            const endStr = document.getElementById('date-end').value;
-            
-            // Datas de filtro
-            const filterStart = startStr ? new Date(startStr) : null;
-            const filterEnd = endStr ? new Date(endStr) : null;
-            const today = new Date(); today.setHours(0,0,0,0);
-
-            const filtered = db.events.filter(ev => {
-                // 1. Filtro Texto
-                const matchName = ev.Nome.toLowerCase().includes(term);
-                
-                // 2. Filtro Data (Lógica: Evento deve acontecer durante a estadia ou ser futuro)
-                let matchDate = true;
-                if (ev.dtFim && ev.dtFim < today) matchDate = false; // Já passou
-                
-                if (filterStart && filterEnd && matchDate) {
-                    // O evento deve começar antes do fim da viagem E terminar depois do início da viagem
-                    matchDate = (ev.dtInicio <= filterEnd && ev.dtFim >= filterStart);
-                }
-
-                return matchName && matchDate;
-            }).sort((a,b) => (a.dtInicio || 0) - (b.dtInicio || 0));
-
-            renderGrid('events-grid', 'event-counter', filtered, renderEventCard);
-        }
-
-        function filterStays() {
-            const term = document.getElementById('search-stay-input').value.toLowerCase();
-            const filtered = db.stays.filter(s => 
-                s.Nome.toLowerCase().includes(term)
-            ).sort((a,b) => {
-                // Ordenar: Com preço primeiro, do menor para o maior
-                if (a.priceVal > 0 && b.priceVal === 0) return -1;
-                if (a.priceVal === 0 && b.priceVal > 0) return 1;
-                return a.priceVal - b.priceVal;
-            });
-
-            renderGrid('stays-grid', 'stay-counter', filtered, renderStayCard);
-        }
-
-        function renderGrid(gridId, counterId, items, templateFn) {
-            const grid = document.getElementById(gridId);
-            const counter = document.getElementById(counterId);
-            
-            counter.textContent = `${items.length} resultados encontrados`;
-            
-            if (items.length === 0) {
-                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--gray)">Nenhum resultado encontrado com estes filtros.</div>';
-                return;
-            }
-
-            grid.innerHTML = items.map(templateFn).join('');
-        }
-
-        // --- TEMPLATES HTML ---
-        // Truque de imagem: Tenta PNG -> Se erro tenta JPG -> Se erro vai pro Default
-        const getImgTag = (id, nome) => `
-            <img class="card-image" 
-                 src="img/eventos/${id}.png" 
-                 alt="${nome}" 
-                 loading="lazy"
-                 onerror="this.onerror=null; this.src='img/eventos/${id}.jpg'; this.setAttribute('onerror', 'this.src=\\'${IMG_DEFAULT}\\'')">
-        `;
-
-        const renderEventCard = (ev) => `
+    function renderEventos(items) {
+        const container = document.getElementById('grid-eventos');
+        container.innerHTML = items.map(item => `
             <div class="card">
-                ${getImgTag(ev.ID, ev.Nome)}
+                <img src="${item.imagem || 'https://via.placeholder.com/400x220?text=Barra+Grande'}" 
+                     class="card-img" 
+                     onerror="this.src='https://via.placeholder.com/400x220?text=Imagem+Indisponivel'">
                 <div class="card-content">
-                    <span class="card-date">📅 ${ev.Inicio} ${ev.Fim !== ev.Inicio ? ' a ' + ev.Fim : ''}</span>
-                    <h3 class="card-title">${ev.Nome}</h3>
-                    <p class="card-desc">${ev.Descricao || 'Detalhes em breve...'}</p>
-                    <div class="actions-row">
-                        ${ev.Link_Ingresso ? `<a href="${ev.Link_Ingresso}" target="_blank" class="btn-action btn-secondary">🎟️ Ingressos</a>` : '<div></div>'}
-                        <a href="https://wa.me/?text=Olha esse evento em Barra Grande: ${ev.Nome} - ${ev.Link_Ingresso || ''}" target="_blank" class="btn-action btn-whatsapp">📲 Compartilhar</a>
-                    </div>
+                    <span class="event-date">🗓️ ${item.Inicio} ${item.Fim ? 'até ' + item.Fim : ''}</span>
+                    <h3 class="card-title">${item.Nome}</h3>
+                    <p class="card-desc">${item.Descricao || 'Sem descrição disponível.'}</p>
                 </div>
             </div>
-        `;
+        `).join('');
+    }
 
-        const renderStayCard = (st) => `
+    function renderHospedagem(items) {
+        const container = document.getElementById('grid-hospedagem');
+        container.innerHTML = items.map(item => `
             <div class="card">
-                ${getImgTag(st.ID, st.Nome)}
+                <img src="${item.imagem || 'https://via.placeholder.com/400x220?text=Pousada'}" 
+                     class="card-img" 
+                     onerror="this.src='https://via.placeholder.com/400x220?text=Imagem+Indisponivel'">
                 <div class="card-content">
-                    <h3 class="card-title">${st.Nome}</h3>
-                    <p class="card-desc">${st.Descricao || 'Hospedagem confortável em BG.'}</p>
-                    ${st.priceVal > 0 
-                        ? `<div class="card-price">R$ ${st.priceVal.toFixed(2)} <span style="font-size:0.8em; font-weight:normal">/dia</span></div>` 
-                        : `<div class="card-price" style="background:#e0e0e0; color:#555">Sob Consulta</div>`
-                    }
-                    <div class="actions-row">
-                        <a href="${st.Link_Hotel}" target="_blank" class="btn-action btn-primary" style="grid-column: 1/-1">🏨 Reservar Agora</a>
-                    </div>
+                    <h3 class="card-title">${item.Nome}</h3>
+                    <p class="card-desc">${item.Descricao || 'Aproveite o melhor de Barra Grande nesta acomodação.'}</p>
+                    <a href="${item.Link_Hotel}" target="_blank" class="btn-affiliate">Ver Preços e Disponibilidade</a>
                 </div>
             </div>
-        `;
+        `).join('');
+    }
 
-        // --- UTILITÁRIOS ---
-        function parseDate(str) {
-            if(!str) return null;
-            if(str.includes('/')) {
-                const [d, m, y] = str.split('/');
-                return new Date(y, m-1, d);
-            }
-            if(str.includes('-')) return new Date(str);
-            return null;
-        }
+    function switchTab(type) {
+        document.querySelectorAll('.content-grid').forEach(g => g.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(`grid-${type}`).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
 
-        function setupDates() {
-            const today = new Date();
-            const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
-            
-            // Formatar YYYY-MM-DD para o input
-            const toInput = d => d.toISOString().split('T')[0];
-            
-            document.getElementById('date-start').value = toInput(today);
-            document.getElementById('date-end').value = toInput(tomorrow);
-        }
+    loadAllData();
+</script>
 
-        // TEMA E TABS (Lógica Visual)
-        function initTheme() {
-            const saved = localStorage.getItem('theme');
-            if(saved === 'dark') document.body.setAttribute('data-theme', 'dark');
-            
-            document.getElementById('theme-toggle').onclick = () => {
-                const current = document.body.getAttribute('data-theme');
-                const next = current === 'dark' ? 'light' : 'dark';
-                document.body.setAttribute('data-theme', next);
-                localStorage.setItem('theme', next);
-            };
-        }
-
-        function initTabs() {
-            document.querySelectorAll('.tab').forEach(btn => {
-                btn.onclick = () => {
-                    document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-                };
-            });
-        }
-    </script>
 </body>
 </html>
