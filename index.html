@@ -3,927 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra Grande - Eventos & Hospedagem</title>
-    <meta name="description" content="Portal completo de eventos e hospedagem em Barra Grande, Piauí">
+    <title>Barra Grande - Eventos & Hospedagem | Guia Oficial</title>
+    
+    <meta name="description" content="Guia completo de eventos, festas e hospedagem em Barra Grande, Piauí.">
+    <meta property="og:title" content="Barra Grande - Eventos & Hospedagem">
+    <meta property="og:description" content="Descubra onde ir e onde ficar no paraíso do Piauí.">
+    <meta property="og:type" content="website">
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏝️</text></svg>">
     
     <style>
-        /* VARIÁVEIS */
+        /* VARIÁVEIS & TEMAS */
         :root {
-            --primary: #2A5C82;
-            --primary-dark: #1A3A57;
-            --secondary: #38B6A1;
-            --light: #F8F9FA;
-            --dark: #1E2A3A;
-            --gray: #6C757D;
-            --border: #E0E0E0;
-            --card-bg: #FFFFFF;
-            
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
-            --radius: 12px;
+            --primary: #2A5C82; --primary-dark: #1A3A57; --secondary: #38B6A1;
+            --light: #F8F9FA; --dark: #1E2A3A; --gray: #6C757D;
+            --border: #E0E0E0; --card-bg: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08); --radius: 12px;
         }
-        
-        /* TEMA ESCURO */
         [data-theme="dark"] {
-            --light: #121212;
-            --dark: #F8F9FA;
-            --card-bg: #1E2A3A;
-            --border: #2D3748;
-            --gray: #A0AEC0;
+            --light: #121212; --dark: #F8F9FA; --card-bg: #1E2A3A;
+            --border: #2D3748; --gray: #A0AEC0;
         }
         
-        /* RESET E BASE */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
-            padding: 0;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; transition: 0.3s; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
         /* HEADER */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
-        }
+        header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 1.5rem 0; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        /* CONTROLES */
-        .controls {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn-theme {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        .btn-theme:hover {
-            background: rgba(255,255,255,0.25);
-        }
-        
+        .btn-theme { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-theme:hover { background: rgba(255,255,255,0.25); }
+
         /* TABS */
-        .tabs {
-            display: flex;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 0.25rem;
-            margin: 1.5rem 0;
-            backdrop-filter: blur(10px);
-        }
+        .tabs { display: flex; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 0.25rem; margin-top: 1rem; backdrop-filter: blur(10px); }
+        .tab { flex: 1; padding: 0.75rem; border: none; background: transparent; color: rgba(255,255,255,0.8); cursor: pointer; font-weight: 600; border-radius: 6px; transition: 0.3s; text-align: center; }
+        .tab.active { background: white; color: var(--primary); box-shadow: var(--shadow); }
+        .tab-content { display: none; animation: fadeIn 0.4s ease; padding-top: 2rem; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ÁREA DE FILTROS (Melhorada) */
+        .filter-area { background: var(--card-bg); padding: 1.5rem; border-radius: var(--radius); margin-bottom: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .filter-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; align-items: end; }
         
-        .tab {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 6px;
-            transition: all 0.3s;
-            flex: 1;
-            text-align: center;
-        }
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .input-group label { font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+        .input-control { padding: 0.8rem; border: 2px solid var(--border); border-radius: 8px; background: var(--light); color: var(--dark); width: 100%; font-size: 1rem; }
         
-        .tab:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
+        .btn-action { padding: 0.8rem; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 0.5rem; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
         
-        .tab.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: var(--shadow);
-        }
+        /* CARDS GRID */
+        .counter { background: var(--card-bg); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; margin-bottom: 1rem; display: inline-block; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; padding-bottom: 3rem; }
         
-        /* CONTEÚDO DAS TABS */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
+        .card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); border-color: var(--secondary); }
         
-        .tab-content.active {
-            display: block;
-        }
+        .card-image { width: 100%; height: 200px; object-fit: cover; background: #eee; }
+        .card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .card-title { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--primary); }
+        .card-date { color: var(--secondary); font-weight: bold; font-size: 0.9rem; margin-bottom: 0.5rem; display: block; text-transform: uppercase; }
+        .card-desc { font-size: 0.95rem; color: var(--gray); margin-bottom: 1.5rem; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         
-        /* FILTROS DE DATA (APENAS PARA EVENTOS) */
-        .date-filter {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-        }
+        .card-price { background: #fef3c7; color: #92400e; padding: 0.5rem; border-radius: 6px; text-align: center; font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem; }
         
-        .date-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .input-group label {
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        .input-group input {
-            padding: 0.8rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            background: var(--light);
-            color: var(--dark);
-        }
-        
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .btn-search {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 1rem;
-        }
-        
-        .btn-search:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* CONTADORES */
-        .counter {
-            background: var(--card-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            box-shadow: var(--shadow);
-        }
-        
-        /* GRID DE ITENS */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        /* CARDS */
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid var(--border);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-        }
-        
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .card-date {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .card-description {
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        
-        .card-price {
-            background: linear-gradient(135deg, var(--secondary), #2DCCB9);
-            color: white;
-            padding: 0.8rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 1rem 0;
-        }
-        
-        .card-price.check {
-            background: linear-gradient(135deg, #FFA726, #FF9800);
-        }
-        
-        .card-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
-        }
-        
-        .action-btn {
-            padding: 0.8rem;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        
-        .action-btn:hover {
-            background: var(--primary-dark);
-        }
-        
-        .action-btn.secondary {
-            background: var(--secondary);
-        }
-        
-        .action-btn.secondary:hover {
-            background: #2D9C8A;
-        }
-        
+        .actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+        .btn-secondary { background: var(--secondary); color: white; font-size: 0.9rem; }
+        .btn-whatsapp { background: #25D366; color: white; font-size: 0.9rem; }
+        .btn-whatsapp:hover { background: #1ebc57; }
+
         /* LOADER */
-        .loader {
-            text-align: center;
-            padding: 3rem;
-            grid-column: 1 / -1;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            color: var(--gray);
-            border-top: 1px solid var(--border);
-        }
-        
+        .loader { grid-column: 1/-1; text-align: center; padding: 3rem; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         /* RESPONSIVO */
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card-actions {
-                grid-template-columns: 1fr;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .date-inputs {
-                grid-template-columns: 1fr;
-            }
+            .filter-grid { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: 1fr; }
+            .header-content { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
+
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <span>🏝️</span>
-                    <span>Barra Grande - Eventos & Hospedagem</span>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-theme" id="theme-toggle">
-                        <span>🌙</span>
-                        <span>Tema</span>
-                    </button>
-                </div>
+                <div class="logo">🏝️ Barra Grande Oficial</div>
+                <button class="btn-theme" id="theme-toggle">🌙 Tema</button>
             </div>
-            
             <div class="tabs">
                 <button class="tab active" data-tab="eventos">🎫 Eventos</button>
                 <button class="tab" data-tab="hospedagem">🏨 Hospedagem</button>
             </div>
         </div>
     </header>
-    
+
     <main class="container">
-        <!-- TAB EVENTOS -->
         <section id="tab-eventos" class="tab-content active">
-            <div class="date-filter">
-                <div class="date-inputs">
+            <div class="filter-area">
+                <div class="filter-grid">
                     <div class="input-group">
-                        <label for="checkin">Data de Chegada</label>
-                        <input type="date" id="checkin">
+                        <label>Buscar por nome</label>
+                        <input type="text" id="search-event-input" class="input-control" placeholder="Ex: Réveillon, Show..." onkeyup="applyEventFilters()">
                     </div>
-                    
                     <div class="input-group">
-                        <label for="checkout">Data de Saída</label>
-                        <input type="date" id="checkout">
+                        <label>Data Chegada</label>
+                        <input type="date" id="date-start" class="input-control" onchange="applyEventFilters()">
+                    </div>
+                    <div class="input-group">
+                        <label>Data Saída</label>
+                        <input type="date" id="date-end" class="input-control" onchange="applyEventFilters()">
                     </div>
                 </div>
-                
-                <button class="btn-search" id="search-events">
-                    <span>🔍</span>
-                    <span>Buscar Eventos no Período</span>
-                </button>
             </div>
             
-            <div class="counter" id="event-counter">Carregando eventos...</div>
-            
+            <div class="counter" id="event-counter">Carregando...</div>
             <div class="grid" id="events-grid">
-                <div class="loader">
-                    <div class="spinner"></div>
-                    <p>Carregando eventos...</p>
-                </div>
+                <div class="loader"><div class="spinner"></div><p>Buscando agenda atualizada...</p></div>
             </div>
         </section>
-        
-        <!-- TAB HOSPEDAGEM -->
+
         <section id="tab-hospedagem" class="tab-content">
-            <div class="counter" id="stay-counter">Carregando hospedagens...</div>
-            
-            <div class="grid" id="stays-grid">
-                <div class="loader">
-                    <div class="spinner"></div>
-                    <p>Carregando hospedagens...</p>
+            <div class="filter-area">
+                <div class="input-group">
+                    <label>Buscar Pousada ou Hotel</label>
+                    <input type="text" id="search-stay-input" class="input-control" placeholder="Digite o nome da pousada..." onkeyup="filterStays()">
                 </div>
+            </div>
+
+            <div class="counter" id="stay-counter">Carregando...</div>
+            <div class="grid" id="stays-grid">
+                <div class="loader"><div class="spinner"></div><p>Buscando melhores opções...</p></div>
             </div>
         </section>
     </main>
-    
-    <footer>
-        <div class="container">
-            <p>© 2024 Barra Grande - Eventos & Hospedagem</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Atualizado automaticamente da planilha do Google</p>
-        </div>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--gray); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 3rem;">
+        <p>© 2025 Barra Grande - Guia Oficial</p>
     </footer>
-    
+
     <script>
-        // CONFIGURAÇÕES - DUAS PLANILHAS SEPARADAS
-        const EVENTOS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=0&single=true&output=csv';
-        const HOSPEDAGEM_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=1&single=true&output=csv';
-        const DEFAULT_IMAGE = 'img/eventos/padrao-bg.png';
-        
-        // ESTADO
-        let events = [];
-        let stays = [];
-        let currentTheme = localStorage.getItem('theme') || 'light';
-        
+        // CONFIGURAÇÃO
+        const APIS = {
+            eventos: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=0&single=true&output=csv',
+            hospedagem: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?gid=1&single=true&output=csv'
+        };
+        const IMG_DEFAULT = 'img/eventos/padrao-bg.png';
+
+        // ESTADO GLOBAL
+        let db = { events: [], stays: [] };
+
         // INICIALIZAÇÃO
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             initTabs();
             setupDates();
-            loadAllData();
+            loadData();
         });
-        
-        // TEMA
-        function initTheme() {
-            if (currentTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-                updateThemeButton(true);
-            } else {
-                updateThemeButton(false);
-            }
-            
-            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-        }
-        
-        function toggleTheme() {
-            const isDark = document.body.getAttribute('data-theme') === 'dark';
-            currentTheme = isDark ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', currentTheme);
-            localStorage.setItem('theme', currentTheme);
-            updateThemeButton(!isDark);
-        }
-        
-        function updateThemeButton(isDark) {
-            const btn = document.getElementById('theme-toggle');
-            btn.innerHTML = isDark ? 
-                '<span>🌙</span><span>Tema Escuro</span>' : 
-                '<span>☀️</span><span>Tema Claro</span>';
-        }
-        
-        // TABS
-        function initTabs() {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Hide all tab contents
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Activate clicked tab
-                    tab.classList.add('active');
-                    const tabId = tab.dataset.tab;
-                    document.getElementById(`tab-${tabId}`).classList.add('active');
-                    
-                    // Setup dates if events tab
-                    if (tabId === 'eventos') {
-                        setupDates();
-                    }
-                });
-            });
-        }
-        
-        // DATAS
-        function setupDates() {
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            
-            document.getElementById('checkin').value = today.toISOString().split('T')[0];
-            document.getElementById('checkout').value = tomorrow.toISOString().split('T')[0];
-            
-            document.getElementById('search-events').addEventListener('click', filterEventsByDates);
-        }
-        
-        // CARREGAR TODOS OS DADOS
-        async function loadAllData() {
+
+        // --- LÓGICA DE DADOS ---
+        async function loadData() {
             try {
-                // Carregar eventos e hospedagens em paralelo
-                await Promise.all([
-                    loadEventos(),
-                    loadHospedagem()
+                const [evRes, stRes] = await Promise.all([
+                    fetch(APIS.eventos + '&cache=' + Date.now()),
+                    fetch(APIS.hospedagem + '&cache=' + Date.now())
                 ]);
-                
-                renderEvents(events);
-                renderStays(stays);
-                
-            } catch (error) {
-                console.error('Erro ao carregar dados:', error);
-                showError('Erro ao carregar dados. Recarregue a página.');
+
+                db.events = parseCSV(await evRes.text(), 'event');
+                db.stays = parseCSV(await stRes.text(), 'stay');
+
+                applyEventFilters(); // Renderiza eventos
+                filterStays();       // Renderiza hotéis
+            } catch (err) {
+                console.error(err);
+                document.getElementById('events-grid').innerHTML = '<p style="color:red">Erro ao carregar dados. Atualize a página.</p>';
             }
         }
-        
-        // CARREGAR EVENTOS
-        async function loadEventos() {
-            try {
-                const response = await fetch(EVENTOS_CSV_URL + '&t=' + Date.now());
-                const csvText = await response.text();
-                
-                events = parseCSV(csvText).map(row => {
-                    const inicioDate = parseDate(row.Inicio);
-                    const fimDate = parseDate(row.Fim);
-                    
-                    return {
-                        id: (row.ID || '').toLowerCase().trim(),
-                        nome: row.Nome || '',
-                        inicio: row.Inicio || '',
-                        fim: row.Fim || '',
-                        descricao: row.Descricao || '',
-                        linkIngresso: row.Link_Ingresso || '',
-                        imagem: row.imagem || '',
-                        inicioDate: inicioDate,
-                        fimDate: fimDate
-                    };
-                });
-                
-                // Filtrar eventos passados
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                events = events.filter(event => {
-                    if (!event.fimDate) return true;
-                    return event.fimDate >= today;
-                });
-                
-                // Ordenar eventos por data
-                events.sort((a, b) => {
-                    if (!a.inicioDate) return 1;
-                    if (!b.inicioDate) return -1;
-                    return a.inicioDate - b.inicioDate;
-                });
-                
-                console.log('Eventos carregados:', events.length);
-                
-            } catch (error) {
-                console.error('Erro ao carregar eventos:', error);
-                events = [];
-            }
-        }
-        
-        // CARREGAR HOSPEDAGENS
-        async function loadHospedagem() {
-            try {
-                const response = await fetch(HOSPEDAGEM_CSV_URL + '&t=' + Date.now());
-                const csvText = await response.text();
-                
-                stays = parseCSV(csvText).map(row => {
-                    const preco = row.Preco_Hotel ? parseFloat(row.Preco_Hotel) : null;
-                    
-                    return {
-                        id: (row.ID || '').toLowerCase().trim(),
-                        nome: row.Nome || '',
-                        descricao: row.Descricao || '',
-                        preco: preco,
-                        temPreco: preco !== null && !isNaN(preco),
-                        linkHotel: row.Link_Hotel || '',
-                        imagem: row.imagem || '',
-                        localizacao: 'Barra Grande'
-                    };
-                });
-                
-                // Ordenar hospedagens: primeiro as com preço (mais barato primeiro), depois as sem preço
-                stays.sort((a, b) => {
-                    if (a.temPreco && !b.temPreco) return -1;
-                    if (!a.temPreco && b.temPreco) return 1;
-                    if (a.temPreco && b.temPreco) return a.preco - b.preco;
-                    return 0;
-                });
-                
-                console.log('Hospedagens carregadas:', stays.length);
-                
-            } catch (error) {
-                console.error('Erro ao carregar hospedagens:', error);
-                stays = [];
-            }
-        }
-        
-        // PARSER CSV
-        function parseCSV(csvText) {
-            const lines = csvText.split('\n').filter(line => line.trim());
-            if (lines.length < 2) return [];
-            
-            // Processar cabeçalhos
+
+        function parseCSV(csv, type) {
+            const lines = csv.split('\n').filter(l => l.trim().length > 0);
             const headers = lines[0].split(',').map(h => h.trim());
-            const data = [];
             
-            for (let i = 1; i < lines.length; i++) {
-                const values = parseCSVLine(lines[i]);
+            return lines.slice(1).map(line => {
+                const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
                 const row = {};
-                
-                headers.forEach((header, index) => {
-                    row[header] = (values[index] || '').trim();
+                headers.forEach((h, i) => {
+                    row[h] = values[i] ? values[i].replace(/"/g, '').trim() : '';
                 });
                 
-                // Só adicionar se tiver ID ou Nome
-                if (row.ID || row.Nome) {
-                    data.push(row);
+                // Processamento específico
+                if (type === 'event') {
+                    row.dtInicio = parseDate(row.Inicio);
+                    row.dtFim = parseDate(row.Fim);
                 }
-            }
-            
-            return data;
+                if (type === 'stay') {
+                    row.priceVal = parseFloat(row.Preco_Hotel) || 0;
+                }
+                return row;
+            }).filter(item => item.Nome); // Remove linhas vazias
         }
-        
-        function parseCSVLine(line) {
-            const values = [];
-            let current = '';
-            let inQuotes = false;
+
+        // --- RENDERIZAÇÃO ---
+        function applyEventFilters() {
+            const term = document.getElementById('search-event-input').value.toLowerCase();
+            const startStr = document.getElementById('date-start').value;
+            const endStr = document.getElementById('date-end').value;
             
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                const nextChar = line[i + 1];
+            // Datas de filtro
+            const filterStart = startStr ? new Date(startStr) : null;
+            const filterEnd = endStr ? new Date(endStr) : null;
+            const today = new Date(); today.setHours(0,0,0,0);
+
+            const filtered = db.events.filter(ev => {
+                // 1. Filtro Texto
+                const matchName = ev.Nome.toLowerCase().includes(term);
                 
-                if (char === '"') {
-                    if (inQuotes && nextChar === '"') {
-                        current += '"';
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
+                // 2. Filtro Data (Lógica: Evento deve acontecer durante a estadia ou ser futuro)
+                let matchDate = true;
+                if (ev.dtFim && ev.dtFim < today) matchDate = false; // Já passou
+                
+                if (filterStart && filterEnd && matchDate) {
+                    // O evento deve começar antes do fim da viagem E terminar depois do início da viagem
+                    matchDate = (ev.dtInicio <= filterEnd && ev.dtFim >= filterStart);
+                }
+
+                return matchName && matchDate;
+            }).sort((a,b) => (a.dtInicio || 0) - (b.dtInicio || 0));
+
+            renderGrid('events-grid', 'event-counter', filtered, renderEventCard);
+        }
+
+        function filterStays() {
+            const term = document.getElementById('search-stay-input').value.toLowerCase();
+            const filtered = db.stays.filter(s => 
+                s.Nome.toLowerCase().includes(term)
+            ).sort((a,b) => {
+                // Ordenar: Com preço primeiro, do menor para o maior
+                if (a.priceVal > 0 && b.priceVal === 0) return -1;
+                if (a.priceVal === 0 && b.priceVal > 0) return 1;
+                return a.priceVal - b.priceVal;
+            });
+
+            renderGrid('stays-grid', 'stay-counter', filtered, renderStayCard);
+        }
+
+        function renderGrid(gridId, counterId, items, templateFn) {
+            const grid = document.getElementById(gridId);
+            const counter = document.getElementById(counterId);
+            
+            counter.textContent = `${items.length} resultados encontrados`;
+            
+            if (items.length === 0) {
+                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--gray)">Nenhum resultado encontrado com estes filtros.</div>';
+                return;
+            }
+
+            grid.innerHTML = items.map(templateFn).join('');
+        }
+
+        // --- TEMPLATES HTML ---
+        // Truque de imagem: Tenta PNG -> Se erro tenta JPG -> Se erro vai pro Default
+        const getImgTag = (id, nome) => `
+            <img class="card-image" 
+                 src="img/eventos/${id}.png" 
+                 alt="${nome}" 
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='img/eventos/${id}.jpg'; this.setAttribute('onerror', 'this.src=\\'${IMG_DEFAULT}\\'')">
+        `;
+
+        const renderEventCard = (ev) => `
+            <div class="card">
+                ${getImgTag(ev.ID, ev.Nome)}
+                <div class="card-content">
+                    <span class="card-date">📅 ${ev.Inicio} ${ev.Fim !== ev.Inicio ? ' a ' + ev.Fim : ''}</span>
+                    <h3 class="card-title">${ev.Nome}</h3>
+                    <p class="card-desc">${ev.Descricao || 'Detalhes em breve...'}</p>
+                    <div class="actions-row">
+                        ${ev.Link_Ingresso ? `<a href="${ev.Link_Ingresso}" target="_blank" class="btn-action btn-secondary">🎟️ Ingressos</a>` : '<div></div>'}
+                        <a href="https://wa.me/?text=Olha esse evento em Barra Grande: ${ev.Nome} - ${ev.Link_Ingresso || ''}" target="_blank" class="btn-action btn-whatsapp">📲 Compartilhar</a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const renderStayCard = (st) => `
+            <div class="card">
+                ${getImgTag(st.ID, st.Nome)}
+                <div class="card-content">
+                    <h3 class="card-title">${st.Nome}</h3>
+                    <p class="card-desc">${st.Descricao || 'Hospedagem confortável em BG.'}</p>
+                    ${st.priceVal > 0 
+                        ? `<div class="card-price">R$ ${st.priceVal.toFixed(2)} <span style="font-size:0.8em; font-weight:normal">/dia</span></div>` 
+                        : `<div class="card-price" style="background:#e0e0e0; color:#555">Sob Consulta</div>`
                     }
-                } else if (char === ',' && !inQuotes) {
-                    values.push(current);
-                    current = '';
-                } else {
-                    current += char;
-                }
+                    <div class="actions-row">
+                        <a href="${st.Link_Hotel}" target="_blank" class="btn-action btn-primary" style="grid-column: 1/-1">🏨 Reservar Agora</a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // --- UTILITÁRIOS ---
+        function parseDate(str) {
+            if(!str) return null;
+            if(str.includes('/')) {
+                const [d, m, y] = str.split('/');
+                return new Date(y, m-1, d);
             }
-            
-            values.push(current);
-            return values;
-        }
-        
-        // FUNÇÃO PARA ANALISAR DATAS
-        function parseDate(dateStr) {
-            if (!dateStr) return null;
-            
-            // Tentar formato YYYY-MM-DD
-            const parts = dateStr.split('-');
-            if (parts.length === 3) {
-                const year = parseInt(parts[0]);
-                const month = parseInt(parts[1]) - 1;
-                const day = parseInt(parts[2]);
-                
-                if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
-                    return new Date(year, month, day);
-                }
-            }
-            
-            // Tentar formato DD/MM/YYYY
-            const parts2 = dateStr.split('/');
-            if (parts2.length === 3) {
-                const day = parseInt(parts2[0]);
-                const month = parseInt(parts2[1]) - 1;
-                const year = parseInt(parts2[2]);
-                
-                if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
-                    return new Date(year, month, day);
-                }
-            }
-            
+            if(str.includes('-')) return new Date(str);
             return null;
         }
-        
-        // FORMATAR DATA
-        function formatDate(dateStr) {
-            const date = parseDate(dateStr);
-            if (!date) return dateStr;
+
+        function setupDates() {
+            const today = new Date();
+            const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
             
-            return date.toLocaleDateString('pt-BR');
+            // Formatar YYYY-MM-DD para o input
+            const toInput = d => d.toISOString().split('T')[0];
+            
+            document.getElementById('date-start').value = toInput(today);
+            document.getElementById('date-end').value = toInput(tomorrow);
         }
-        
-        // FILTRAR EVENTOS POR DATA
-        function filterEventsByDates() {
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
+
+        // TEMA E TABS (Lógica Visual)
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            if(saved === 'dark') document.body.setAttribute('data-theme', 'dark');
             
-            if (!checkin || !checkout) {
-                renderEvents(events);
-                return;
-            }
-            
-            const startDate = new Date(checkin);
-            const endDate = new Date(checkout);
-            
-            const filtered = events.filter(event => {
-                const eventoInicio = event.inicioDate;
-                const eventoFim = event.fimDate;
-                
-                if (!eventoInicio || !eventoFim) return false;
-                
-                // Evento acontece durante o período selecionado
-                return (eventoInicio <= endDate && eventoFim >= startDate);
+            document.getElementById('theme-toggle').onclick = () => {
+                const current = document.body.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+            };
+        }
+
+        function initTabs() {
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                };
             });
-            
-            renderEvents(filtered);
         }
-        
-        // RENDERIZAR EVENTOS
-        function renderEvents(eventList) {
-            const grid = document.getElementById('events-grid');
-            const counter = document.getElementById('event-counter');
-            
-            if (!eventList || eventList.length === 0) {
-                grid.innerHTML = `
-                    <div class="loader">
-                        <p>Nenhum evento encontrado para estas datas</p>
-                        <button onclick="renderEvents(events)" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                            Mostrar todos os eventos
-                        </button>
-                    </div>
-                `;
-                counter.textContent = '0 eventos encontrados';
-                return;
-            }
-            
-            counter.textContent = `${eventList.length} ${eventList.length === 1 ? 'evento encontrado' : 'eventos encontrados'}`;
-            
-            grid.innerHTML = eventList.map(event => `
-                <div class="card">
-                    <img class="card-image" 
-                         src="${getImageUrl(event.imagem, event.id)}" 
-                         alt="${event.nome}"
-                         loading="lazy"
-                         onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}'">
-                    
-                    <div class="card-content">
-                        <h3 class="card-title">${event.nome}</h3>
-                        
-                        <div class="card-date">
-                            <span>📅</span>
-                            <span>${formatDate(event.inicio)} - ${formatDate(event.fim)}</span>
-                        </div>
-                        
-                        <p class="card-description">${event.descricao || 'Evento em Barra Grande'}</p>
-                        
-                        <div class="card-actions">
-                            ${event.linkIngresso ? `
-                                <a href="${addTracking(event.linkIngresso, 'ingresso', event.id)}" 
-                                   target="_blank" 
-                                   class="action-btn secondary"
-                                   onclick="trackClick('${event.id}', 'ingresso')">
-                                    🎫 Comprar Ingresso
-                                </a>
-                            ` : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // RENDERIZAR HOSPEDAGENS
-        function renderStays(stayList) {
-            const grid = document.getElementById('stays-grid');
-            const counter = document.getElementById('stay-counter');
-            
-            if (!stayList || stayList.length === 0) {
-                grid.innerHTML = `
-                    <div class="loader">
-                        <p>Nenhuma hospedagem encontrada</p>
-                    </div>
-                `;
-                counter.textContent = '0 hospedagens encontradas';
-                return;
-            }
-            
-            counter.textContent = `${stayList.length} ${stayList.length === 1 ? 'hospedagem encontrada' : 'hospedagens encontradas'}`;
-            
-            grid.innerHTML = stayList.map(stay => `
-                <div class="card">
-                    <img class="card-image" 
-                         src="${getImageUrl(stay.imagem, stay.id)}" 
-                         alt="${stay.nome}"
-                         loading="lazy"
-                         onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}'">
-                    
-                    <div class="card-content">
-                        <h3 class="card-title">${stay.nome}</h3>
-                        
-                        <p class="card-description">${stay.descricao || 'Hospedagem em Barra Grande'}</p>
-                        
-                        ${stay.temPreco ? `
-                            <div class="card-price">
-                                💰 R$ ${stay.preco.toFixed(2)} / diária
-                            </div>
-                        ` : `
-                            <div class="card-price check">
-                                💰 Verificar preço
-                            </div>
-                        `}
-                        
-                        <div class="card-actions">
-                            ${stay.linkHotel ? `
-                                <a href="${addTracking(stay.linkHotel, 'hospedagem', stay.id)}" 
-                                   target="_blank" 
-                                   class="action-btn"
-                                   onclick="trackClick('${stay.id}', 'hospedagem')">
-                                    🏨 Reservar Agora
-                                </a>
-                            ` : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // OBTER URL DA IMAGEM
-        function getImageUrl(imagemUrl, id) {
-            // Primeiro: usar link direto da planilha
-            if (imagemUrl && imagemUrl.startsWith('http')) {
-                return imagemUrl;
-            }
-            
-            // Segundo: tentar imagem local pelo ID
-            if (id) {
-                // Tenta PNG primeiro, depois JPG
-                return `img/eventos/${id}.png`;
-            }
-            
-            // Fallback para imagem padrão
-            return DEFAULT_IMAGE;
-        }
-        
-        // ADICIONAR TRACKING AOS LINKS
-        function addTracking(url, source, id) {
-            if (!url || !url.startsWith('http')) return '#';
-            
-            try {
-                const separator = url.includes('?') ? '&' : '?';
-                return `${url}${separator}utm_source=bg-eventos&utm_medium=${source}&utm_campaign=${id}`;
-            } catch {
-                return url;
-            }
-        }
-        
-        // TRACKING DE CLICKS
-        function trackClick(id, type) {
-            console.log(`Click: ${id} - ${type}`);
-            // Pode adicionar Google Analytics aqui
-        }
-        
-        // MOSTRAR ERRO
-        function showError(message) {
-            const grid = document.getElementById('events-grid');
-            grid.innerHTML = `
-                <div class="loader">
-                    <p style="color: #e74c3c;">${message}</p>
-                    <button onclick="loadAllData()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">
-                        Tentar Novamente
-                    </button>
-                </div>
-            `;
-        }
-        
-        // ATUALIZAR AUTOMATICAMENTE A CADA 5 MINUTOS
-        setInterval(loadAllData, 5 * 60 * 1000);
     </script>
 </body>
 </html>
