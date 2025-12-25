@@ -8,151 +8,427 @@
         :root {
             --primary: #0f172a;
             --secondary: #0ea5e9;
-            --accent: #22c55e; /* Verde para botão de consulta */
+            --accent: #22c55e;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --text: #334155;
+            --shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        
+
+        /* TEMA ESCURO - Ativado pela classe .dark-mode no body */
+        body.dark-mode {
+            --primary: #e2e8f0;
+            --secondary: #38bdf8;
+            --accent: #4ade80;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #cbd5e1;
+            --shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+        }
+
         * { box-sizing: border-box; outline: none; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 60px; }
-        
-        /* HEADER */
-        header { background: var(--primary); color: white; padding: 2.5rem 1rem; text-align: center; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 80px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* HEADER E CONTROLES SUPERIORES */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        .top-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .icon-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .icon-btn:hover { background: rgba(255,255,255,0.25); }
+
         h1 { margin: 0; font-size: 2rem; }
         p.subtitle { margin-top: 5px; opacity: 0.8; }
 
-        /* NAVEGAÇÃO */
-        .nav-container { display: flex; justify-content: center; gap: 15px; margin: -25px auto 40px; padding: 0 1rem; position: relative; z-index: 10; }
-        .tab-btn {
-            padding: 12px 30px; border: none; border-radius: 50px; cursor: pointer;
-            font-weight: 700; background: white; color: var(--text);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s;
+        /* NAVEGAÇÃO POR TABS */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: -25px auto 40px;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
         }
-        .tab-btn.active { background: var(--secondary); color: white; transform: scale(1.05); }
+        .tab-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
 
-        /* GRID */
+        /* CONTAINER E GRADE DE CARDS */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .grid { display: none; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .grid.active { display: grid; animation: fadeIn 0.5s; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .grid.active {
+            display: grid;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* CARDS */
-        .card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-        .card-img { width: 100%; height: 200px; object-fit: cover; background: #cbd5e1; }
-        
-        .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .tag { display: inline-block; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        .tag-event { background: #e0f2fe; color: #0284c7; }
-        .tag-hotel { background: #dcfce7; color: #166534; }
-
-        .card-title { margin: 0 0 10px; font-size: 1.25rem; color: var(--primary); }
-        .card-desc { font-size: 0.95rem; color: #64748b; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
-
-        /* BOTÕES */
-        .btn-link {
-            display: block; width: 100%; padding: 12px; text-align: center; text-decoration: none;
-            border-radius: 8px; font-weight: bold; transition: 0.2s; margin-top: auto;
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s;
         }
-        .btn-consult { background: var(--accent); color: white; }
-        .btn-consult:hover { background: #15803d; }
-        
-        .btn-ticket { background: var(--primary); color: white; }
-        .btn-ticket:hover { opacity: 0.9; }
+        .card:hover { transform: translateY(-5px); }
 
-        /* STATUS */
-        #status { text-align: center; padding: 2rem; color: #64748b; font-weight: 500; }
-        .error-box { background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; display: inline-block; }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #cbd5e1, #94a3b8);
+            display: block;
+        }
+
+        .card-body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+        .tag-event {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+        .dark-mode .tag-event {
+            background: #075985;
+            color: #bae6fd;
+        }
+        .tag-hotel {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .dark-mode .tag-hotel {
+            background: #14532d;
+            color: #bbf7d0;
+        }
+        .price-badge {
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: bold;
+        }
+        .dark-mode .price-badge {
+            background: #78350f;
+            color: #fde68a;
+        }
+
+        .card-title { margin: 0 0 10px; font-size: 1.3rem; color: var(--primary); line-height: 1.3; }
+        .card-desc { font-size: 0.95rem; color: var(--text); opacity: 0.9; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+
+        /* BOTÕES DE AÇÃO */
+        .btn-link {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .btn-ticket {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-ticket:hover { opacity: 0.9; }
+        .btn-check-price {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-check-price:hover { background: #16a34a; }
+
+        /* STATUS E MENSAGENS */
+        #status { text-align: center; padding: 3rem; color: #64748b; font-weight: 500; }
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+            max-width: 500px;
+        }
+        .dark-mode .error-box {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 40px;
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .dark-mode footer { border-top-color: rgba(255,255,255,0.1); }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .top-controls { position: static; justify-content: center; margin-top: 15px; }
+            .nav-container { flex-direction: column; align-items: center; }
+            .tab-btn { width: 90%; }
+            .grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Barra Grande Oficial</h1>
-    <p class="subtitle">O melhor do litoral piauiense</p>
+    <div class="top-controls">
+        <!-- Botão para Alternar Tema -->
+        <button class="icon-btn" id="themeToggle" title="Alternar tema claro/escuro">🌙</button>
+        <!-- Botão para Alternar Idioma -->
+        <button class="icon-btn" id="langToggle" title="Switch to English">🌐</button>
+    </div>
+    <h1 data-i18n="siteTitle">Barra Grande Oficial</h1>
+    <p class="subtitle" data-i18n="siteSubtitle">O melhor do litoral piauiense</p>
 </header>
 
 <div class="nav-container">
-    <button class="tab-btn active" onclick="switchTab('eventos')">🎉 Eventos</button>
-    <button class="tab-btn" onclick="switchTab('hospedagem')">🏨 Hospedagem</button>
+    <button class="tab-btn active" onclick="switchTab('eventos')" data-i18n="tabEvents">🎉 Eventos</button>
+    <button class="tab-btn" onclick="switchTab('hospedagem')" data-i18n="tabStays">🏨 Hospedagem</button>
 </div>
 
 <div class="container">
     <div id="status">Carregando informações...</div>
 
     <div id="grid-eventos" class="grid active"></div>
-
     <div id="grid-hospedagem" class="grid"></div>
 </div>
 
-<script>
-    // SEUS DADOS DA PLANILHA
-    const SHEET_ID = '1o_d3QeEJ-J2AosAtTT5YwlmBArCg7fbvGKXcsfWORgk';
-    const GID_EVENTOS = '0';
-    const GID_HOSPEDAGEM = '1482987288';
+<footer>
+    <p data-i18n="footerText">© 2025 Guia Oficial Barra Grande. Todos os dados são carregados automaticamente.</p>
+</footer>
 
+<script>
+    // ============================================================================
+    // CONFIGURAÇÃO PRINCIPAL
+    // ============================================================================
+    // URL CORRIGIDA: Usando o endpoint 'pub?output=csv' para obter dados processáveis.
+    const SHEET_BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYagiDybnUZ6o0nrMPg9OAa5af9fX5pSgc0FW1R3w_A53ueEA-xMyp3SAjpx_rIxJgBGGfic-Q3LDv/pub?output=csv';
+    // IDs das abas (gid). A primeira aba (Eventos) geralmente é '0'.
+    const GID_EVENTOS = '0';
+    const GID_HOSPEDAGEM = '1482987288'; // ID da aba Hospedagem
+
+    // ============================================================================
+    // SISTEMA DE TRADUÇÃO (i18n)
+    // ============================================================================
+    const translations = {
+        'pt': {
+            'siteTitle': 'Barra Grande Oficial',
+            'siteSubtitle': 'O melhor do litoral piauiense',
+            'tabEvents': '🎉 Eventos',
+            'tabStays': '🏨 Hospedagem',
+            'footerText': '© 2025 Guia Oficial Barra Grande. Todos os dados são carregados automaticamente.',
+            'priceCheck': 'Verificar preço',
+            'loading': 'Carregando informações...',
+            'noEvents': 'Nenhum evento programado no momento.',
+            'noStays': 'Nenhuma hospedagem cadastrada no momento.',
+            'error': 'Erro ao carregar os dados. Verifique a conexão.'
+        },
+        'en': {
+            'siteTitle': 'Barra Grande Official Guide',
+            'siteSubtitle': 'The best of the Piauí coast',
+            'tabEvents': '🎉 Events',
+            'tabStays': '🏨 Accommodation',
+            'footerText': '© 2025 Barra Grande Official Guide. All data is loaded automatically.',
+            'priceCheck': 'Check price',
+            'loading': 'Loading information...',
+            'noEvents': 'No scheduled events at the moment.',
+            'noStays': 'No registered accommodation at the moment.',
+            'error': 'Error loading data. Please check your connection.'
+        }
+    };
+
+    let currentLang = 'pt'; // Idioma inicial
+
+    // Função para aplicar as traduções
+    function applyTranslations(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
+        // Atualiza também textos gerados dinamicamente, se necessário
+        if (window.currentEventsData) renderEvents(window.currentEventsData);
+        if (window.currentStaysData) renderStays(window.currentStaysData);
+    }
+
+    // ============================================================================
+    // CONTROLES DE TEMA E IDIOMA
+    // ============================================================================
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        // Altera o ícone do botão
+        const themeBtn = document.getElementById('themeToggle');
+        themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+        currentLang = currentLang === 'pt' ? 'en' : 'pt';
+        applyTranslations(currentLang);
+    });
+
+    // ============================================================================
+    // FUNÇÕES PARA CARREGAR E PROCESSAR OS DADOS
+    // ============================================================================
     async function loadData() {
         try {
-            // Adicionei um parâmetro de tempo (&t=...) para evitar cache antigo
-            const timestamp = new Date().getTime();
-            
+            document.getElementById('status').textContent = translations[currentLang]['loading'];
+            const timestamp = new Date().getTime(); // Evita cache
+
+            // Busca os dados das duas abas em paralelo
             const [events, stays] = await Promise.all([
-                fetchSheet(GID_EVENTOS, timestamp),
-                fetchSheet(GID_HOSPEDAGEM, timestamp)
+                fetchSheetData(GID_EVENTOS, timestamp),
+                fetchSheetData(GID_HOSPEDAGEM, timestamp)
             ]);
+
+            window.currentEventsData = events;
+            window.currentStaysData = stays;
 
             renderEvents(events);
             renderStays(stays);
             document.getElementById('status').style.display = 'none';
 
         } catch (err) {
-            console.error(err);
-            document.getElementById('status').innerHTML = `
-                <div class="error-box">
-                    ⚠️ Erro ao carregar dados.<br>
-                    Verifique se os links das imagens estão corretos na planilha.
-                </div>`;
+            console.error('Erro no carregamento:', err);
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = `<div class="error-box">⚠️ ${translations[currentLang]['error']}</div>`;
         }
     }
 
-    async function fetchSheet(gid, time) {
-        // Usa a API de Visualização para garantir separação das abas
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}&t=${time}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Falha na conexão com a planilha');
-        const txt = await res.text();
-        return parseCSV(txt);
+    async function fetchSheetData(gid, timestamp) {
+        const url = `${SHEET_BASE_URL}&gid=${gid}&t=${timestamp}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Falha na rede: ${response.status}`);
+        const csvText = await response.text();
+        return parseCSV(csvText);
     }
 
     function parseCSV(csvText) {
-        const rows = csvText.split('\n').filter(r => r.trim() !== '');
-        // Regex complexo para lidar com vírgulas dentro de textos entre aspas
-        const headers = rows[0].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(h => h.replace(/"/g, '').trim());
-        
+        const rows = csvText.split(/\r?\n/).filter(row => row.trim() !== '');
+        if (rows.length < 2) return []; // Cabeçalho + pelo menos uma linha de dados
+
+        // Processa o cabeçalho
+        const headers = rows[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+        // Processa as linhas de dados
         return rows.slice(1).map(row => {
-            const values = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-            if (!values) return null;
-            let obj = {};
-            headers.forEach((h, i) => {
-                obj[h] = values[i] ? values[i].replace(/^"|"$/g, '').replace(/""/g, '"').trim() : '';
+            const values = [];
+            let insideQuotes = false;
+            let currentValue = '';
+
+            for (let char of row) {
+                if (char === '"' && !insideQuotes) {
+                    insideQuotes = true;
+                } else if (char === '"' && insideQuotes) {
+                    insideQuotes = false;
+                } else if (char === ',' && !insideQuotes) {
+                    values.push(currentValue.trim());
+                    currentValue = '';
+                } else {
+                    currentValue += char;
+                }
+            }
+            values.push(currentValue.trim()); // Último valor
+
+            const item = {};
+            headers.forEach((header, index) => {
+                // Remove aspas extras que possam ter sobrado e armazena
+                item[header] = (values[index] || '').replace(/^"|"$/g, '');
             });
-            return obj;
-        }).filter(item => item);
+            return item;
+        }).filter(item => item.ID || item.Nome); // Filtra linhas vazias
     }
 
+    // ============================================================================
+    // FUNÇÕES PARA RENDERIZAR OS CARDS
+    // ============================================================================
     function renderEvents(data) {
         const container = document.getElementById('grid-eventos');
-        if(!data.length) { container.innerHTML = '<p>Nenhum evento encontrado.</p>'; return; }
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p style="text-align:center; grid-column:1/-1;">${translations[currentLang]['noEvents']}</p>`;
+            return;
+        }
 
         container.innerHTML = data.map(item => `
             <div class="card">
-                <img src="${item.imagem}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200?text=Barra+Grande'">
+                <img src="${item.imagem || 'https://via.placeholder.com/400x200?text=Evento+Barra+Grande'}"
+                     class="card-img"
+                     alt="${item.Nome}"
+                     onerror="this.src='https://via.placeholder.com/400x200?text=Evento+Barra+Grande'">
                 <div class="card-body">
-                    <span class="tag tag-event">📅 ${item.Inicio}</span>
+                    <span class="tag tag-event">📅 ${item.Inicio || ''}</span>
                     <h3 class="card-title">${item.Nome}</h3>
                     <p class="card-desc">${item.Descricao}</p>
-                    ${item.Link_Ingresso ? `<a href="${item.Link_Ingresso}" target="_blank" class="btn-link btn-ticket">🎟️ Comprar Ingresso</a>` : ''}
+                    ${item.Link_Ingresso ? `<a href="${item.Link_Ingresso}" target="_blank" class="btn-link btn-ticket">🎟️ ${currentLang === 'en' ? 'Buy Ticket' : 'Comprar Ingresso'}</a>` : ''}
                 </div>
             </div>
         `).join('');
@@ -160,32 +436,47 @@
 
     function renderStays(data) {
         const container = document.getElementById('grid-hospedagem');
-        if(!data.length) { container.innerHTML = '<p>Nenhuma hospedagem encontrada.</p>'; return; }
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p style="text-align:center; grid-column:1/-1;">${translations[currentLang]['noStays']}</p>`;
+            return;
+        }
 
         container.innerHTML = data.map(item => `
             <div class="card">
-                <img src="${item.imagem}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200?text=Pousada'">
+                <img src="${item.imagem || 'https://via.placeholder.com/400x200?text=Pousada+Barra+Grande'}"
+                     class="card-img"
+                     alt="${item.Nome}"
+                     onerror="this.src='https://via.placeholder.com/400x200?text=Pousada+Barra+Grande'">
                 <div class="card-body">
-                    <span class="tag tag-hotel">🏨 Hospedagem</span>
+                    <span class="tag tag-hotel">🏨 ${currentLang === 'en' ? 'Accommodation' : 'Hospedagem'}</span>
+                    <!-- Badge fixo para verificar preço -->
+                    <div class="tag price-badge">💰 ${translations[currentLang]['priceCheck']}</div>
                     <h3 class="card-title">${item.Nome}</h3>
                     <p class="card-desc">${item.Descricao}</p>
-                    <a href="${item.Link_Hotel}" target="_blank" class="btn-link btn-consult">
-                        📲 Consultar / Reservar
-                    </a>
+                    ${item.Link_Hotel ? `<a href="${item.Link_Hotel}" target="_blank" class="btn-link btn-check-price">📲 ${currentLang === 'en' ? 'Check Availability' : 'Consultar / Reservar'}</a>` : ''}
                 </div>
             </div>
         `).join('');
     }
 
+    // ============================================================================
+    // FUNÇÃO PARA ALTERNAR ENTRE AS TABS
+    // ============================================================================
     window.switchTab = function(tab) {
         document.querySelectorAll('.grid').forEach(g => g.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(`grid-${tab}`).classList.add('active');
         event.currentTarget.classList.add('active');
-    }
+    };
 
+    // ============================================================================
+    // INICIALIZAÇÃO
+    // ============================================================================
+    // Aplica as traduções iniciais e carrega os dados
+    applyTranslations(currentLang);
     loadData();
+    // Recarrega os dados a cada 5 minutos para manter as informações atualizadas
+    setInterval(loadData, 5 * 60 * 1000);
 </script>
-
 </body>
 </html>
